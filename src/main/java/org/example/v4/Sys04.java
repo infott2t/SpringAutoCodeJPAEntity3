@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.StringReader;
 
 public class Sys04 extends JFrame{
 
@@ -63,16 +65,55 @@ public class Sys04 extends JFrame{
             public void actionPerformed(ActionEvent e) {
                 String line;
 
-gf
+                BufferedReader reader = new BufferedReader(new StringReader(jta.getText()));
+                columnStrings="";
+                columnLongs="";
+                columnDates="";
+                try{
+                    while((line = reader.readLine())!=null){
+                        System.out.println(line);
+                        if(line.indexOf("Long")>=0) {
+                            // System.out.println(line.indexOf("Long") );
+                            String longStr = line.substring(line.indexOf("Long") + 5);
+                            longStr = longStr.replace(";", "");
+                            columnLongs = columnLongs + longStr + ",";
+                        }
+                        if(line.indexOf("String")>=0) {
+                            // System.out.println(line.indexOf("Long") );
+                            String strings = line.substring(line.indexOf("String") + 7);
+                            strings = strings.replace(";", "");
+                            columnStrings = columnStrings + strings + ",";
+                        }
+
+                        if(line.indexOf("LocalDateTime")>=0){
+                            String dates = line.substring(line.indexOf("LocalDateTime") + 14);
+                            dates = dates.replace(";", "");
+                            columnDates = columnDates + dates + ",";
+                        }
+
+                    }
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+
+                columnLongs = columnLongs.substring(0,columnLongs.length()-1);
+                columnStrings = columnStrings.substring(0,columnStrings.length()-1);
+                columnDates = columnDates.substring(0,columnDates.length()-1);
+
+                colStrs = columnStrings.split(",");
+                colLongs = columnLongs.split(",");
+                colDates = columnDates.split(",");
+
+                System.out.println(colStrs.toString());
+                System.out.println(colLongs.toString());
+
+                for(int i=0; i< colStrs.length ;i++ ){
+                    System.out.println(colStrs[i]);
+                }
 
 
-                domainStr = jtf.getText();
-                columnStrings = jta.getText();
-                columnLongs  = jta.getText();
-                columnDates = jta.getText();
-
-                 usc = new UtilStrConvV4(tableName,valBefore, "sqlUpper");
-                 new UpperCaseSQLResultScreen(usc);
+         //        usc = new UtilStrConvV4(tableName,valBefore, "sqlUpper");
+          //       new UpperCaseSQLResultScreen(usc);
                  //usc = new UtilStrConvV4(tableName,valBefore, "Camel");
                 //new ExtractVResultScreen(usc);
 
