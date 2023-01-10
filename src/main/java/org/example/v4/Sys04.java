@@ -60,7 +60,7 @@ public class Sys04 extends JFrame{
         setResizable(true);
         add(jp);
         setBounds(300,300,500,500);
-        setTitle("v4 First instance, support backend CRUD");
+        setTitle("v4 SpringBoot. First instance, support backend CRUD");
         jtf2.setText("/administer/instanceurl/");
         jtf4.setText("Github, https://github.com/infott2t/SpringAutoCodeJPAEntity3");
         btn.addActionListener(new ActionListener() {
@@ -115,6 +115,7 @@ public class Sys04 extends JFrame{
                 for(int i=0; i< colStrs.length ;i++ ){
                     System.out.println(colStrs[i]);
                 }
+
 
                 usv = new UtilStaticV4(domainStr, colStrs, colLongs, colDates);
 
