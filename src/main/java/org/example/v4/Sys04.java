@@ -17,7 +17,7 @@ public class Sys04 extends JFrame{
     private JScrollPane jsp,jsp2,jsp3,jsp4;
     private JButton btn;
 
-    static UtilStrConvV4 usc;
+    static UtilStaticV4 usv; // Save input values
 
 
     String columnStrings;
@@ -110,6 +110,10 @@ public class Sys04 extends JFrame{
                 for(int i=0; i< colStrs.length ;i++ ){
                     System.out.println(colStrs[i]);
                 }
+
+                usv = new UtilStaticV4(domainStr, colStrs, colLongs, colDates);
+
+
 
 
          //        usc = new UtilStrConvV4(tableName,valBefore, "sqlUpper");
