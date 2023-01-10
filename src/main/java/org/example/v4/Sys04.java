@@ -38,10 +38,11 @@ public class Sys04 extends JFrame{
         jl3 = new JLabel("Entity Copy paste. ex) Long id; String nameStr; LocalDateTime dateStr; ");
         jta = new JTextArea(5,20);
         jsp = new JScrollPane(jta);
-        jsp.setPreferredSize(new Dimension(300,200));
+        jsp.setPreferredSize(new Dimension(480,200));
         jtf2 = new JTextField(33);
-
-
+        jl4 = new JLabel("Starting point Entity CRUD url. Not writing entity name. ex) /administer/instanceurl/");
+        jtf3 = new JTextField(20);
+        jtf4 = new JTextField();
 
         btn = new JButton("Extract Redundant logic...");
 
@@ -50,21 +51,25 @@ public class Sys04 extends JFrame{
         jp.add(jtf);
         jp.add(jl3);
         jp.add(jsp);
-
+        jp.add(jl4);
+        jp.add(jtf2);
 
         jp.add(btn);
-        jp.add(jtf2);
+        jp.add(jtf4);
         setVisible(true);
         setResizable(true);
         add(jp);
-        setBounds(300,300,390,700);
+        setBounds(300,300,500,500);
         setTitle("v4 First instance, support backend CRUD");
-        jtf2.setText("Github, https://github.com/infott2t/SpringAutoCodeJPAEntity3");
+        jtf2.setText("/administer/instanceurl/");
+        jtf4.setText("Github, https://github.com/infott2t/SpringAutoCodeJPAEntity3");
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String line;
 
+                domainStr = jtf.getText();
+
+                String line;
                 BufferedReader reader = new BufferedReader(new StringReader(jta.getText()));
                 columnStrings="";
                 columnLongs="";
@@ -112,6 +117,7 @@ public class Sys04 extends JFrame{
                 }
 
                 usv = new UtilStaticV4(domainStr, colStrs, colLongs, colDates);
+
 
 
 
