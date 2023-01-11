@@ -7,10 +7,16 @@ public class UtilStaticV4 {
     public static String[] colLongs; // entity column, Long array.
     public static String[] colDates; // entity column, LocalDateTime array.
 
-    public UtilStaticV4(String domainStr, String[] colStrs, String[] colLongs, String[] colDates) {
+    public static String[] colNames; // entity column, In orders.
+
+    public static String thymleafInitUrl;
+
+    public UtilStaticV4(String domainStr, String[] colStrs, String[] colLongs, String[] colDates, String[] colNames, String thymleafInitUrl) {
         this.domainStr = domainStr;
         this.colStrs = colStrs;
         this.colLongs = colLongs;
         this.colDates = colDates;
+        this.colNames = colNames;
+        this.thymleafInitUrl = thymleafInitUrl;
     }
 }

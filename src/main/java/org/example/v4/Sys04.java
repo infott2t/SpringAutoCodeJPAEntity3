@@ -1,5 +1,10 @@
 package org.example.v4;
 
+import org.example.v4.result.screen.IndexHTMLResultScreen;
+import org.example.v4.result.screen.InsertHTMLResultScreen;
+import org.example.v4.result.screen.ReadMeScreen;
+import org.example.v4.result.screen.UpdateHTMLResultScreen;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,7 +20,7 @@ public class Sys04 extends JFrame{
     private JTextField jtf, jtf2,jtf3,jtf4,jtf5,jtf6,jtf7,jtf8,jtf9;
     private JTextArea jta,jta2,jta3,jta4;
     private JScrollPane jsp,jsp2,jsp3,jsp4;
-    private JButton btn;
+    private JButton btn,btn2;
 
     static UtilStaticV4 usv; // Save input values
 
@@ -23,12 +28,17 @@ public class Sys04 extends JFrame{
     String columnStrings;
     String columnLongs;
     String columnDates;
+
+    String columnNames;
     String domainStr;
 
     String[] colStrs;
     String[] colLongs;
     String[] colDates;
 
+    String[] colNames;
+
+    String thymleafInitUrl;
 
     Sys04(){
         jp= new JPanel();
@@ -40,10 +50,11 @@ public class Sys04 extends JFrame{
         jsp = new JScrollPane(jta);
         jsp.setPreferredSize(new Dimension(480,200));
         jtf2 = new JTextField(33);
-        jl4 = new JLabel("Starting point Entity CRUD url. Not writing entity name. ex) /administer/instanceurl/");
+        jl4 = new JLabel("Starting point Entity CRUD url. Not writing entity name. ex) /administer/instanceurl");
         jtf3 = new JTextField(20);
         jtf4 = new JTextField();
 
+        btn2 = new JButton("ReadMe");
         btn = new JButton("Extract Redundant logic...");
 
         jp.add(jl);
@@ -54,6 +65,7 @@ public class Sys04 extends JFrame{
         jp.add(jl4);
         jp.add(jtf2);
 
+        jp.add(btn2);
         jp.add(btn);
         jp.add(jtf4);
         setVisible(true);
@@ -61,8 +73,15 @@ public class Sys04 extends JFrame{
         add(jp);
         setBounds(300,300,500,500);
         setTitle("v4 SpringBoot. First instance, support backend CRUD");
-        jtf2.setText("/administer/instanceurl/");
+        jtf2.setText("/administer/instanceurl");
         jtf4.setText("Github, https://github.com/infott2t/SpringAutoCodeJPAEntity3");
+
+        btn2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ReadMeScreen();
+            }
+        });
         btn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -74,6 +93,7 @@ public class Sys04 extends JFrame{
                 columnStrings="";
                 columnLongs="";
                 columnDates="";
+                columnNames="";
                 try{
                     while((line = reader.readLine())!=null){
                         System.out.println(line);
@@ -82,18 +102,21 @@ public class Sys04 extends JFrame{
                             String longStr = line.substring(line.indexOf("Long") + 5);
                             longStr = longStr.replace(";", "");
                             columnLongs = columnLongs + longStr + ",";
+                            columnNames = columnNames + longStr + ",";
                         }
                         if(line.indexOf("String")>=0) {
                             // System.out.println(line.indexOf("Long") );
                             String strings = line.substring(line.indexOf("String") + 7);
                             strings = strings.replace(";", "");
                             columnStrings = columnStrings + strings + ",";
+                            columnNames = columnNames + strings + ",";
                         }
 
                         if(line.indexOf("LocalDateTime")>=0){
                             String dates = line.substring(line.indexOf("LocalDateTime") + 14);
                             dates = dates.replace(";", "");
                             columnDates = columnDates + dates + ",";
+                            columnNames = columnNames + dates + ",";
                         }
 
                     }
@@ -104,22 +127,40 @@ public class Sys04 extends JFrame{
                 columnLongs = columnLongs.substring(0,columnLongs.length()-1);
                 columnStrings = columnStrings.substring(0,columnStrings.length()-1);
                 columnDates = columnDates.substring(0,columnDates.length()-1);
+                columnNames = columnNames.substring(0,columnNames.length()-1);
 
                 colStrs = columnStrings.split(",");
                 colLongs = columnLongs.split(",");
                 colDates = columnDates.split(",");
+                colNames = columnNames.split(",");
 
                 System.out.println(colStrs.toString());
                 System.out.println(colLongs.toString());
+                System.out.println(colNames.toString());
 
                 for(int i=0; i< colStrs.length ;i++ ){
                     System.out.println(colStrs[i]);
                 }
 
+                thymleafInitUrl = jtf2.getText();
 
-                usv = new UtilStaticV4(domainStr, colStrs, colLongs, colDates);
 
+                usv = new UtilStaticV4(domainStr, colStrs, colLongs, colDates,colNames, thymleafInitUrl);
 
+                //Make page,
+                /**
+                 * front-end, thyemleaf
+                 *
+                 *  Folder
+                 *  templates/firstinstance/[domainStr]/
+                 *                                      index.html,
+                 *                                      insert.html,
+                 *                                      update.html.
+                 * */
+
+                 new IndexHTMLResultScreen(usv);
+                 new InsertHTMLResultScreen(usv);
+                 new UpdateHTMLResultScreen(usv);
 
 
 
