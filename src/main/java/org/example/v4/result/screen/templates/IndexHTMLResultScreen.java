@@ -1,7 +1,7 @@
-package org.example.v4.result.screen;
+package org.example.v4.result.screen.templates;
 
 import org.example.v4.UtilStaticV4;
-import org.example.v4.result.context.InsertHTMLContextStr;
+import org.example.v4.result.context.IndexHTMLContextStr;
 
 import javax.swing.*;
 import java.io.BufferedWriter;
@@ -10,7 +10,7 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class InsertHTMLResultScreen extends JFrame {
+public class IndexHTMLResultScreen extends JFrame {
     public String domainStr; // entity name, small letter.
     public String[] colStrs;  // entity column, String array.
     public String[] colLongs; // entity column, Long array.
@@ -25,7 +25,9 @@ public class InsertHTMLResultScreen extends JFrame {
     private JScrollPane jsp,jsp2,jsp3,jsp4;
     private JButton btn;
 
-    public InsertHTMLResultScreen(UtilStaticV4 usv) {
+
+
+    public IndexHTMLResultScreen(UtilStaticV4 usv) {
         this.domainStr = usv.domainStr;
         this.colStrs = usv.colStrs;
         this.colLongs = usv.colLongs;
@@ -42,23 +44,20 @@ public class InsertHTMLResultScreen extends JFrame {
         add(jp);
         setVisible(true);
         setResizable(true);
-        setTitle("File: insert.html | Thymleaf, /templates/"+thymleafInitUrl+"/" + domainStr + "/insert.html");
+        setTitle("File: index.html | Thymleaf, /templates/"+thymleafInitUrl+"/" + domainStr + "/index.html");
         setBounds(300,300,650,500);
 
-        InsertHTMLContextStr insertHTMLContextStr = new InsertHTMLContextStr(usv);
+        IndexHTMLContextStr indexHTMLContextStr = new IndexHTMLContextStr(usv);
 
-        jta.setText(insertHTMLContextStr.insertHTMLStr);
-
+        jta.setText(indexHTMLContextStr.indexHTMLStr);
         String code = jta.getText();
         String[] directoryUrl = usv.thymleafInitUrl.split("/");
-        String directory = "";
-        for(int i=0; i< directoryUrl.length; i++){
-            directory += directoryUrl[i] + "\\";
-        }
+        String directory = "firstinstance\\"+domainStr;
+
         System.out.println(directory);
         directory = "\\templates\\"+directory;
         try{
-            String path = "C:\\category"+directory+domainStr;
+            String path = "C:\\category"+directory;
             System.out.println("directory, " + path);
             File folder = new File(path);
 
@@ -73,8 +72,8 @@ public class InsertHTMLResultScreen extends JFrame {
                 System.out.println("이미 폴더가 생성되어 있습니다.");
             }
             System.out.println("path, " + path);
-            System.out.println(path + "\\insert.html");
-            File file = new File(path + "\\insert.html");
+            System.out.println(path + "\\index.html");
+            File file = new File(path + "\\index.html");
             if (!file.exists()) {
                 file.createNewFile();
             }

@@ -1,9 +1,10 @@
 package org.example.v4;
 
-import org.example.v4.result.screen.IndexHTMLResultScreen;
-import org.example.v4.result.screen.InsertHTMLResultScreen;
+import org.example.v4.result.screen.templates.IndexHTMLResultScreen;
+import org.example.v4.result.screen.templates.InsertHTMLResultScreen;
 import org.example.v4.result.screen.ReadMeScreen;
-import org.example.v4.result.screen.UpdateHTMLResultScreen;
+import org.example.v4.result.screen.templates.UpdateHTMLResultScreen;
+import org.example.v4.result.screen.templates.root.RootIndexResultScreen;
 
 import javax.swing.*;
 import java.awt.*;
@@ -166,6 +167,8 @@ public class Sys04 extends JFrame{
                  *                                      insert.html,
                  *                                      update.html.
                  * */
+
+                 new RootIndexResultScreen(usv);
 
                  new IndexHTMLResultScreen(usv);
                  new InsertHTMLResultScreen(usv);

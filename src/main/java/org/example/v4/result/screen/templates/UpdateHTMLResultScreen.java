@@ -1,7 +1,8 @@
-package org.example.v4.result.screen;
+package org.example.v4.result.screen.templates;
 
 import org.example.v4.UtilStaticV4;
-import org.example.v4.result.context.IndexHTMLContextStr;
+import org.example.v4.result.context.InsertHTMLContextStr;
+import org.example.v4.result.context.UpdateHTMLContextStr;
 
 import javax.swing.*;
 import java.io.BufferedWriter;
@@ -10,11 +11,11 @@ import java.io.FileWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class IndexHTMLResultScreen extends JFrame {
-    public String domainStr; // entity name, small letter.
-    public String[] colStrs;  // entity column, String array.
-    public String[] colLongs; // entity column, Long array.
-    public String[] colDates; // entity column, LocalDateTime array.
+public class UpdateHTMLResultScreen extends JFrame {
+    public String domainStr;
+    public String[] colStrs;
+    public String[] colLongs;
+    public String[] colDates;
 
     public String thymleafInitUrl;
 
@@ -25,9 +26,7 @@ public class IndexHTMLResultScreen extends JFrame {
     private JScrollPane jsp,jsp2,jsp3,jsp4;
     private JButton btn;
 
-
-
-    public IndexHTMLResultScreen(UtilStaticV4 usv) {
+    public UpdateHTMLResultScreen(UtilStaticV4 usv) {
         this.domainStr = usv.domainStr;
         this.colStrs = usv.colStrs;
         this.colLongs = usv.colLongs;
@@ -44,22 +43,20 @@ public class IndexHTMLResultScreen extends JFrame {
         add(jp);
         setVisible(true);
         setResizable(true);
-        setTitle("File: index.html | Thymleaf, /templates/"+thymleafInitUrl+"/" + domainStr + "/index.html");
+        setTitle("File: update.html | Thymleaf, /templates/"+thymleafInitUrl+"/" + domainStr + "/update.html");
         setBounds(300,300,650,500);
 
-        IndexHTMLContextStr indexHTMLContextStr = new IndexHTMLContextStr(usv);
+        UpdateHTMLContextStr updateHTMLContextStr = new UpdateHTMLContextStr(usv);
 
-        jta.setText(indexHTMLContextStr.indexHTMLStr);
+        jta.setText(updateHTMLContextStr.updateHTMLStr);
+
         String code = jta.getText();
         String[] directoryUrl = usv.thymleafInitUrl.split("/");
-        String directory = "";
-        for(int i=0; i< directoryUrl.length; i++){
-            directory += directoryUrl[i] + "\\";
-        }
+        String directory = "firstinstance\\"+domainStr;
         System.out.println(directory);
         directory = "\\templates\\"+directory;
         try{
-            String path = "C:\\category"+directory+domainStr;
+            String path = "C:\\category"+directory;
             System.out.println("directory, " + path);
             File folder = new File(path);
 
@@ -74,8 +71,8 @@ public class IndexHTMLResultScreen extends JFrame {
                 System.out.println("이미 폴더가 생성되어 있습니다.");
             }
             System.out.println("path, " + path);
-            System.out.println(path + "\\index.html");
-            File file = new File(path + "\\index.html");
+            System.out.println(path + "\\update.html");
+            File file = new File(path + "\\update.html");
             if (!file.exists()) {
                 file.createNewFile();
             }
@@ -88,4 +85,5 @@ public class IndexHTMLResultScreen extends JFrame {
             e.printStackTrace();
         }
     }
+
 }
