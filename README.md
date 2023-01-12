@@ -14,7 +14,7 @@ WebProgramming, SpringBoot JPA + QueryDSL.
 
 이 프로젝트는 View page, url 컨트롤러등. 프론트앤드와 관련이 있는 중복코드를 생성해줌니다.
 *전의 코드생성기, v3버젼은 백엔드 위주의 코드를 생성하고, 클래스 이름의 호환이 됨니다. 이 프로젝트 안에 같이 들어있습니다.
- 
+ 전의 코드 생성기 사용방법, <a href="https://tt2t2am.tistory.com/4">https://tt2t2am.tistory.com/4</a>
 
 *아래 코드를 기준으로, 코드를 생성하고 있습니다. 참조해보세요.
   <br/><a href="https://github.com/infott2t/springboot-querydsl-ex">https://github.com/infott2t/springboot-querydsl-ex</a>
