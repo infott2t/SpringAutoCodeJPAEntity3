@@ -26,8 +26,8 @@ WebProgramming, SpringBoot JPA + QueryDSL.
 createdDate, modifiedDate의 경우는 적지 않고서도, 자동 생성되며, LocalDateTime 타입입니다.
 맨 위에, Long id 칼럼을 사용해야합니다.
 맨 아래, String isDel 칼럼을 적어줘야합니다.
- ![ffds](https://user-images.githubusercontent.com/25080178/212199542-ab60ac61-d3a1-4683-b3d7-45eaaede1f39.PNG)
 
+ ![ffds](https://user-images.githubusercontent.com/25080178/212199542-ab60ac61-d3a1-4683-b3d7-45eaaede1f39.PNG)
 
 *엔티티를 추가하면서, 엔티티 링크이동은 자동으로 되지 않습니다.(바로 생성한 테이블만 만들어짐.)
 templates/firstinstance/index.html 파일.
