@@ -61,6 +61,8 @@ public class ApiDtoFormResultScreen extends JFrame{
                 "\n" +
                 "import java.time.LocalDateTime;\n" +
                 "\n" +
+                "@Getter\n" +
+                "@Setter\n" +
                 "@Data\n" +
                 "public class "+uppDomainStr+"ApiDtoForm {\n" +
                 "\n" + columnStrings() +

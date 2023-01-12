@@ -111,7 +111,8 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "\n" +
                 "\n" +
                 "        try {\n" +
-                "            "+domainStr+" = new "+uppDomainStr+"();\n" +
+               // "            "+domainStr+" = new "+uppDomainStr+"();\n" +
+                "             coperation = Coperation.builder().build();"+
                 "            /**\n" +
                 "             * Setter use ....\n" +
                 "             * */\n"

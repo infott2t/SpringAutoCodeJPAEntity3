@@ -43,6 +43,7 @@ public class IndexHTMLContextStr {
 
 
     public String initColumnHtmlStr2(String thymleafInitUrl) {
+        String result ="";
         /*
                 "            <td th:text=\"${board.id}\"></td>\n" +
                 "            <td th:text=\"${board.addressStr?.id}\"></td>\n" +
@@ -51,10 +52,10 @@ public class IndexHTMLContextStr {
 
 
         for(int i=0; i < colNames.length; i++){
-            columnHtmlStr2 +=  "<td th:text=\"${board."+colNames[i]+"}\"></td>\n";
+            result +=  "<td th:text=\"${board."+colNames[i]+"}\"></td>\n";
         }
 
-        return columnHtmlStr2;
+        return result;
     }
 
 
@@ -65,13 +66,17 @@ public class IndexHTMLContextStr {
                 "            <th>PhoneStrId</th>\n" +
                                  */
 
-
+        String result ="";
         for(int i=0; i<colNames.length; i++) {
+            if(colNames[i].equals("isDel")){
+                result += "            <th>삭제여부</th>\n";
+            }else{
+                result += " <th>" + colNames[i] + "</th>";
+            }
 
-            columnHtmlStr += " <th>" + colNames[i] + "</th>";
         }
 
-        return columnHtmlStr;
+        return result;
     }
 
 

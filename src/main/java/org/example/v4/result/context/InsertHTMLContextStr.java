@@ -37,6 +37,7 @@ public class InsertHTMLContextStr {
 
 
     public String initColumnHtmlStr2(String thymleafInitUrl) {
+        String result = "";
         /*
                 "        <tr th:each=\"board : ${boards}\">\n" +
                 "            <td th:text=\"${board.id}\"></td>\n" +
@@ -48,19 +49,19 @@ public class InsertHTMLContextStr {
                 "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/update(id=${board.id})}\"  >수정</a></td>\n" +
                 "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/delete(id=${board.id})}\"  >삭제</a></td>\n" +
                */
-        columnHtmlStr2 = "        <tr th:each=\"board : ${boards}\">\n";
+        result = "        <tr th:each=\"board : ${boards}\">\n";
 
         for(int i=0; i < colNames.length; i++){
-            columnHtmlStr2 +=  "<td th:text=\"${board."+colNames[i]+"}\"></td>\n";
+            result +=  "<td th:text=\"${board."+colNames[i]+"}\"></td>\n";
         }
 
-        columnHtmlStr2 +=  "            <td th:text=\"${ #temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
+        result +=  "            <td th:text=\"${ #temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                             "            <td th:text=\"${ #temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n";
 
-        columnHtmlStr2 += "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/update(id=${board.id})}\"  >수정</a></td>\n" +
+        result += "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/update(id=${board.id})}\"  >수정</a></td>\n" +
                 "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/delete(id=${board.id})}\"  >삭제</a></td>\n" +
                 "        </tr>\n";
-        return columnHtmlStr2;
+        return result;
     }
 
 
@@ -74,14 +75,19 @@ public class InsertHTMLContextStr {
                 "            <th></th>\n" +
                 */
 
-
+        String result ="";
         for(int i=0; i<colNames.length; i++) {
 
-            columnHtmlStr += " <th>" + colNames[i] + "</th>";
+            if(colNames[i].equals("isDel")){
+                result += "            <th>삭제여부</th>\n";
+            }else{
+                result += " <th>" + colNames[i] + "</th>";
+            }
+
         }
-        columnHtmlStr = columnHtmlStr + " <th>ModifedDate</th> <th>CreatedDate</th>";
-        columnHtmlStr = columnHtmlStr+ "<th></th>\n <th></th>";
-        return columnHtmlStr;
+        result = result + " <th>ModifedDate</th> <th>CreatedDate</th>";
+        result = result+ "<th></th>\n <th></th>";
+        return result;
     }
 
 
@@ -191,8 +197,7 @@ public class InsertHTMLContextStr {
                 "        <th class=\"font-12\">키워드</th>\n" +
                 "        <td class=\"font-12\">\n" +
                 "          <select id=\"field\" name=\"field\" style=\"width:60px;\" title=\"키워드 선택\">\n" +
-                "            <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'addressStr.id'}\">id</option>\n" +
-                "            <option th:value=\"address\" th:selected=\"${#strings.trim(param.field) eq 'addressStr.addrFull'}\" selected>주소</option>\n" +
+                "            <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n" +
                 "          </select>\n" +
                 "          <input class=\"font-12\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\"  style=\"vertical-align: top; width:100px;\">\n" +
                 "        </td>\n" +
@@ -238,7 +243,7 @@ public class InsertHTMLContextStr {
                 "    <tbody>\n" +
                 "\n" +
                 "\n" +
-                "     <form  th:action=\"@{"+thymleafInitUrlDomain+"/update_2}\" th:object=\"${userForm}\" method=\"post\" >\n" +
+                "     <form  th:action=\"@{"+thymleafInitUrlDomain+"/insert_2}\" th:object=\"${userForm}\" method=\"post\" >\n" +
                 "\n" +
                 "    <tr>\n" + columnHtmlStr3() +
                 /*
@@ -249,7 +254,7 @@ public class InsertHTMLContextStr {
                 "      <td th:text=\"${#temporals.format(userForm.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "      <td th:text=\"${#temporals.format(userForm.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "\n" +
-                "      <td><button type=\"submit\" class=\"btn btn-sm btn-primary font-12\">수정</button></td>\n" +
+                "      <td><button type=\"submit\" class=\"btn btn-sm btn-primary font-12\">입력</button></td>\n" +
                 "      <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/}\">취소</a></td>\n" +
                 "    </tr>\n" +
                 "    </form>\n" +

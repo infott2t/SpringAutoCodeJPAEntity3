@@ -71,7 +71,7 @@ public class InsertHTMLResultScreen extends JFrame {
                 System.out.println("이미 폴더가 생성되어 있습니다.");
             }
             System.out.println("path, " + path);
-            System.out.println(path + "\\insert.html");
+            System.out.println(path + "insert.html");
             File file = new File(path + "\\insert.html");
             if (!file.exists()) {
                 file.createNewFile();

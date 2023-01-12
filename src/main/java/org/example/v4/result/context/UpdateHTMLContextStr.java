@@ -37,19 +37,21 @@ public class UpdateHTMLContextStr {
     }
 
     public String initColumnHtmlStr3(){
+        String result = "";
         /*
                 "       <td th:text=\"${board.id}\"></td>\n" +
                 "       <td th:text=\"${board.addressStr?.id}\"></td>\n" +
                 "       <td th:text=\"${board.phoneStr?.id}\"></td>\n" +
                  */
         for(int i=0; i<colNames.length;i++){
-            columnHtmlStr3 += "       <td th:text=\"${board."+colNames[i]+"}\"></td>\n";
+            result += "       <td th:text=\"${board."+colNames[i]+"}\"></td>\n";
         }
-        return columnHtmlStr3;
+        return result;
     }
 
 
     public String initColumnHtmlStr2(String thymleafInitUrl) {
+        String result = "";
        /*
                 "      <td><input type=\"text\" th:field=\"*{id}\" size=\"2\" readonly/></td>\n" +
                 "      <td><input type=\"text\" th:field=\"*{addressStrId}\" size=\"9\"/></td>\n" +
@@ -58,14 +60,15 @@ public class UpdateHTMLContextStr {
 
 
         for(int i=0; i < colNames.length; i++){
-            columnHtmlStr2 +=  "      <td><input type=\"text\" th:field=\"*{"+colNames[i]+"}\"/></td>\n";
+            result +=  "      <td><input type=\"text\" th:field=\"*{"+colNames[i]+"}\"/></td>\n";
         }
 
-        return columnHtmlStr2;
+        return result;
     }
 
 
     public String initColumHtmlStr() {
+        String result = "";
         /*
                 "            <th>AddressStrId</th>\n" +
                 "            <th>PhoneStrId</th>\n" +
@@ -77,12 +80,15 @@ public class UpdateHTMLContextStr {
 
 
         for(int i=0; i<colNames.length; i++) {
-
-            columnHtmlStr += " <th>" + colNames[i] + "</th>";
+            if(colNames[i].equals("isDel")){
+                result += "            <th>삭제여부</th>\n";
+            }else{
+                result += " <th>" + colNames[i] + "</th>";
+            }
         }
-        columnHtmlStr = columnHtmlStr + " <th>ModifedDate</th> <th>CreatedDate</th>";
-        columnHtmlStr = columnHtmlStr+ "<th></th>\n <th></th>";
-        return columnHtmlStr;
+        result = result + " <th>ModifedDate</th> <th>CreatedDate</th>";
+        result = result+ "<th></th>\n <th></th>";
+        return result;
     }
 
 
@@ -193,7 +199,6 @@ public class UpdateHTMLContextStr {
                 "        <td class=\"font-12\">\n" +
                 "          <select id=\"field\" name=\"field\" style=\"width:60px;\" title=\"키워드 선택\">\n" +
                 "            <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n" +
-
                 "          </select>\n" +
                 "          <input class=\"font-12\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\"  style=\"vertical-align: top; width:100px;\">\n" +
                 "        </td>\n" +
