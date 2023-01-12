@@ -57,8 +57,8 @@ public class InsertHTMLContextStr {
         columnHtmlStr2 +=  "            <td th:text=\"${ #temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                             "            <td th:text=\"${ #temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n";
 
-        columnHtmlStr2 += "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/update(id=${board.id})}\"  >Update</a></td>\n" +
-                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/delete(id=${board.id})}\"  >Delete</a></td>\n" +
+        columnHtmlStr2 += "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/update(id=${board.id})}\"  >수정</a></td>\n" +
+                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/delete(id=${board.id})}\"  >삭제</a></td>\n" +
                 "        </tr>\n";
         return columnHtmlStr2;
     }

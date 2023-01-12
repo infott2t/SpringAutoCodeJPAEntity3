@@ -27,6 +27,10 @@ createdDate, modifiedDate의 경우는 적지 않고서도, 자동 생성되며,
 맨 위에, Long id 칼럼을 사용해야합니다.
 맨 아래, String isDel 칼럼을 적어줘야합니다.
 
+*엔티티를 추가하면서, 엔티티 링크이동은 자동으로 되지 않습니다.(바로 생성한 테이블만 만들어짐.)
+templates/firstinstance/index.html 파일.
+완성한 뒤, html에 추가해주세요.
+
 *File making on C:\category. 
 
 개발중에 있네요~. 2023년 1월 12일. 
