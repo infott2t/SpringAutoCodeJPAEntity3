@@ -240,10 +240,12 @@ public class InsertHTMLContextStr {
                 "\n" +
                 "     <form  th:action=\"@{"+thymleafInitUrlDomain+"/update_2}\" th:object=\"${userForm}\" method=\"post\" >\n" +
                 "\n" +
-                "    <tr>\n" +
+                "    <tr>\n" + columnHtmlStr3() +
+                /*
                 "      <td><input type=\"text\" th:field=\"*{id}\" size=\"2\" readonly/></td>\n" +
                 "      <td><input type=\"text\" th:field=\"*{addressStrId}\" size=\"9\"/></td>\n" +
                 "      <td><input type=\"text\" th:field=\"*{phoneStrId}\" size=\"20\"/></td>\n" +
+                 */
                 "      <td th:text=\"${#temporals.format(userForm.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "      <td th:text=\"${#temporals.format(userForm.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "\n" +
@@ -364,6 +366,21 @@ public class InsertHTMLContextStr {
                 "</div>";
 
         return htmlIndexMiddleText;
+    }
+
+    private String columnHtmlStr3() {
+        String result = "";
+        /*
+                "      <td><input type=\"text\" th:field=\"*{id}\" size=\"2\" readonly/></td>\n" +
+                "      <td><input type=\"text\" th:field=\"*{addressStrId}\" size=\"9\"/></td>\n" +
+                "      <td><input type=\"text\" th:field=\"*{phoneStrId}\" size=\"20\"/></td>\n" +
+                 */
+        result += "      <td><input type=\"text\" th:field=\"*{id}\" size=\"2\" readonly/></td>\n";
+        for (int i = 1; i < colNames.length; i++) {
+            result += "      <td><input type=\"text\" th:field=\"*{" + colNames[i] + "}\" /></td>\n";
+
+        }
+        return result;
     }
 
     private String columnHtmlStr2() {
