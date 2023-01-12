@@ -1,5 +1,7 @@
 package org.example.v4;
 
+import org.example.v4.result.screen.firstinstance.controller.root.RootIndexControllerResultScreen;
+import org.example.v4.result.screen.firstinstance.controller.root.domain.InstanceUrlControllerResultScreen;
 import org.example.v4.result.screen.templates.IndexHTMLResultScreen;
 import org.example.v4.result.screen.templates.InsertHTMLResultScreen;
 import org.example.v4.result.screen.ReadMeScreen;
@@ -83,7 +85,7 @@ public class Sys04 extends JFrame{
                 new ReadMeScreen();
             }
         });
-        btn.addActionListener(new ActionListener() {
+        btn.addActionListener(new ActionListener()  {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -137,6 +139,7 @@ public class Sys04 extends JFrame{
                     columnDates = columnDates.substring(0, columnDates.length() - 1);
                 }
                 //columnDates = columnDates.substring(0,columnDates.length()-1);
+
                 columnNames = columnNames.substring(0,columnNames.length()-1);
 
                 colStrs = columnStrings.split(",");
@@ -151,7 +154,9 @@ public class Sys04 extends JFrame{
                 for(int i=0; i< colStrs.length ;i++ ){
                     System.out.println(colStrs[i]);
                 }
-
+                for (int i = 0; i < colNames.length; i++) {
+                    System.out.println(colNames[i]);
+                }
                 thymleafInitUrl = jtf2.getText();
 
 
@@ -162,18 +167,36 @@ public class Sys04 extends JFrame{
                  * front-end, thyemleaf
                  *
                  *  Folder
+                 *  templates/firstinstance/
+                 *                         index.html                 RootIndexResultScreen(usv)
+                 *
                  *  templates/firstinstance/[domainStr]/
-                 *                                      index.html,
-                 *                                      insert.html,
-                 *                                      update.html.
+                 *                                      index.html,   IndexHTMLResultScreen(usv)
+                 *                                      insert.html,  InsertHTMLResultScreen(usv)
+                 *                                      update.html.  UpdateHTMLResultScreen(usv)
                  * */
 
                  new RootIndexResultScreen(usv);
-
                  new IndexHTMLResultScreen(usv);
                  new InsertHTMLResultScreen(usv);
                  new UpdateHTMLResultScreen(usv);
 
+                 /**
+                  * URL Controller.
+                  *
+                  *  Folder (Package)
+                  *  src.main.java.org.example.firstinstanceurl.domain
+                  *
+                  *                                                   InstanceUrlController.java, RootIndexControllerResultScreen(usv)
+                  *
+                  *  src.main.java.org.example.firstinstanceurl.domain.[domainStr]
+                  *
+                  *                                                               InstanceUrl[domainStr]Controller.java, InstanceUrlControllerResultScreen(usv)
+                  *
+                  * **/
+
+                 new RootIndexControllerResultScreen(usv);
+                 new InstanceUrlControllerResultScreen(usv);
 
 
          //        usc = new UtilStrConvV4(tableName,valBefore, "sqlUpper");

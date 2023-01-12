@@ -11,6 +11,8 @@ public class UtilStaticV4 {
 
     public static String thymleafInitUrl;  // /administer/instanceurl
 
+
+
     public UtilStaticV4(String domainStr, String[] colStrs, String[] colLongs, String[] colDates, String[] colNames, String thymleafInitUrl) {
         this.domainStr = domainStr;
         this.colStrs = colStrs;
@@ -18,5 +20,10 @@ public class UtilStaticV4 {
         this.colDates = colDates;
         this.colNames = colNames;
         this.thymleafInitUrl = thymleafInitUrl;
+
+    }
+
+    public static String upperCaseFirstLetter(String str){
+        return str.substring(0,1).toUpperCase() + str.substring(1);
     }
 }
