@@ -56,6 +56,7 @@ public class InsertHTMLResultScreen extends JFrame {
             directory += directoryUrl[i] + "\\";
         }
         System.out.println(directory);
+        directory = "\\templates\\"+directory;
         try{
             String path = "C:\\category"+directory+domainStr;
             System.out.println("directory, " + path);
