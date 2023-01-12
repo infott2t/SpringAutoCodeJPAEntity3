@@ -9,7 +9,7 @@ public class UtilStaticV4 {
 
     public static String[] colNames; // entity column, In orders.
 
-    public static String thymleafInitUrl;
+    public static String thymleafInitUrl;  // /administer/instanceurl
 
     public UtilStaticV4(String domainStr, String[] colStrs, String[] colLongs, String[] colDates, String[] colNames, String thymleafInitUrl) {
         this.domainStr = domainStr;

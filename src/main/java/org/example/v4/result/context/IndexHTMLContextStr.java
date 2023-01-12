@@ -1,8 +1,8 @@
-package org.example.v4.result.screen;
+package org.example.v4.result.context;
 
 import org.example.v4.UtilStaticV4;
 
-public class HTMLContextStr {
+public class IndexHTMLContextStr {
 
     public String domainStr;
     public String[] colStrs;
@@ -17,7 +17,9 @@ public class HTMLContextStr {
     public String columnHtmlStr;
     public String columnHtmlStr2;
 
-    public HTMLContextStr(UtilStaticV4 usv) {
+    public String indexHTMLStr;
+
+    public IndexHTMLContextStr(UtilStaticV4 usv) {
         this.domainStr = usv.domainStr;
         this.colStrs = usv.colStrs;
         this.colLongs = usv.colLongs;
@@ -28,6 +30,7 @@ public class HTMLContextStr {
 
         this.columnHtmlStr = initColumHtmlStr();
         this.columnHtmlStr2 = initColumnHtmlStr2(thymleafInitUrl);
+        this.indexHTMLStr = htmlUpTexting() + htmlIndexMiddleTexting()+ htmlDownTexting();
 
     }
 
@@ -35,44 +38,33 @@ public class HTMLContextStr {
 
     public String initColumnHtmlStr2(String thymleafInitUrl) {
         /*
-                "        <tr th:each=\"board : ${boards}\">\n" +
                 "            <td th:text=\"${board.id}\"></td>\n" +
                 "            <td th:text=\"${board.addressStr?.id}\"></td>\n" +
                 "            <td th:text=\"${board.phoneStr?.id}\"></td>\n" +
-                "            <td th:text=\"${ #temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
-                "            <td th:text=\"${ #temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
-                "\n" +
-                "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/update(id=${board.id})}\"  >수정</a></td>\n" +
-                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/delete(id=${board.id})}\"  >삭제</a></td>\n" +
-               */
-        columnHtmlStr2 = "        <tr th:each=\"board : ${boards}\">\n";
+                 */
+
 
         for(int i=0; i < colNames.length; i++){
             columnHtmlStr2 +=  "<td th:text=\"${board."+colNames[i]+"}\"></td>\n";
         }
-        columnHtmlStr2 += "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrl+"/update(id=${board.id})}\"  >Update</a></td>\n" +
-                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrl+"/delete(id=${board.id})}\"  >Delete</a></td>\n" +
-                "        </tr>\n";
+
         return columnHtmlStr2;
     }
 
 
     public String initColumHtmlStr() {
-        /*
+       /*
+                "            <th>id</th>\n" +
                 "            <th>AddressStrId</th>\n" +
                 "            <th>PhoneStrId</th>\n" +
-                "            <th>수정일</th>\n" +
-                "            <th>생성일</th>\n" +
-                "            <th></th>\n" +
-                "            <th></th>\n" +
-                */
+                                 */
 
 
         for(int i=0; i<colNames.length; i++) {
 
             columnHtmlStr += " <th>" + colNames[i] + "</th>";
         }
-        columnHtmlStr = columnHtmlStr+ "<th></th>\n <th></th>";
+
         return columnHtmlStr;
     }
 
@@ -167,7 +159,7 @@ public class HTMLContextStr {
                 "\n" +
                 "    <br/>\n" +
                 "    <a class=\"btn btn-sm btn-link\" th:href=\"@{"+thymleafInitUrl+"}\"><i class=\"bi bi-chevron-double-left fa-3x\"></i></a><a th:href=\"@{"+thymleafInitUrlDomain+"}\">\n" +
-                "    <span style=\"font-size:20px;\">"+domainStr+" Domain</span></a>\n" +
+                "    <span style=\"font-size:20px;\">RoleUSER 테이블</span></a>\n" +
                 "    <form name=\"search_form\" th:action=\"@{"+thymleafInitUrlDomain+"}\" method=\"get\" role=\"form\" th:object=\"${condition}\" class=\"d-flex justify-content-evenly\">\n" +
                 "        <table style=\"width:670px;\" class=\"border border-5 d-flex justify-content-center caption-top\">\n" +
                 "            <colgroup>\n" +
@@ -184,23 +176,22 @@ public class HTMLContextStr {
                 "                    <td class=\"font-12\">\n" +
                 "                        <select id=\"field\" name=\"field\" style=\"width:60px;\" title=\"키워드 선택\">\n" +
                 "                            <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n" +
-
                 "                        </select>\n" +
-                "                        <input class=\"font-12\" type=\"text\" title=\"키워드\" placeholder=\"Search Keyword\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\"  style=\"vertical-align: top; width:100px;\">\n" +
+                "                        <input class=\"font-12\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\"  style=\"vertical-align: top; width:100px;\">\n" +
                 "                    </td>\n" +
-                "                    <th scope=\"row\" class=\"font-12\">&nbsp;Date</th>\n" +
+                "                    <th scope=\"row\" class=\"font-12\">&nbsp;등록일자</th>\n" +
                 "                    <td class=\"font-12\">\n" +
-                "                        <input type=\"text\" placeholder=\"StartDate\" class=\"ico_date\" name=\"sdate\"\n" +
+                "                        <input type=\"text\" placeholder=\"시작일\" class=\"ico_date\" name=\"sdate\"\n" +
                 "                               id=\"datepicker1\" th:field=\"*{sdate}\" autocomplete=\"on\" style=\"width:100px;\">\n" +
                 "                        <span class=\"hypen\">~</span>\n" +
-                "                        <input type=\"text\" placeholder=\"EndDate\" class=\"ico_date\" name=\"edate\"\n" +
+                "                        <input type=\"text\" placeholder=\"종료일\" class=\"ico_date\" name=\"edate\"\n" +
                 "                               id=\"datepicker2\" th:field=\"*{edate}\" autocomplete=\"on\" style=\"width:100px;\">\n" +
                 "                    </td>\n" +
                 "                    <td>\n" +
-                "                        &nbsp;<button class=\"btn btn-success btn-sm\">Search</button>\n" +
+                "                        &nbsp;<button class=\"btn btn-success btn-sm\">검색</button>\n" +
                 "                    </td>\n" +
                 "                    <td>\n" +
-                "                        &nbsp;<a class=\"btn btn-sm btn-primary\" th:href=\"@{"+thymleafInitUrlDomain+"/insert}\">Insert</a>&nbsp;\n" +
+                "                        &nbsp;<a class=\"btn btn-sm btn-primary\" th:href=\"@{"+thymleafInitUrlDomain+"/insert}\">쓰기</a>&nbsp;\n" +
                 "                    </td>\n" +
                 "                </tr>\n" +
                 "            </tbody>\n" +
@@ -211,31 +202,30 @@ public class HTMLContextStr {
                 "\n" +
                 "    <table class=\"table table-sm\" style=\"font-size: 12px;margin-left:auto; margin-right:auto;\">\n" +
                 "        <thead>\n" +
-                "        <tr>\n" +
-                "            <th>id</th>\n" + columnHtmlStr +
+                "        <tr>\n" + columnHtmlStr +
                 /*
+                "            <th>id</th>\n" +
                 "            <th>AddressStrId</th>\n" +
                 "            <th>PhoneStrId</th>\n" +
+                                 */
                 "            <th>수정일</th>\n" +
                 "            <th>생성일</th>\n" +
                 "            <th></th>\n" +
                 "            <th></th>\n" +
-                */
-
                 "        </tr>\n" +
                 "        </thead>\n" +
                 "        <tbody>\n" +
-                /*
                 "        <tr th:each=\"board : ${boards}\">\n" +
+                /*
                 "            <td th:text=\"${board.id}\"></td>\n" +
                 "            <td th:text=\"${board.addressStr?.id}\"></td>\n" +
                 "            <td th:text=\"${board.phoneStr?.id}\"></td>\n" +
+                 */
                 "            <td th:text=\"${ #temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "            <td th:text=\"${ #temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "\n" +
-                "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/update(id=${board.id})}\"  >수정</a></td>\n" +
-                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/delete(id=${board.id})}\"  >삭제</a></td>\n" +
-               */
+                "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/update(id=${board.id})}\"  >수정</a></td>\n" +
+                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/delete(id=${board.id})}\"  >삭제</a></td>\n" +
                 "        </tbody>\n" +
                 "    </table>\n" +
                 "    <!-- 페이징 -->\n" +
@@ -254,7 +244,7 @@ public class HTMLContextStr {
                 "            <ul class=\"pagination \" style=\"justify-content:center;\">\n" +
                 "                <!-- 처음으로 이동 -->\n" +
                 "                <li th:classappend=\"${pageNumber < pageSize} ? 'disabled'\" class=\"page-item\">\n" +
-                "                    <a class=\"page-link\" th:href=\"@{/administer/instanceurl/roleclass/user(page=0)}\">\n" +
+                "                    <a class=\"page-link\" th:href=\"@{"+thymleafInitUrlDomain+"(page=0)}\">\n" +
                 "                        <span>&laquo;</span>\n" +
                 "                        <span class=\"sr-only\">First</span>\n" +
                 "                    </a>\n" +
@@ -262,7 +252,7 @@ public class HTMLContextStr {
                 "\n" +
                 "                <!-- 이전으로 이동 -->\n" +
                 "                <li th:classappend=\"${boards.first} ? 'disabled'\" class=\"page-item\">\n" +
-                "                    <a class=\"page-link\" th:href=\"${boards.first} ? '#' : @{/administer/instanceurl/roleclass/user(page=${pageNumber - 1})}\" aria-label=\"Previous\">\n" +
+                "                    <a class=\"page-link\" th:href=\"${boards.first} ? '#' : @{"+thymleafInitUrlDomain+"(page=${pageNumber - 1})}\" aria-label=\"Previous\">\n" +
                 "                        <span aria-hidden=\"true\">&lt;</span>\n" +
                 "                        <span class=\"sr-only\">Previous</span>\n" +
                 "                    </a>\n" +
@@ -270,12 +260,12 @@ public class HTMLContextStr {
                 "\n" +
                 "                <!-- 특정 페이지로 이동 -->\n" +
                 "                <li th:each=\"page: ${#numbers.sequence(startPage, endPage)}\" th:classappend=\"${page == pageNumber + 1} ? 'active'\" class=\"page-item\">\n" +
-                "                    <a th:text=\"${page}\" class=\"page-link\" th:href=\"@{/administer/instanceurl/roleclass/user(page=${page - 1})}\"></a>\n" +
+                "                    <a th:text=\"${page}\" class=\"page-link\" th:href=\"@{"+thymleafInitUrlDomain+"(page=${page - 1})}\"></a>\n" +
                 "                </li>\n" +
                 "\n" +
                 "                <!-- 다음으로 이동 -->\n" +
                 "                <li th:classappend=\"${boards.last} ? 'disabled'\" class=\"page-item\">\n" +
-                "                    <a class=\"page-link\" th:href=\"${boards.last} ? '#' : @{/administer/instanceurl/roleclass/user(page=${pageNumber + 1})}\" aria-label=\"Next\">\n" +
+                "                    <a class=\"page-link\" th:href=\"${boards.last} ? '#' : @{"+thymleafInitUrlDomain+"(page=${pageNumber + 1})}\" aria-label=\"Next\">\n" +
                 "                        <span aria-hidden=\"true\">&gt;</span>\n" +
                 "                        <span class=\"sr-only\">Next</span>\n" +
                 "                    </a>\n" +
@@ -283,7 +273,7 @@ public class HTMLContextStr {
                 "\n" +
                 "                <!-- 마지막으로 이동 -->\n" +
                 "                <li th:classappend=\" ${T(Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
-                "                    <a class=\"page-link\" th:href=\"@{/administer/instanceurl/roleclass/user(page=${totalPages - 1})}\">\n" +
+                "                    <a class=\"page-link\" th:href=\"@{"+thymleafInitUrlDomain+"(page=${totalPages - 1})}\">\n" +
                 "                        <span>&raquo;</span>\n" +
                 "                        <span class=\"sr-only\">Last</span>\n" +
                 "                    </a>\n" +

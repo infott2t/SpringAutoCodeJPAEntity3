@@ -124,9 +124,18 @@ public class Sys04 extends JFrame{
                     ex.printStackTrace();
                 }
 
-                columnLongs = columnLongs.substring(0,columnLongs.length()-1);
-                columnStrings = columnStrings.substring(0,columnStrings.length()-1);
-                columnDates = columnDates.substring(0,columnDates.length()-1);
+                if(columnLongs!=null && columnLongs.length()>0) {
+                    columnLongs = columnLongs.substring(0, columnLongs.length() - 1);
+                }
+
+                if(columnStrings!=null && columnStrings.length()>0) {
+                    columnStrings = columnStrings.substring(0, columnStrings.length() - 1);
+                }
+
+                if(columnDates!=null && columnDates.length()>0) {
+                    columnDates = columnDates.substring(0, columnDates.length() - 1);
+                }
+                //columnDates = columnDates.substring(0,columnDates.length()-1);
                 columnNames = columnNames.substring(0,columnNames.length()-1);
 
                 colStrs = columnStrings.split(",");
