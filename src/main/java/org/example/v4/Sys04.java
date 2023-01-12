@@ -2,6 +2,7 @@ package org.example.v4;
 
 import org.example.v4.result.screen.firstinstance.controller.root.RootIndexControllerResultScreen;
 import org.example.v4.result.screen.firstinstance.controller.root.domain.InstanceUrlControllerResultScreen;
+import org.example.v4.result.screen.firstinstance.controller.root.form.ApiDtoFormResultScreen;
 import org.example.v4.result.screen.templates.IndexHTMLResultScreen;
 import org.example.v4.result.screen.templates.InsertHTMLResultScreen;
 import org.example.v4.result.screen.ReadMeScreen;
@@ -164,7 +165,7 @@ public class Sys04 extends JFrame{
 
                 //Make page,
                 /**
-                 * front-end, thyemleaf
+                 * Front-end, Thyemleaf Files.   4 Files.
                  *
                  *  Folder
                  *  templates/firstinstance/
@@ -182,21 +183,26 @@ public class Sys04 extends JFrame{
                  new UpdateHTMLResultScreen(usv);
 
                  /**
-                  * URL Controller.
+                  * URL Controller and Dto, ApiDtoForm. Files.  3 Files.
                   *
-                  *  Folder (Package)
+                  *
+                  *
+                  *  ROOT URL controller.
                   *  src.main.java.org.example.firstinstanceurl.domain
                   *
-                  *                                                   InstanceUrlController.java, RootIndexControllerResultScreen(usv)
-                  *
+                  *                                                                InstanceUrlController.java, RootIndexControllerResultScreen(usv)
+                  *  Entity CRUD URL controller.
                   *  src.main.java.org.example.firstinstanceurl.domain.[domainStr]
                   *
                   *                                                               InstanceUrl[domainStr]Controller.java, InstanceUrlControllerResultScreen(usv)
-                  *
+                  *  Entity Form Dto.
+                  *  src.main.java.org.example.firstinstanceurl.form
+                  *                                                               [domainStr]ApiDtoForm.java, ApiDtoFormResultScreen(usv)
                   * **/
 
                  new RootIndexControllerResultScreen(usv);
                  new InstanceUrlControllerResultScreen(usv);
+                 new ApiDtoFormResultScreen(usv);
 
 
          //        usc = new UtilStrConvV4(tableName,valBefore, "sqlUpper");

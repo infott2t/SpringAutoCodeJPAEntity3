@@ -68,7 +68,7 @@ public class ApiDtoFormResultScreen extends JFrame{
                 "    private Long id;\n" +
                 "    private Long addressStrId;\n" +
                 "    private Long phoneStrId;\n" + */
-                "    private String isDel;\n" +
+
                 "    private LocalDateTime createdDate;\n" +
                 "    private LocalDateTime modifiedDate;\n" +
                 "}\n");
