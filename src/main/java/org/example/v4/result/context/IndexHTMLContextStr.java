@@ -14,6 +14,10 @@ public class IndexHTMLContextStr {
     public String thymleafInitUrl;
     public String thymleafInitUrlDomain; //thymleafInitUrl + "/" +domainStr
 
+
+
+    public String thymleafViewPage; // firstinstance/[domainStr]
+
     public String columnHtmlStr;
     public String columnHtmlStr2;
 
@@ -27,6 +31,8 @@ public class IndexHTMLContextStr {
         this.colNames = usv.colNames;
         this.thymleafInitUrl = usv.thymleafInitUrl;
         this.thymleafInitUrlDomain = usv.thymleafInitUrl + "/" + domainStr;
+
+        this.thymleafViewPage = "firstinstance/" + domainStr;
 
         this.columnHtmlStr = initColumHtmlStr();
         this.columnHtmlStr2 = initColumnHtmlStr2(thymleafInitUrl);
@@ -159,7 +165,7 @@ public class IndexHTMLContextStr {
                 "\n" +
                 "    <br/>\n" +
                 "    <a class=\"btn btn-sm btn-link\" th:href=\"@{"+thymleafInitUrl+"}\"><i class=\"bi bi-chevron-double-left fa-3x\"></i></a><a th:href=\"@{"+thymleafInitUrlDomain+"}\">\n" +
-                "    <span style=\"font-size:20px;\">RoleUSER 테이블</span></a>\n" +
+                "    <span style=\"font-size:20px;\">"+domainStr+" 테이블</span></a>\n" +
                 "    <form name=\"search_form\" th:action=\"@{"+thymleafInitUrlDomain+"}\" method=\"get\" role=\"form\" th:object=\"${condition}\" class=\"d-flex justify-content-evenly\">\n" +
                 "        <table style=\"width:670px;\" class=\"border border-5 d-flex justify-content-center caption-top\">\n" +
                 "            <colgroup>\n" +
@@ -215,7 +221,7 @@ public class IndexHTMLContextStr {
                 "        </tr>\n" +
                 "        </thead>\n" +
                 "        <tbody>\n" +
-                "        <tr th:each=\"board : ${boards}\">\n" +
+                "        <tr th:each=\"board : ${boards}\">\n" + columnHtmlStr2 +
                 /*
                 "            <td th:text=\"${board.id}\"></td>\n" +
                 "            <td th:text=\"${board.addressStr?.id}\"></td>\n" +

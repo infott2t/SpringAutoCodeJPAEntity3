@@ -45,8 +45,8 @@ public class InsertHTMLContextStr {
                 "            <td th:text=\"${ #temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "            <td th:text=\"${ #temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "\n" +
-                "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/update(id=${board.id})}\"  >수정</a></td>\n" +
-                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/delete(id=${board.id})}\"  >삭제</a></td>\n" +
+                "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/update(id=${board.id})}\"  >수정</a></td>\n" +
+                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/delete(id=${board.id})}\"  >삭제</a></td>\n" +
                */
         columnHtmlStr2 = "        <tr th:each=\"board : ${boards}\">\n";
 
@@ -174,9 +174,9 @@ public class InsertHTMLContextStr {
                 "<div class=\"container\" style=\"margin-left:auto; margin-right:auto; width:100%;\">\n" +
                 "\n" +
                 "  <br/>\n" +
-                "  <a class=\"btn btn-sm btn-link\" th:href=\"@{/administer/instanceurl/roleclass/user}\"><i class=\"bi bi-chevron-double-left fa-3x\"></i></a><a th:href=\"@{/administer/instanceurl/roleclass/user}\">\n" +
-                "  <span style=\"font-size:20px;\">RoleUSER 테이블</span></a>\n" +
-                "  <form name=\"search_form\" th:action=\"@{/administer/instanceurl/roleclass/user}\" method=\"get\" role=\"form\" th:object=\"${condition}\" class=\"d-flex justify-content-evenly\">\n" +
+                "  <a class=\"btn btn-sm btn-link\" th:href=\"@{"+thymleafInitUrlDomain+"}\"><i class=\"bi bi-chevron-double-left fa-3x\"></i></a><a th:href=\"@{"+thymleafInitUrlDomain+"}\">\n" +
+                "  <span style=\"font-size:20px;\">"+domainStr+" 테이블</span></a>\n" +
+                "  <form name=\"search_form\" th:action=\"@{"+thymleafInitUrlDomain+"}\" method=\"get\" role=\"form\" th:object=\"${condition}\" class=\"d-flex justify-content-evenly\">\n" +
                 "    <table style=\"width:670px;\" class=\"border border-5 d-flex justify-content-center caption-top\">\n" +
                 "      <colgroup>\n" +
                 "        <col style=\"width:10%;\">\n" +
@@ -208,7 +208,7 @@ public class InsertHTMLContextStr {
                 "          &nbsp;<button class=\"btn btn-success btn-sm\">검색</button>\n" +
                 "        </td>\n" +
                 "        <td>\n" +
-                "          &nbsp;<a class=\"btn btn-sm btn-primary\" th:href=\"@{/administer/instanceurl/roleclass/user/insert}\">쓰기</a>&nbsp;\n" +
+                "          &nbsp;<a class=\"btn btn-sm btn-primary\" th:href=\"@{"+thymleafInitUrlDomain+"/insert}\">쓰기</a>&nbsp;\n" +
                 "        </td>\n" +
                 "      </tr>\n" +
                 "      </tbody>\n" +
@@ -223,10 +223,12 @@ public class InsertHTMLContextStr {
                 "-->\n" +
                 "  <table class=\"table table-sm\" style=\"font-size: 12px;\">\n" +
                 "    <thead>\n" +
-                "    <tr>\n" +
+                "    <tr>\n" + columnHtmlStr()+
+                /*
                 "      <th>id</th>\n" +
                 "      <th>AddressStr</th>\n" +
                 "      <th>PhoneStr</th>\n" +
+                 */
                 "      <th>수정일</th>\n" +
                 "      <th>생성일</th>\n" +
                 "      <th></th>\n" +
@@ -236,7 +238,7 @@ public class InsertHTMLContextStr {
                 "    <tbody>\n" +
                 "\n" +
                 "\n" +
-                "     <form  th:action=\"@{/administer/instanceurl/roleclass/user/update_2}\" th:object=\"${userForm}\" method=\"post\" >\n" +
+                "     <form  th:action=\"@{"+thymleafInitUrlDomain+"/update_2}\" th:object=\"${userForm}\" method=\"post\" >\n" +
                 "\n" +
                 "    <tr>\n" +
                 "      <td><input type=\"text\" th:field=\"*{id}\" size=\"2\" readonly/></td>\n" +
@@ -246,7 +248,7 @@ public class InsertHTMLContextStr {
                 "      <td th:text=\"${#temporals.format(userForm.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "\n" +
                 "      <td><button type=\"submit\" class=\"btn btn-sm btn-primary font-12\">수정</button></td>\n" +
-                "      <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/}\">취소</a></td>\n" +
+                "      <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/}\">취소</a></td>\n" +
                 "    </tr>\n" +
                 "    </form>\n" +
                 "\n" +
@@ -263,15 +265,18 @@ public class InsertHTMLContextStr {
                 "        </table>\n" +
                 "      </td>\n" +
                 "    </tr>\n" +
-                "     <tr th:each=\"board : ${boards}\">\n" +
+                "     <tr th:each=\"board : ${boards}\">\n" + columnHtmlStr2()+
+                /*
                 "       <td th:text=\"${board.id}\"></td>\n" +
                 "       <td th:text=\"${board.addressStr?.id}\"></td>\n" +
                 "       <td th:text=\"${board.phoneStr?.id}\"></td>\n" +
+
+                 */
                 "       <td th:text=\"${ #temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "       <td th:text=\"${ #temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
                 "\n" +
-                "       <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/update(id=${board.id})}\"  >수정</a></td>\n" +
-                "       <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{/administer/instanceurl/roleclass/user/delete(id=${board.id})}\"  >삭제</a></td>\n" +
+                "       <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/update(id=${board.id})}\"  >수정</a></td>\n" +
+                "       <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{"+thymleafInitUrlDomain+"/delete(id=${board.id})}\"  >삭제</a></td>\n" +
                 "     </tr>\n" +
                 "    </tbody>\n" +
                 "  </table>\n" +
@@ -291,7 +296,7 @@ public class InsertHTMLContextStr {
                 "      <ul class=\"pagination \" style=\"justify-content:center;\">\n" +
                 "        <!-- 처음으로 이동 -->\n" +
                 "        <li th:classappend=\"${pageNumber < pageSize} ? 'disabled'\" class=\"page-item\">\n" +
-                "          <a class=\"page-link\" th:href=\"@{/administer/instanceurl/user(page=0)}\">\n" +
+                "          <a class=\"page-link\" th:href=\"@{"+thymleafInitUrlDomain+"(page=0)}\">\n" +
                 "            <span>&laquo;</span>\n" +
                 "            <span class=\"sr-only\">First</span>\n" +
                 "          </a>\n" +
@@ -299,7 +304,7 @@ public class InsertHTMLContextStr {
                 "\n" +
                 "        <!-- 이전으로 이동 -->\n" +
                 "        <li th:classappend=\"${boards.first} ? 'disabled'\" class=\"page-item\">\n" +
-                "          <a class=\"page-link\" th:href=\"${boards.first} ? '#' : @{/administer/instanceurl/user(page=${pageNumber - 1})}\" aria-label=\"Previous\">\n" +
+                "          <a class=\"page-link\" th:href=\"${boards.first} ? '#' : @{"+thymleafInitUrlDomain+"(page=${pageNumber - 1})}\" aria-label=\"Previous\">\n" +
                 "            <span aria-hidden=\"true\">&lt;</span>\n" +
                 "            <span class=\"sr-only\">Previous</span>\n" +
                 "          </a>\n" +
@@ -307,12 +312,12 @@ public class InsertHTMLContextStr {
                 "\n" +
                 "        <!-- 특정 페이지로 이동 -->\n" +
                 "        <li th:each=\"page: ${#numbers.sequence(startPage, endPage)}\" th:classappend=\"${page == pageNumber + 1} ? 'active'\" class=\"page-item\">\n" +
-                "          <a th:text=\"${page}\" class=\"page-link\" th:href=\"@{/administer/instanceurl/user(page=${page - 1})}\"></a>\n" +
+                "          <a th:text=\"${page}\" class=\"page-link\" th:href=\"@{"+thymleafInitUrlDomain+"(page=${page - 1})}\"></a>\n" +
                 "        </li>\n" +
                 "\n" +
                 "        <!-- 다음으로 이동 -->\n" +
                 "        <li th:classappend=\"${boards.last} ? 'disabled'\" class=\"page-item\">\n" +
-                "          <a class=\"page-link\" th:href=\"${boards.last} ? '#' : @{/administer/instanceurl/user(page=${pageNumber + 1})}\" aria-label=\"Next\">\n" +
+                "          <a class=\"page-link\" th:href=\"${boards.last} ? '#' : @{"+thymleafInitUrlDomain+"(page=${pageNumber + 1})}\" aria-label=\"Next\">\n" +
                 "            <span aria-hidden=\"true\">&gt;</span>\n" +
                 "            <span class=\"sr-only\">Next</span>\n" +
                 "          </a>\n" +
@@ -320,7 +325,7 @@ public class InsertHTMLContextStr {
                 "\n" +
                 "        <!-- 마지막으로 이동 -->\n" +
                 "        <li th:classappend=\" ${T(Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
-                "          <a class=\"page-link\" th:href=\"@{/administer/instanceurl/user(page=${totalPages - 1})}\">\n" +
+                "          <a class=\"page-link\" th:href=\"@{"+thymleafInitUrlDomain+"(page=${totalPages - 1})}\">\n" +
                 "            <span>&raquo;</span>\n" +
                 "            <span class=\"sr-only\">Last</span>\n" +
                 "          </a>\n" +
@@ -359,6 +364,34 @@ public class InsertHTMLContextStr {
                 "</div>";
 
         return htmlIndexMiddleText;
+    }
+
+    private String columnHtmlStr2() {
+        /*
+                "       <td th:text=\"${board.id}\"></td>\n" +
+                "       <td th:text=\"${board.addressStr?.id}\"></td>\n" +
+                "       <td th:text=\"${board.phoneStr?.id}\"></td>\n" +
+
+                 */
+        String result = "";
+        for (int i = 0; i < colNames.length; i++) {
+            result += "       <td th:text=\"${board." + colNames[i] + "}\"></td>\n";
+
+        }
+        return result;
+    }
+
+    private String columnHtmlStr() {
+         /*
+                "      <th>id</th>\n" +
+                "      <th>AddressStr</th>\n" +
+                "      <th>PhoneStr</th>\n" +
+                 */
+        String result ="";
+        for (int i = 0; i < colNames.length; i++) {
+            result += "      <th>"+colNames[i]+"</th>\n";
+        }
+        return result;
     }
 
 }
