@@ -23,6 +23,8 @@ createdDate, modifiedDate의 경우는 적지 않고서도, 자동 생성되며,
 맨 위에, Long id 칼럼을 사용해야합니다.
 맨 아래, String isDel 칼럼을 적어줘야합니다.
 
+*File making on C:\category. 
+
 개발중에 있네요~. 2023년 1월 12일. 
 
 좋은 개발, 좋은 하루되세요. 이렇게 정보공유를 하면 뭔가 편해지는 기분이 듬니다. 
