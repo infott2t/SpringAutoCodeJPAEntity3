@@ -92,8 +92,8 @@ public class ApiDtoFormResultScreen extends JFrame{
                 System.out.println("이미 폴더가 생성되어 있습니다.");
             }
             System.out.println("path, " + path);
-            System.out.println(path + "\\"+uppDomainStr+"FormApiDto.java");
-            File file = new File(path + "\\"+uppDomainStr+"FormApiDto.java");
+            System.out.println(path + "\\"+uppDomainStr+"ApiDtoForm.java");
+            File file = new File(path + "\\"+uppDomainStr+"ApiDtoForm.java");
             if (!file.exists()) {
                 file.createNewFile();
             }
