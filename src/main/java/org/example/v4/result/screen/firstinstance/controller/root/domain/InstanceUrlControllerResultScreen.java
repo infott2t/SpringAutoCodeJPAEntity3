@@ -129,6 +129,7 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "             * Setter use ....\n" +
                 "             * */\n"
                 +setterString()+
+                "            "+domainStr+".setModifiedDate(LocalDateTime.now());\n" +
                 "            "+domainStr+".setCreatedDate(LocalDateTime.now());\n" +
                 "            "+domainStr+".setIsDel(\"N\");\n" +
                 "\n" +
