@@ -80,7 +80,7 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "        try {\n" +
                 "           boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
                 "        }catch (Exception e){\n" +
-                "            return \""+thymleafInitUrlDomainStr+"/\";\n" +
+                "            return \"redirect:"+thymleafInitUrlDomainStr+"/\";\n" +
                 "        }"+
                 "\n" +
                 "\n" +
@@ -101,7 +101,7 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "        try {\n" +
                 "           boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
                 "        }catch (Exception e){\n" +
-                "            return \""+thymleafInitUrlDomainStr+"/\";\n" +
+                "            return \"redirect:"+thymleafInitUrlDomainStr+"/\";\n" +
                 "        }"+
                 "\n" +
                 "\n" +
@@ -165,7 +165,7 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "        try {\n" +
                 "           boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
                 "        }catch (Exception e){\n" +
-                "            return \""+thymleafInitUrlDomainStr+"/\";\n" +
+                "            return \"redirect:"+thymleafInitUrlDomainStr+"/\";\n" +
                 "        }"+
                 "\n" +
                 "\n" +
