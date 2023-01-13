@@ -156,7 +156,19 @@ public class IndexHTMLContextStr {
                 "  <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js\" integrity=\"sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF\" crossorigin=\"anonymous\"></script>\n" +
                 "  -->\n" +
                 "<script src=\"/js/jquery-3.6.3.min.js\"></script>\n" +
-                " \n" +
+                " \n"+
+                "<script>\n" +
+                        "    $(document).ready(function(){\n" +
+                        "        $(\"#field\").change(function(){\n" +
+                        "            localStorage.setItem(\"field\", this.value);\n" +
+                        "        });\n" +
+                        "        if(localStorage.getItem(\"field\")){\n" +
+                        "            $(\"#field\").val(localStorage.getItem(\"field\"));\n" +
+                        "        }\n" +
+                        "\n" +
+                        "    });\n" +
+                        "\n" +
+                        "</script>"+
                 "</body>\n" +
                 "\n" +
                 "</html>";
@@ -192,10 +204,10 @@ public class IndexHTMLContextStr {
                 "                    </td>\n" +
                 "                    <th scope=\"row\" class=\"font-12\">&nbsp;등록일자</th>\n" +
                 "                    <td class=\"font-12\">\n" +
-                "                        <input type=\"text\" placeholder=\"시작일\" class=\"ico_date\" name=\"sdate\"\n" +
+                "                        <input type=\"date\" placeholder=\"시작일\" class=\"ico_date\" name=\"sdate\"\n" +
                 "                               id=\"datepicker1\" th:field=\"*{sdate}\" autocomplete=\"on\" style=\"width:100px;\">\n" +
                 "                        <span class=\"hypen\">~</span>\n" +
-                "                        <input type=\"text\" placeholder=\"종료일\" class=\"ico_date\" name=\"edate\"\n" +
+                "                        <input type=\"date\" placeholder=\"종료일\" class=\"ico_date\" name=\"edate\"\n" +
                 "                               id=\"datepicker2\" th:field=\"*{edate}\" autocomplete=\"on\" style=\"width:100px;\">\n" +
                 "                    </td>\n" +
                 "                    <td>\n" +
