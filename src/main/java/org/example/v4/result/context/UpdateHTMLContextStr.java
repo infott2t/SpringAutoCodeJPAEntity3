@@ -266,7 +266,7 @@ public class UpdateHTMLContextStr {
                 "          <tbody>\n" +
                 "            <tr>\n" +
                 "              <td text-align=\"right\">\n" +
-                "                                <p class=\"font-12\">&#8251;칼럼, AddressStrId, PhoneStrId는 id숫자 입력. 없는경우, 빈칸입력.</p>\n" +
+                "                                <p class=\"font-12\">&#8251;칼럼 id, isDel 입력안됨.</p>\n" +
                 "              </td>\n" +
                 "            </tr>\n" +
                 "          </tbody>\n" +

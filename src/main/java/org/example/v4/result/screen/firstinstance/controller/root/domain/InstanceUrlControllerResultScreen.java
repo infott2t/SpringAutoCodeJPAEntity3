@@ -75,8 +75,13 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "    public String index(Model model, "+uppDomainStr+"SearchCondition condition,\n" +
                 "                        @RequestParam(value=\"page\", required=false) Integer page,\n" +
                 "                        @PageableDefault(size= 10)Pageable pageable) throws Exception {\n" +
-                "\n" +
-                "        Page<"+uppDomainStr+"ApiDto> boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
+                "\n" +"" +
+                "        Page<"+uppDomainStr+"ApiDto> boards = null;\n" +
+                "        try {\n" +
+                "           boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
+                "        }catch (Exception e){\n" +
+                "            return \""+thymleafInitUrlDomainStr+"/\";\n" +
+                "        }"+
                 "\n" +
                 "\n" +
                 "        model.addAttribute(\"boards\", boards);\n" +
@@ -91,7 +96,14 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "                         @RequestParam(value=\"page\", required=false) Integer page,\n" +
                 "                         @PageableDefault(size= 10)Pageable pageable) throws Exception{\n" +
                 "\n" +
-                "        Page<"+uppDomainStr+"ApiDto> boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
+                "\n" +"" +
+                "        Page<"+uppDomainStr+"ApiDto> boards = null;\n" +
+                "        try {\n" +
+                "           boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
+                "        }catch (Exception e){\n" +
+                "            return \""+thymleafInitUrlDomainStr+"/\";\n" +
+                "        }"+
+                "\n" +
                 "\n" +
                 "\n" +
                 "        model.addAttribute(\"boards\", boards);\n" +
@@ -112,7 +124,7 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "\n" +
                 "        try {\n" +
                // "            "+domainStr+" = new "+uppDomainStr+"();\n" +
-                "             coperation = Coperation.builder().build();"+
+                "             "+domainStr+" = "+uppDomainStr+".builder().build();"+
                 "            /**\n" +
                 "             * Setter use ....\n" +
                 "             * */\n"
@@ -148,8 +160,13 @@ public class InstanceUrlControllerResultScreen extends JFrame {
                 "    public String update(Model model, @RequestParam(value=\"id\")Long id, "+uppDomainStr+"SearchCondition condition,\n" +
                 "                         @RequestParam(value=\"page\", required=false) Integer page,\n" +
                 "                         @PageableDefault(size= 10)Pageable pageable) throws Exception{\n" +
-                "        \n" +
-                "        Page<"+uppDomainStr+"ApiDto> boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
+                "\n" +"" +
+                "        Page<"+uppDomainStr+"ApiDto> boards = null;\n" +
+                "        try {\n" +
+                "           boards = "+domainStr+"Service.searchAllV2(condition, pageable);\n" +
+                "        }catch (Exception e){\n" +
+                "            return \""+thymleafInitUrlDomainStr+"/\";\n" +
+                "        }"+
                 "\n" +
                 "\n" +
                 "        model.addAttribute(\"boards\", boards);\n" +
