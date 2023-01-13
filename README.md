@@ -1,4 +1,4 @@
-# SpringAutoCodeJPAEntity3 (개발완료)
+# SpringAutoCodeJPAEntity3 
 
 WebProgramming, SpringBoot JPA + QueryDSL.
 
