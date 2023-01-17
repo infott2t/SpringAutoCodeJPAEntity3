@@ -1,4 +1,4 @@
-# SpringAutoCodeJPAEntity3 (개발중...)
+# SpringAutoCodeJPAEntity3 
 
 WebProgramming, SpringBoot JPA + QueryDSL.
 
@@ -35,7 +35,9 @@ templates/firstinstance/index.html 파일.
 
 *File making on C:\category. 
 
-개발중에 있네요~. 2023년 1월 12일. 
+개발 완료했습니다. 2023년 1월 14일 토요일.
+
+사용방법은 여기를 참조해보세요. <a href="https://tt2t2am.tistory.com/12">https://tt2t2am.tistory.com/12</a>
 
 좋은 개발, 좋은 하루되세요. 이렇게 정보공유를 하면 뭔가 편해지는 기분이 듬니다. 
 
