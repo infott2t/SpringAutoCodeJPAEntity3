@@ -1,5 +1,6 @@
 package org.example.v4;
 
+import org.example.themes.MyFlatLaf;
 import org.example.v4.result.screen.firstinstance.controller.root.RootIndexControllerResultScreen;
 import org.example.v4.result.screen.firstinstance.controller.root.domain.InstanceUrlControllerResultScreen;
 import org.example.v4.result.screen.firstinstance.controller.root.form.ApiDtoFormResultScreen;
@@ -216,7 +217,7 @@ public class Sys04 extends JFrame{
 
 
     public static void main(String[] args){
-
+        MyFlatLaf.setup();
         new Sys04();
     }
 }
