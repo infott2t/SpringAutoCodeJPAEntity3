@@ -250,6 +250,7 @@ public class Sys05 extends JFrame{
                  new ResultScreen("RootIndex", rootIndexStr, folderStrFrontend, domainStr, usv);
                  //new RootIndexResultScreen(usv);
                  String indexStr = usv.makeIndex();
+                 folderStrFrontend = folderStrFrontend + "\\"+usv.toAllLowerCase(domainStr)+"\\";
                  new ResultScreen("Index", indexStr, folderStrFrontend, domainStr, usv);
                  //new IndexHTMLResultScreen(usv);
                  //new InsertHTMLResultScreen(usv);

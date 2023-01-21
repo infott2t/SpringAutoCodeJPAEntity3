@@ -77,6 +77,9 @@ public class ResultScreen extends JFrame {
             }else if(title.equals("RootIndex")){
                 file = new File(folderStr + "index.html");
                 setTitle("@"+ title + " : /templates/firstInstance/index.html");
+            }else if(title.equals("Index")){
+                file = new File(folderStr+ "index.html");
+                setTitle("@"+ title + " : /templates/firstInstance/" + usv.toLowerFirst(domainStr) + "/index.html");
             }
 
             if (!file.exists()) {
