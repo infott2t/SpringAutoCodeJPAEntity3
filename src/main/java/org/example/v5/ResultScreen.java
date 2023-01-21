@@ -80,6 +80,9 @@ public class ResultScreen extends JFrame {
             }else if(title.equals("Index")){
                 file = new File(folderStr+ "index.html");
                 setTitle("@"+ title + " : /templates/firstInstance/" + usv.toLowerFirst(domainStr) + "/index.html");
+            }else if(title.equals("Insert")){
+                file = new File(folderStr+ "insert.html");
+                setTitle("@"+ title + " : /templates/firstInstance/" + usv.toLowerFirst(domainStr) + "/insert.html");
             }
 
             if (!file.exists()) {
