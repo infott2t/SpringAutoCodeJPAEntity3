@@ -83,8 +83,19 @@ public class ResultScreen extends JFrame {
             }else if(title.equals("Insert")){
                 file = new File(folderStr+ "insert.html");
                 setTitle("@"+ title + " : /templates/firstInstance/" + usv.toLowerFirst(domainStr) + "/insert.html");
+            }else if(title.equals("Update")){
+                file = new File(folderStr+ "update.html");
+                setTitle("@"+ title + " : /templates/firstInstance/" + usv.toLowerFirst(domainStr) + "/update.html");
+            }else if(title.equals("RootIndexController")){
+                file = new File(folderStr + "InstanceUrlController.java");
+                setTitle("@"+ title + " : firstinstance.controller.firstinstanceurl.InstanceUrlController.java");
+            }else if(title.equals("IndexController")){
+                file = new File(folderStr + "InstanceUrl"+usv.toUpperFirst(domainStr) + "Controller.java");
+                setTitle("@"+ title + " : firstinstance.controller.firstinstanceurl.domain." + usv.toAllLowerCase(domainStr) + ".InstanceUrl"+usv.toUpperFirst(domainStr)+"Controller.java");
+            }else if(title.equals("ApiDtoForm")){
+                file = new File(folderStr + usv.toUpperFirst(domainStr) + "ApiDtoForm.java");
+                setTitle("@"+ title + " : firstinstance.controller.firstinstanceurl.form."+usv.toUpperFirst(domainStr)+"ApiDtoForm.java");
             }
-
             if (!file.exists()) {
                 file.createNewFile();
             }

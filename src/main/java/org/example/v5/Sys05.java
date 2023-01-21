@@ -241,22 +241,24 @@ public class Sys05 extends JFrame{
                  *                                      update.html.  UpdateHTMLResultScreen(usv)
                  * */
 
-                //Make folder Front-end. c:/category/print-[MMdd-HHmmss]/firstInstance/[domainStr]/
+                //Make folder Front-end. c:/category/[domainStr]-[MMdd-HHmmss]/firstInstance/[domainStr]/
 
                  String folderStrFrontend = folderStr +"\\templates\\firstInstance\\";
                  //String folderStrFrontend = folderStr +"\\templates\\firstInstance\\"+usv.toAllLowerCase(domainStr)+"\\";
 
                  String rootIndexStr = usv.makeRootIndex();
                  new ResultScreen("RootIndex", rootIndexStr, folderStrFrontend, domainStr, usv);
-                 //new RootIndexResultScreen(usv);
+
                  String indexStr = usv.makeIndex();
                  folderStrFrontend = folderStrFrontend + "\\"+usv.toAllLowerCase(domainStr)+"\\";
                  new ResultScreen("Index", indexStr, folderStrFrontend, domainStr, usv);
-                 //new IndexHTMLResultScreen(usv);
+
                  String insertStr = usv.makeInsert();
                  new ResultScreen("Insert", insertStr, folderStrFrontend, domainStr, usv);
-                 //new InsertHTMLResultScreen(usv);
-                 //new UpdateHTMLResultScreen(usv);
+
+                 String updateStr = usv.makeUpdate();
+                 new ResultScreen("Update", updateStr, folderStrFrontend, domainStr, usv);
+
 
                  /**
                   * URL Controller and Dto, ApiDtoForm. Files.  3 Files.
@@ -275,9 +277,21 @@ public class Sys05 extends JFrame{
                   *  src.main.java.org.example.firstinstanceurl.form
                   *                                                               [domainStr]ApiDtoForm.java, ApiDtoFormResultScreen(usv)
                   * **/
+                //Make folder Front-end-controller. c:/category/[domainStr]-[MMdd-HHmmss]/firstInstance/[domainStr]/
 
+                String folderStrFrontendCont = folderStr +"\\firstinstance\\controller\\firstinstanceurl\\";
+                String folderStrFrontendContDomain = folderStrFrontendCont +"domain\\"+ usv.toAllLowerCase(domainStr)+"\\";
+                String folderStrFrontendContForm = folderStrFrontendCont +"form\\";
+
+
+                String rootIndexControllerStr = usv.makeRootIndexController();
+                new ResultScreen("RootIndexController", rootIndexControllerStr, folderStrFrontendCont, domainStr, usv);
                  //new RootIndexControllerResultScreen(usv);
+                String indexControllerStr = usv.makeIndexController();
+                new ResultScreen("IndexController", indexControllerStr, folderStrFrontendContDomain, domainStr, usv);
                  //new InstanceUrlControllerResultScreen(usv);
+                String apiDtoFormStr = usv.makeApiDtoForm();
+                new ResultScreen("ApiDtoForm", apiDtoFormStr, folderStrFrontendContForm, domainStr, usv);
                  //new ApiDtoFormResultScreen(usv);
 
 
