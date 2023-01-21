@@ -369,6 +369,7 @@ public class UtilStaticV5 {
                 "import java.util.List;\n" +
                 "\n" +
                 "import static org.example.domain.....Q"+toUpperFirst(domainStr)+"."+toLowerFirst(domainStr)+";\n" +
+                implImportStatic()+
 
                 "import static org.springframework.util.StringUtils.hasText;\n" +
                 "\n" +
@@ -478,6 +479,18 @@ public class UtilStaticV5 {
                 "        return content;\n" +
                 "    }\n" +
                 "}";
+        return result;
+    }
+
+    private String implImportStatic() {
+        //  "import static org.example.domain.....Q"+toUpperFirst(domainStr)+"."+toLowerFirst(domainStr)+";\n" +
+        String result = "";
+        if(foreignCols!=null){
+            for(int i=0;i<foreignCols.length;i++){
+                result += "import static org.example.domain.....Q"+toUpperFirst(foreignCols[i])+"."+toLowerFirst(foreignCols[i])+";\n";
+            }
+
+        }
         return result;
     }
 
@@ -897,6 +910,242 @@ public class UtilStaticV5 {
                 "    private String edate;\n" +
                 "}\n";
 
+        return result;
+    }
+
+    public String makeInsert() {
+        String result = "";
+        result = "" +
+                "<!doctype html>\n" +
+                "<html lang=\"ko\" xmlns:th=\"http://www.thymeleaf.org\">\n" +
+                "\n" +
+                "<head>\n" +
+                "    <!-- Required meta tags -->\n" +
+                "    <meta charset=\"utf-8\">\n" +
+                "    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n" +
+                "\n" +
+                "    <!-- Bootstrap CSS -->\n" +
+                "    <link href=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css\" rel=\"stylesheet\"\n" +
+                "          integrity=\"sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC\" crossorigin=\"anonymous\">\n" +
+                "    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css\">\n" +
+                "\n" +
+                "    <title>Entity Data CRUD First Instance</title>\n" +
+                "    <style>\n" +
+                "        .navbar-brand {\n" +
+                "            font-size: 1rem;\n" +
+                "        }\n" +
+                "        .logo{\n" +
+                "            color: black;\n" +
+                "        }\n" +
+                "        .font-12{\n" +
+                "            font-size: 12px;\n" +
+                "        }\n" +
+                "        ul>li{\n" +
+                "            font-size:12px;\n" +
+                "        }    </style>\n" +
+                "\n" +
+                "</head>\n" +
+                "\n" +
+                "<body>\n" +
+                "<div class=\"container\">\n" +
+                "\n" +
+                "    <br/>\n" +
+                "    <div style=\"padding-bottom:5px;\" class=\"d-flex align-items-center\">\n" +
+                "        <a class=\"btn btn-sm btn-link\" style=\"padding-top:9px;\" th:href=\"@{/administer/instanceurl}\"><i class=\"bi bi-chevron-double-left fa-3x\"></i></a><a th:href=\"@{/administer/instanceurl/table01}\">\n" +
+                "        <span style=\"font-size:25px;\" >table01 테이블</span></a>\n" +
+                "    </div>\n" +
+                "    <br/>\n" +
+                "    <form name=\"search_form\" th:action=\"@{/administer/instanceurl/table01}\" method=\"get\" role=\"form\" th:object=\"${condition}\" class=\"d-flex justify-content-evenly\">\n" +
+                "        <table style=\"width:670px;\" class=\"border border-5 d-flex justify-content-evenly caption-top\">\n" +
+                "\n" +
+                "            <tbody>\n" +
+                "            <tr class=\" d-flex align-items-center\">\n" +
+                "                <td class=\"font-12\" style=\"width:40px;\">키워드</td>\n" +
+                "                <td class=\"font-12 d-flex align-items-center\" style=\"width:190px;\">\n" +
+                "                    <select id=\"field\" name=\"field\" style=\"width:80px;\" title=\"키워드 선택\" autocomplete=\"on\" >\n" +
+                "                        <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n" +
+                "                    </select>\n" +
+                "                    &nbsp;\n" +
+                "                    <input class=\"font-12\" style=\"width:110px;\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\"  style=\"vertical-align: top; width:100px;\">\n" +
+                "                </td>\n" +
+                "                <td class=\"font-12\" style=\"width:70px;\">&nbsp;&nbsp;&nbsp;&nbsp;등록일자</td>\n" +
+                "                <td class=\"font-12\" style=\"width:250px;\">&nbsp;\n" +
+                "                    <input type=\"date\" placeholder=\"시작일\" class=\"ico_date\" name=\"sdate\"\n" +
+                "                           id=\"datepicker1\" th:field=\"*{sdate}\" autocomplete=\"on\" style=\"width:100px;\">\n" +
+                "                    <span class=\"hypen\">~</span>\n" +
+                "                    <input type=\"date\" placeholder=\"종료일\" class=\"ico_date\" name=\"edate\"\n" +
+                "                           id=\"datepicker2\" th:field=\"*{edate}\" autocomplete=\"on\" style=\"width:100px;\">\n" +
+                "                </td>\n" +
+                "                <td style=\"width:50px;\">\n" +
+                "                    &nbsp;<button class=\"btn btn-success btn-sm font-12\">검색</button>\n" +
+                "                </td>\n" +
+                "                <td>\n" +
+                "                    &nbsp;<a class=\"btn btn-sm btn-primary font-12\" th:href=\"@{/administer/instanceurl/table01/insert}\">쓰기</a>&nbsp;\n" +
+                "                </td>\n" +
+                "            </tr>\n" +
+                "            </tbody>\n" +
+                "        </table>\n" +
+                "\n" +
+                "    </form>\n" +
+                "    <br/>\n" +
+                "\n" +
+                "    <table class=\"table table-sm\" style=\"font-size: 12px;\">\n" +
+                "        <thead>\n" +
+                "        <tr>\n" +
+                "            <th>id</th>\n" +
+                "            <th>zipcode</th>\n" +
+                "            <th>addr1</th>\n" +
+                "            <th>addr2</th>\n" +
+                "            <th>addrFull</th>\n" +
+                "            <th>isDel</th>\n" +
+                "            <th>수정일</th>\n" +
+                "            <th>생성일</th>\n" +
+                "            <th></th>\n" +
+                "            <th></th>\n" +
+                "        </tr>\n" +
+                "        </thead>\n" +
+                "        <tbody>\n" +
+                "\n" +
+                "\n" +
+                "        <form  th:action=\"@{/administer/instanceurl/addressStr/insert_2}\" th:object=\"${userForm}\" method=\"post\" >\n" +
+                "\n" +
+                "            <tr>\n" +
+                "                <td><input type=\"text\" th:field=\"*{id}\" size=\"2\" readonly/></td>\n" +
+                "                <td><input type=\"text\" th:field=\"*{zipCode}\" /></td>\n" +
+                "                <td><input type=\"text\" th:field=\"*{addr1}\" /></td>\n" +
+                "                <td><input type=\"text\" th:field=\"*{addr2}\" /></td>\n" +
+                "                <td><input type=\"text\" th:field=\"*{addrFull}\" /></td>\n" +
+                "                <td><input type=\"text\" th:field=\"*{isDel}\" /></td>\n" +
+                "                <td th:text=\"${#temporals.format(userForm.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
+                "                <td th:text=\"${#temporals.format(userForm.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
+                "\n" +
+                "                <td><button type=\"submit\" class=\"btn btn-sm btn-primary font-12\">입력</button></td>\n" +
+                "                <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{/administer/instanceurl/addressStr/}\">취소</a></td>\n" +
+                "            </tr>\n" +
+                "        </form>\n" +
+                "\n" +
+                "        <tr>\n" +
+                "            <td colspan=\"14\">\n" +
+                "                <table>\n" +
+                "                    <tbody>\n" +
+                "                    <tr>\n" +
+                "                        <td text-align=\"right\">\n" +
+                "                            <p class=\"font-12\">&#8251;칼럼 id, isDel입력 안됨. addrFull의 경우 자동입력됨. 전체주소.</p>\n" +
+                "                        </td>\n" +
+                "                    </tr>\n" +
+                "                    </tbody>\n" +
+                "                </table>\n" +
+                "            </td>\n" +
+                "        </tr>\n" +
+                "        <tr th:each=\"board : ${boards}\">\n" +
+                "            <td th:text=\"${board.id}\"></td>\n" +
+                "            <td th:text=\"${board.zipCode}\"></td>\n" +
+                "            <td th:text=\"${board.addr1}\"></td>\n" +
+                "            <td th:text=\"${board.addr2}\"></td>\n" +
+                "            <td th:text=\"${board.addrFull}\"></td>\n" +
+                "            <td th:text=\"${board.isDel}\"></td>\n" +
+                "            <td th:text=\"${ #temporals.format(board.modifiedDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
+                "            <td th:text=\"${ #temporals.format(board.createdDate, 'yyyy-MM-dd HH:mm')}\"></td>\n" +
+                "\n" +
+                "            <td><a class=\"btn btn-sm btn-success font-12\" th:href=\"@{/administer/instanceurl/addressStr/update(id=${board.id})}\"  >수정</a></td>\n" +
+                "            <td><a class=\"btn btn-sm btn-danger font-12\" th:href=\"@{/administer/instanceurl/addressStr/delete(id=${board.id})}\"  >삭제</a></td>\n" +
+                "        </tr>\n" +
+                "        </tbody>\n" +
+                "    </table>\n" +
+                "    <!-- 페이징 -->\n" +
+                "    <div th:if=\"${!boards.isEmpty()}\">\n" +
+                "        <!-- 전역 변수 선언 -->\n" +
+                "        <nav\n" +
+                "                th:with=\"\n" +
+                "                pageNumber = ${boards.pageable.pageNumber},\n" +
+                "                pageSize = ${boards.pageable.pageSize},\n" +
+                "                totalPages = ${boards.totalPages},\n" +
+                "                startPage = ${T(Math).floor(pageNumber / pageSize) * pageSize + 1},\n" +
+                "                tempEndPage = ${startPage + pageSize - 1},\n" +
+                "                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})\"\n" +
+                "                aria-label=\"Page navigation\"\n" +
+                "        >\n" +
+                "            <ul class=\"pagination \" style=\"justify-content:center;\">\n" +
+                "                <!-- 처음으로 이동 -->\n" +
+                "                <li th:classappend=\"${pageNumber < pageSize} ? 'disabled'\" class=\"page-item\">\n" +
+                "                    <a class=\"page-link\" th:href=\"@{/administer/instanceurl/table01(page=0)}\">\n" +
+                "                        <span>&laquo;</span>\n" +
+                "                        <span class=\"sr-only\">First</span>\n" +
+                "                    </a>\n" +
+                "                </li>\n" +
+                "\n" +
+                "                <!-- 이전으로 이동 -->\n" +
+                "                <li th:classappend=\"${boards.first} ? 'disabled'\" class=\"page-item\">\n" +
+                "                    <a class=\"page-link\" th:href=\"${boards.first} ? '#' : @{/administer/instanceurl/table01(page=${pageNumber - 1})}\" aria-label=\"Previous\">\n" +
+                "                        <span aria-hidden=\"true\">&lt;</span>\n" +
+                "                        <span class=\"sr-only\">Previous</span>\n" +
+                "                    </a>\n" +
+                "                </li>\n" +
+                "\n" +
+                "                <!-- 특정 페이지로 이동 -->\n" +
+                "                <li th:each=\"page: ${#numbers.sequence(startPage, endPage)}\" th:classappend=\"${page == pageNumber + 1} ? 'active'\" class=\"page-item\">\n" +
+                "                    <a th:text=\"${page}\" class=\"page-link\" th:href=\"@{/administer/instanceurl/table01(page=${page - 1})}\"></a>\n" +
+                "                </li>\n" +
+                "\n" +
+                "                <!-- 다음으로 이동 -->\n" +
+                "                <li th:classappend=\"${boards.last} ? 'disabled'\" class=\"page-item\">\n" +
+                "                    <a class=\"page-link\" th:href=\"${boards.last} ? '#' : @{/administer/instanceurl/table01(page=${pageNumber + 1})}\" aria-label=\"Next\">\n" +
+                "                        <span aria-hidden=\"true\">&gt;</span>\n" +
+                "                        <span class=\"sr-only\">Next</span>\n" +
+                "                    </a>\n" +
+                "                </li>\n" +
+                "\n" +
+                "                <!-- 마지막으로 이동 -->\n" +
+                "                <li th:classappend=\" ${T(Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
+                "                    <a class=\"page-link\" th:href=\"@{/administer/instanceurl/table01(page=${totalPages - 1})}\">\n" +
+                "                        <span>&raquo;</span>\n" +
+                "                        <span class=\"sr-only\">Last</span>\n" +
+                "                    </a>\n" +
+                "                </li>\n" +
+                "            </ul>\n" +
+                "        </nav>\n" +
+                "    </div> <!-- /페이징 -->\n" +
+                "\n" +
+                "\n" +
+                "</div>\n" +
+                "<br />\n" +
+                "\n" +
+                "</div>\n" +
+                "<div class=\"fixed-bottom\">\n" +
+                "    <nav class=\"navbar navbar-expand bg-light \">\n" +
+                "        <div class=\"container-fluid \">\n" +
+                "            <span class=\"navbar-brand\" href=\"#\">Entity, CRUD </span>&nbsp;&nbsp;&nbsp;\n" +
+                "            <a class=\"navbar-brand logo\" href=\"https://github.com/infott2t/SpringAutoCodeJPAEntity3\">@infott2t <svg style=\"margin-bottom:4px;\" xmlns=\"http://www.w3.org/2000/svg\" width=\"20\" height=\"20\" fill=\"currentColor\" class=\"bi bi-github\" viewBox=\"0 0 16 16\">\n" +
+                "                <path d=\"M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z\"/>\n" +
+                "            </svg></a>\n" +
+                "\n" +
+                "        </div>\n" +
+                "    </nav>\n" +
+                "</div>\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "<!-- Optional JavaScript; choose one of the two! -->\n" +
+                "\n" +
+                "<!-- Option 1: Bootstrap Bundle with Popper -->\n" +
+                "<script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js\"\n" +
+                "        integrity=\"sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM\"\n" +
+                "        crossorigin=\"anonymous\"></script>\n" +
+                "\n" +
+                "<!-- Option 2: Separate Popper and Bootstrap JS -->\n" +
+                "<!--\n" +
+                "  <script src=\"https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js\" integrity=\"sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p\" crossorigin=\"anonymous\"></script>\n" +
+                "  <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js\" integrity=\"sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF\" crossorigin=\"anonymous\"></script>\n" +
+                "  -->\n" +
+                "<script src=\"https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js\"></script>\n" +
+                "<script>\n" +
+                "    <!--JQuery-->\n" +
+                "\n" +
+                "</script>\n" +
+                "</body>\n" +
+                "\n" +
+                "</html>";
         return result;
     }
 }

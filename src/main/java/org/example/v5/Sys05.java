@@ -198,10 +198,10 @@ public class Sys05 extends JFrame{
                  *  Make Entity, ApiDto, Repository, RepositoryCustom, RepositoryImpl, Service.
                  * **/
 
-                //folder make. c:/category/print-[MMdd-HHmmss]/
+                //folder make. c:/category/[domainStr]-[MMdd-HHmmss]/
                 LocalDateTime now = LocalDateTime.now();
                 String dateStr = now.format(DateTimeFormatter.ofPattern("MMdd-HHmmss"));
-                String folderStr = "c:\\category\\"+"print-"+dateStr;
+                String folderStr = "c:\\category\\"+usv.toLowerFirst(domainStr)+"-"+dateStr;
 
                 //Make folder Back-end. c:/category/print-[MMdd-HHmmss]/[domainStr]/
                 String folderStrBackend = folderStr +"\\"+usv.toAllLowerCase(domainStr)+"\\";
@@ -253,6 +253,8 @@ public class Sys05 extends JFrame{
                  folderStrFrontend = folderStrFrontend + "\\"+usv.toAllLowerCase(domainStr)+"\\";
                  new ResultScreen("Index", indexStr, folderStrFrontend, domainStr, usv);
                  //new IndexHTMLResultScreen(usv);
+                 String insertStr = usv.makeInsert();
+                 new ResultScreen("Insert", insertStr, folderStrFrontend, domainStr, usv);
                  //new InsertHTMLResultScreen(usv);
                  //new UpdateHTMLResultScreen(usv);
 
