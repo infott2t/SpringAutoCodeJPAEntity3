@@ -41,5 +41,7 @@ templates/firstinstance/index.html 파일.
 
 좋은 개발, 좋은 하루되세요. 이렇게 정보공유를 하면 뭔가 편해지는 기분이 듬니다. 
 
+기부하실 분은... 여기에 해주세요. <a href="https://www.paypal.com/paypalme/jcoop45">페이팔 기부</a>
+
 저의 Github, 봐 주셔서 감사합니다.
 
