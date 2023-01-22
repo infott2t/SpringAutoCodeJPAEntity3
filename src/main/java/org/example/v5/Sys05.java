@@ -64,7 +64,7 @@ public class Sys05 extends JFrame{
         jsp2 = new JScrollPane(jta2);
         jsp2.setPreferredSize(new Dimension(480,100));
         jtf2 = new JTextField(27);
-        jl4 = new JLabel("Spring Mapping. foreign key. ex) UserOne userONe; Post post; --> UserOne,Post");
+        jl4 = new JLabel("Spring Mapping. foreign key. ex) UserOne userOne; Post post; --> UserOne,Post");
         //jtf3 = new JTextField(20);
         jl5 = new JLabel("Starting Controller url: ");
         jtf4 = new JTextField();
