@@ -39,7 +39,7 @@ templates/firstinstance/index.html 파일.
 
 사용방법은 여기를 참조해보세요. <a href="https://tt2t2am.tistory.com/12">https://tt2t2am.tistory.com/12</a>
 
-V5의 버젼은 백앤드, 프론트앤드 다 만들어 줌니다. 참조, <a href=https://tt2t2am.tistory.com/16"">https://tt2t2am.tistory.com/16</a>
+V5의 버젼은 백앤드, 프론트앤드 다 만들어 줌니다. 참조, <a href="https://tt2t2am.tistory.com/16">https://tt2t2am.tistory.com/16</a>
 
 기부하실 분은... 여기에 해주세요. Donation, <a href="https://www.paypal.com/paypalme/jcoop45">페이팔 기부</a>
 
