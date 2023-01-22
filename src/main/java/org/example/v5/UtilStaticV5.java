@@ -88,7 +88,7 @@ public class UtilStaticV5 {
                 "public class "+toUpperFirst(domainStr)+" {\n" +
                 "\n" +
                 "    @Id\n" +
-                "    @GeneratedValue(strategy = GenerationType.AUTO)\n" +
+                "    @GeneratedValue(strategy = GenerationType.IDENTITY)\n" +
                 "    @Column(name = \""+toUpp_Upp(domainStr)+"_ID\")\n" +
                 "    private Long id;\n" +
                 "\n"
