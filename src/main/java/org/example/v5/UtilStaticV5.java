@@ -1709,8 +1709,8 @@ public class UtilStaticV5 {
             for (int i = 0; i < foreignCols.length; i++) {
                 result += "        if(userForm.get"+toUpperFirst(foreignCols[i])+"Id()!=null){\n" +
                         "            try{\n" +
-                        "                "+foreignCols[i]+" = "+foreignCols[i]+"Service.findById(userForm.get"+toUpperFirst(foreignCols[i])+"Id());\n" +
-                        "                "+toLowerFirst(domainStr)+".set"+toUpperFirst(foreignCols[i])+"("+foreignCols[i]+");\n" +
+                        "                "+toLowerFirst(foreignCols[i])+" = "+toLowerFirst(foreignCols[i])+"Service.findById(userForm.get"+toUpperFirst(foreignCols[i])+"Id());\n" +
+                        "                "+toLowerFirst(domainStr)+".set"+toUpperFirst(foreignCols[i])+"("+toLowerFirst(foreignCols[i])+");\n" +
                         "            }catch(Exception e){\n" +
                         "                return \"redirect:"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"/insert\";\n" +
                         "            }\n" +
@@ -1758,7 +1758,7 @@ public class UtilStaticV5 {
             if(colNames[i].equals("id") || colNames[i].equals("createdDate") || colNames[i].equals("modifiedDate")){
 
             }else{
-                result += "             "+toUpperFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                result += "             "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
             }
         }
         return result;
@@ -1770,7 +1770,7 @@ public class UtilStaticV5 {
         String result = "";
         if(foreignCols!=null){
             for (int i = 0; i < foreignCols.length; i++) {
-                result += "            if("+foreignCols[i]+" !=null){"+toLowerFirst(domainStr)+".set"+toUpperFirst(foreignCols[i])+"("+toLowerFirst(foreignCols[i])+");}\n";
+                result += "            if("+toLowerFirst(foreignCols[i])+" !=null){"+toLowerFirst(domainStr)+".set"+toUpperFirst(foreignCols[i])+"("+toLowerFirst(foreignCols[i])+");}\n";
             }
         }
         return result;
