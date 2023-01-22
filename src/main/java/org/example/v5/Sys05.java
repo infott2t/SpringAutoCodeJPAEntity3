@@ -243,8 +243,8 @@ public class Sys05 extends JFrame{
 
                 //Make folder Front-end. c:/category/[domainStr]-[MMdd-HHmmss]/firstInstance/[domainStr]/
 
-                 String folderStrFrontend = folderStr +"\\templates\\firstInstance\\";
-                 //String folderStrFrontend = folderStr +"\\templates\\firstInstance\\"+usv.toAllLowerCase(domainStr)+"\\";
+                 String folderStrFrontend = folderStr +"\\templates\\firstinstance\\";
+                 //String folderStrFrontend = folderStr +"\\templates\\firstinstance\\"+usv.toAllLowerCase(domainStr)+"\\";
 
                  String rootIndexStr = usv.makeRootIndex();
                  new ResultScreen("RootIndex", rootIndexStr, folderStrFrontend, domainStr, usv);

@@ -603,9 +603,9 @@ public class UtilStaticV5 {
                 "    <h2>Entity Data CRUD First Instance</h2>\n" +
                 "    <br />\n" +
                 "    <br/>\n" +
-                "    <p><a th:href=\"@{"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"}\">Move table, "+domainStr+"</a></p>\n" +
+                "    <p>Move table, <a th:href=\\\"@{\"+thymleafInitUrl+\"/\"+toLowerFirst(domainStr)+\"}\\\">"+domainStr+"</a></p>\n" +
                 "<!-- Add, link...-->\n" +
-                "    <!-- <p><a th:href=\"@{/administer/instanceurl/[domain]}\">Move talbe, [domain]</a></p> -->\n" +
+                "    <!-- <p>Move talbe, <a th:href=\"@{/administer/instanceurl/[domain]}\">[domain]</a></p> -->\n" +
                 "\n" +
                 "\n" +
                 "</div>\n" +
@@ -708,7 +708,7 @@ public class UtilStaticV5 {
                // "                        <option th:value=\"addr2\" th:selected=\"${#strings.trim(param.field) eq 'addr2'}\">상세주소</option>\n" +
                 "                    </select>\n" +
                 "                    &nbsp;\n" +
-                "                    <input class=\"font-12\" style=\"width:110px;\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\"  style=\"vertical-align: top; width:100px;\">\n" +
+                "                    <input class=\"font-12\" style=\"width:110px;\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\" >\n" +
                 "                </td>\n" +
                 "                <td class=\"font-12\" style=\"width:70px;\">&nbsp;&nbsp;&nbsp;&nbsp;등록일자</td>\n" +
                 "                <td class=\"font-12\" style=\"width:250px;\">&nbsp;\n" +
@@ -966,7 +966,7 @@ public class UtilStaticV5 {
                 "                        <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n" +
                 "                    </select>\n" +
                 "                    &nbsp;\n" +
-                "                    <input class=\"font-12\" style=\"width:110px;\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\"  style=\"vertical-align: top; width:100px;\">\n" +
+                "                    <input class=\"font-12\" style=\"width:110px;\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\" >\n" +
                 "                </td>\n" +
                 "                <td class=\"font-12\" style=\"width:70px;\">&nbsp;&nbsp;&nbsp;&nbsp;등록일자</td>\n" +
                 "                <td class=\"font-12\" style=\"width:250px;\">&nbsp;\n" +
@@ -1174,7 +1174,7 @@ public class UtilStaticV5 {
         }
         if(foreignCols!=null){
             for(int i=0; i<foreignCols.length;i++){
-                result += "                <td><input type=\"text\" th:field=\"{userForm."+toLowerFirst(foreignCols[i])+"Id}\" style=\"width:50px;\" /></td>\n";
+                result += "                <td><input type=\"text\" th:field=\"${userForm."+toLowerFirst(foreignCols[i])+"Id}\" style=\"width:50px;\" /></td>\n";
             }
         }
 
@@ -1267,7 +1267,7 @@ public class UtilStaticV5 {
                 "                        <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n" +
                 "                    </select>\n" +
                 "                    &nbsp;\n" +
-                "                    <input class=\"font-12\" style=\"width:110px;\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\"  style=\"vertical-align: top; width:100px;\">\n" +
+                "                    <input class=\"font-12\" style=\"width:110px;\" type=\"text\" title=\"키워드\" placeholder=\"키워드명 입력\" name=\"s\" th:field=\"*{s}\" autocomplete=\"on\" >\n" +
                 "                </td>\n" +
                 "                <td class=\"font-12\" style=\"width:70px;\">&nbsp;&nbsp;&nbsp;&nbsp;등록일자</td>\n" +
                 "                <td class=\"font-12\" style=\"width:250px;\">&nbsp;\n" +
@@ -1469,7 +1469,7 @@ public class UtilStaticV5 {
         }
         if(foreignCols!=null){
             for(int i=0; i<foreignCols.length;i++){
-                result += "                <td><input type=\"text\" th:field=\"{userForm."+toLowerFirst(foreignCols[i])+"Id}\" style=\"width:50px;\" /></td>\n";
+                result += "                <td><input type=\"text\" th:field=\"${userForm."+toLowerFirst(foreignCols[i])+"Id}\" style=\"width:50px;\" /></td>\n";
             }
         }
 
