@@ -39,8 +39,8 @@ public class ReadMeScreen2 extends JFrame {
                 "* Entity Long id, is not changed. Fisrt writing on. Cause, Html code, in using 'id'.\n" +
                 "* 엔티티의 Long id는 변경할 수 없고, 맨위에 적어주세요. Html 코드에서 'id'로 사용하고 있습니다.(Korean language)\n"+
                 "\n"+
-                "* Generate file, need package. ex) package org.example. ...;\n"+
-                "* 생성된 파일은 package가 필요합니다. ex) package org.example. ...;\n\n"+
+                "* Generate file, need package. or, root package writing. ex) org.example.projectname\n"+
+                "* 생성된 파일은 package가 필요합니다. 또는, root package를 적어주세요. ex) org.example.projectname \n\n"+
                 "* Generate file, Impl, need QClass import. ex) import static org.example...domain.entity.QEntity.entity;\n"+
                 "* 생성된 파일, Impl파일은 QClass import가 필요합니다. ex) import static org.example...domain.entity.QEntity.entity;\n\n"+
                 "* Root index.html file, need after editing. Entitys table links for CRUD. ex) <p><a th:href=@{[url]}>Table [domain name] move.</a></p>\n"+

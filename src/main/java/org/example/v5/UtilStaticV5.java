@@ -14,6 +14,7 @@ public class UtilStaticV5 {
 
     public static String thymleafInitUrl;  // /administer/instanceurl
 
+    public static String rootPackageStr;
 
 
     public UtilStaticV5(String domainStr, String[] colStrs, String[] colLongs, String[] colDates, String[] colNames, String thymleafInitUrl) {
@@ -46,6 +47,17 @@ public class UtilStaticV5 {
         this.thymleafInitUrl = thymleafInitUrl;
     }
 
+    public UtilStaticV5(String domainStr, String[] colStrs, String[] colLongs, String[] colDates, String[] colNames, String[] foreignColStrs, String thymleafInitUrl, String rootPackageStr) {
+        this.domainStr = domainStr;
+        this.colStrs = colStrs;
+        this.colLongs = colLongs;
+        this.colDates = colDates;
+        this.colNames = colNames;
+        this.foreignCols = foreignColStrs;
+        this.thymleafInitUrl = thymleafInitUrl;
+        this.rootPackageStr = rootPackageStr;
+    }
+
     public static String upperCaseFirstLetter(String str){
         return str.substring(0,1).toUpperCase() + str.substring(1);
     }
@@ -56,8 +68,8 @@ public class UtilStaticV5 {
 
     public String makeEntity() {
 
-        return "" +
-                "\n" +
+
+        String result = "\n" +
                 "import lombok.Builder;\n" +
                 "import lombok.Getter;\n" +
                 "import lombok.NoArgsConstructor;\n" +
@@ -86,8 +98,13 @@ public class UtilStaticV5 {
                 "\n"
                 + makeEntityMethods() +
                 "}";
+        String packageStr = null;
+        if(rootPackageStr!=null){
+            packageStr = "package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            result = packageStr + result;
+        }
 
-
+        return result;
 
     }
 
@@ -218,7 +235,7 @@ public class UtilStaticV5 {
 
     public String makeApiDto() {
         String result ="";
-        result ="" +
+        result =
                 "import com.querydsl.core.annotations.QueryProjection;\n" +
                 "import lombok.Data;\n" +
 
@@ -236,6 +253,13 @@ public class UtilStaticV5 {
                 " \n" +
                 "\n" +
                 "}";
+
+        String packageStr = null;
+        if(rootPackageStr!=null){
+            packageStr = "package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            result = packageStr + result;
+        }
+
         return result;
     }
 
@@ -321,7 +345,7 @@ public class UtilStaticV5 {
     }
 
     public String makeRepository() {
-        return "" +
+        String result =
                 "import org.springframework.data.jpa.repository.JpaRepository;\n" +
                 "import org.springframework.data.querydsl.QuerydslPredicateExecutor;\n" +
                 "import org.springframework.stereotype.Repository;\n" +
@@ -332,10 +356,21 @@ public class UtilStaticV5 {
                 "\n" +
                 "\n" +
                 "}";
+
+
+        String packageStr = null;
+
+        if(rootPackageStr!=null){
+            packageStr = "package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            result = packageStr + result;
+        }
+
+
+        return result;
     }
 
     public String makeRepositoryCustom() {
-        return "" +
+        String result =
                 "import org.springframework.data.domain.Page;\n" +
                 "import org.springframework.data.domain.Pageable;\n" +
                 "\n" +
@@ -349,11 +384,19 @@ public class UtilStaticV5 {
                 "\n" +
                 "\n" +
                 "}";
+
+        String packageStr = null;
+        if(rootPackageStr!=null ){
+            packageStr = "package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            result = packageStr + result;
+        }
+
+        return result;
     }
 
     public String makeRepositoryImpl() {
         String result = "";
-        result = "" +
+        result =
                 "\n" +
                 "import com.querydsl.core.BooleanBuilder;\n" +
                 "import com.querydsl.core.types.Predicate;\n" +
@@ -479,6 +522,12 @@ public class UtilStaticV5 {
                 "        return content;\n" +
                 "    }\n" +
                 "}";
+
+        String packageStr = null;
+        if(rootPackageStr!=null ){
+            packageStr =  "" +"package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            result = packageStr + result;
+        }
         return result;
     }
 
@@ -529,7 +578,7 @@ public class UtilStaticV5 {
 
     public String makeService() {
         String result ="";
-        result = "" +
+        result =
                 "import lombok.RequiredArgsConstructor;\n" +
                 "import org.springframework.data.domain.Page;\n" +
                 "import org.springframework.data.domain.Pageable;\n" +
@@ -564,6 +613,11 @@ public class UtilStaticV5 {
                 "        return "+toLowerFirst(domainStr)+"Repository.searchAllV2(condition, pageable);\n" +
                 "    }\n" +
                 "}";
+        String packageStr = null;
+        if(rootPackageStr!=null ){
+            packageStr =  "" +"package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            result = packageStr + result;
+        }
         return result;
     }
 
@@ -897,7 +951,7 @@ public class UtilStaticV5 {
     }
 
     public String makeSearchCondition() {
-        String result ="" +
+        String result =
                 "import lombok.Data;\n" +
                 "\n" +
                 "@Data\n" +
@@ -909,6 +963,11 @@ public class UtilStaticV5 {
                 "    private String sdate;\n" +
                 "    private String edate;\n" +
                 "}\n";
+        String packageStr = null;
+        if(rootPackageStr!=null ) {
+            packageStr = "" +"package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            result = packageStr + result;
+        }
 
         return result;
     }
@@ -1088,6 +1147,7 @@ public class UtilStaticV5 {
                 "            </ul>\n" +
                 "        </nav>\n" +
                 "    </div> <!-- /페이징 -->\n" +
+                "<br/><br/>\n" +
                 "\n" +
                 "\n" +
                 "</div>\n" +
@@ -1389,6 +1449,7 @@ public class UtilStaticV5 {
                 "            </ul>\n" +
                 "        </nav>\n" +
                 "    </div> <!-- /페이징 -->\n" +
+                "<br/><br/>\n" +
                 "\n" +
                 "\n" +
                 "</div>\n" +
@@ -1507,7 +1568,7 @@ public class UtilStaticV5 {
     }
 
     public String makeRootIndexController() {
-        return "" +
+        String result =  "" +
                 "import org.springframework.stereotype.Controller;\n" +
                 "import org.springframework.web.bind.annotation.GetMapping;\n" +
                 "\n" +
@@ -1528,6 +1589,14 @@ public class UtilStaticV5 {
                 "    }\n" +
                 "\n" +
                 "}";
+
+        String packageStr = null;
+        if(rootPackageStr!=null ){
+            packageStr = rootPackageStr+".firstinstance.controller.firstinstanceurl;\n";
+            result = "package "+packageStr + result;
+        }
+
+        return result;
     }
 
     public String makeIndexController() {
@@ -1683,6 +1752,12 @@ public class UtilStaticV5 {
                 "\n" +
                 "\n" +
                 "}\n";
+
+        String packageStr = null;
+        if(rootPackageStr!=null ){
+            packageStr = rootPackageStr+".firstinstance.controller.firstinstanceurl.domain."+toAllLowerCase(domainStr);
+            result = "package "+packageStr+";\n"+result;
+        }
 
         return result;
     }
@@ -1846,6 +1921,13 @@ public class UtilStaticV5 {
                 "    private LocalDateTime createdDate;\n" +
                 apiDtoForm2()+
                 "}";
+
+        String packageStr = null;
+        if(rootPackageStr!=null){
+            packageStr = rootPackageStr+".firstinstance.controller.firstinstanceurl.form;\n";
+            result = "package "+packageStr+"\n" + result;
+        }
+
         return result;
     }
 

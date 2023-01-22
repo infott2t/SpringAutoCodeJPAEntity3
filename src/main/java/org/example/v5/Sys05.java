@@ -50,6 +50,7 @@ public class Sys05 extends JFrame{
     String[] colNames;
 
     String thymleafInitUrl;
+    String rootPackageStr;
 
     Sys05()throws Exception{
         jp= new JPanel();
@@ -64,11 +65,13 @@ public class Sys05 extends JFrame{
         jsp2 = new JScrollPane(jta2);
         jsp2.setPreferredSize(new Dimension(480,100));
         jtf2 = new JTextField(27);
-        jl4 = new JLabel("Spring Mapping. foreign key. ex) UserOne userOne; Post post; --> UserOne,Post");
+
+        jl4 = new JLabel("Spring Mapping. foreign key. (Option) ex) UserOne userOne; Post post; --> UserOne,Post");
         //jtf3 = new JTextField(20);
         jl5 = new JLabel("Starting Controller url: ");
         jtf4 = new JTextField();
-
+        jl6 = new JLabel("Root package (Option) ex) com.example.projectname");
+        jtf5 = new JTextField(40);
         btn2 = new JButton("ReadMe");
         btn = new JButton("Extract Redundant logic...");
 
@@ -81,6 +84,8 @@ public class Sys05 extends JFrame{
         jp.add(jsp2);
         jp.add(jl5);
         jp.add(jtf2);
+        jp.add(jl6);
+        jp.add(jtf5);
 
         jp.add(btn2);
         jp.add(btn);
@@ -91,6 +96,7 @@ public class Sys05 extends JFrame{
         setBounds(300,300,500,500);
         setTitle("v5 SpringBoot JPA + QueryDSL. support many redundant files.");
         jtf2.setText("/administer/instanceurl");
+        //jtf5.setText("com.example.projectname");
         jtf4.setText("Github, https://github.com/infott2t/SpringAutoCodeJPAEntity3");
 
         jta.setText("Long id;\n\nString isDel;\nLocalDateTime modifiedDate;\nLocalDateTime createdDate;");;
@@ -105,6 +111,13 @@ public class Sys05 extends JFrame{
             public void actionPerformed(ActionEvent e) {
 
                 domainStr = jtf.getText();
+                rootPackageStr = jtf5.getText();
+
+                System.out.println("rootPackageStr = " + rootPackageStr);
+                if(rootPackageStr.equals("")){
+                    rootPackageStr = null;
+                    System.out.println("rootPackageStr = " + rootPackageStr);
+                }
 
                 String line;
                 BufferedReader reader = new BufferedReader(new StringReader(jta.getText()));
@@ -189,7 +202,7 @@ public class Sys05 extends JFrame{
                     }
 
                 thymleafInitUrl = jtf2.getText();
-                usv = new UtilStaticV5(domainStr, colStrs, colLongs, colDates,colNames, foreignColStrs, thymleafInitUrl);
+                usv = new UtilStaticV5(domainStr, colStrs, colLongs, colDates,colNames, foreignColStrs, thymleafInitUrl, rootPackageStr);
 
 
                 /**
