@@ -694,7 +694,7 @@ public class UtilStaticV5 {
                 "    <h2>Entity Data CRUD First Instance</h2>\n" +
                 "    <br />\n" +
                 "    <br/>\n" +
-                "    <p>Move table, <a th:href=\\\"@{\"+thymleafInitUrl+\"/\"+toLowerFirst(domainStr)+\"}\\\">"+domainStr+"</a></p>\n" +
+                "    <p>Move table, <a th:href=\"@{"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"}\">"+domainStr+"</a></p>\n" +
                 "<!-- Add, link...-->\n" +
                 "    <!-- <p>Move talbe, <a th:href=\"@{/administer/instanceurl/[domain]}\">[domain]</a></p> -->\n" +
                 "\n" +
@@ -1615,7 +1615,7 @@ public class UtilStaticV5 {
                 "    @GetMapping(\""+thymleafInitUrl+"\")\n" +
                 "    public String index(){\n" +
                 "        //firstInstance index의 처음 위치.\n" +
-                "        return \"firstInstance/index\";\n" +
+                "        return \"firstinstance/index\";\n" +
                 "    }\n" +
                 "\n" +
                 "    // 개발중, 테스트용 url연결 만듬.\n" +
