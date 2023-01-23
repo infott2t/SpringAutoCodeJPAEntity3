@@ -74,9 +74,6 @@ public class ResultScreen extends JFrame {
             }else if(title.equals("SearchCondition")){
                 file = new File(folderStr + usv.toUpperFirst(domainStr) + "SearchCondition.java");
                 setTitle("@"+ title + " :" + usv.toUpperFirst(domainStr) + "SearchCondition.java");
-            }else if(title.equals("RootIndex")){
-                file = new File(folderStr + "index.html");
-                setTitle("@"+ title + " : /templates/firstInstance/index.html");
             }else if(title.equals("Index")){
                 file = new File(folderStr+ "index.html");
                 setTitle("@"+ title + " : /templates/firstInstance/" + usv.toLowerFirst(domainStr) + "/index.html");
@@ -96,14 +93,33 @@ public class ResultScreen extends JFrame {
                 file = new File(folderStr + usv.toUpperFirst(domainStr) + "ApiDtoForm.java");
                 setTitle("@"+ title + " : firstinstance.controller.firstinstanceurl.form."+usv.toUpperFirst(domainStr)+"ApiDtoForm.java");
             }
-            if (!file.exists()) {
+
+            if(file!=null) {
                 file.createNewFile();
+                FileWriter fw = new FileWriter(file);
+                BufferedWriter writer = new BufferedWriter(fw);
+                writer.write(contextStr);
+                writer.close();
             }
 
-            FileWriter fw = new FileWriter(file);
-            BufferedWriter writer = new BufferedWriter(fw);
-            writer.write(contextStr);
-            writer.close();
+                //중복파일이 발생할때... 파일이 지워지지 않아야하는 경우. 맨처음 CURD index파일. 여러 게시판으로 이동하는 링크가 있는 경우.
+            File file1=null;
+
+            if(title.equals("RootIndex")){
+                file1 = new File(folderStr + "index.html");
+                setTitle("@"+ title + " : /templates/firstInstance/index.html");
+            }
+
+            if(file1!=null) {
+                if (!file1.exists()) {
+                    file1.createNewFile();
+                    FileWriter fw1 = new FileWriter(file1);
+                    BufferedWriter writer1 = new BufferedWriter(fw1);
+                    writer1.write(contextStr);
+                    writer1.close();
+                }
+            }
+
         }catch(Exception e3 ){
             e3.printStackTrace();
         }
