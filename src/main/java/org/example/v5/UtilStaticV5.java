@@ -81,8 +81,16 @@ public class UtilStaticV5 {
 
     public String makeEntity() {
 
+        String importForeignStr = "";
+        if(foreignCols!=null){
+            for (int i = 0; i < foreignCols.length; i++) {
+                importForeignStr += "import "+rootPackageStr+".domain."+toAllLowerCase(foreignCols[i])+"."+toUpperFirst(foreignCols[i])+";\n";
+            }
+        }
 
         String result = "\n" +
+
+                importForeignStr +
                 "import lombok.Builder;\n" +
                 "import lombok.Getter;\n" +
                 "import lombok.NoArgsConstructor;\n" +
@@ -113,7 +121,7 @@ public class UtilStaticV5 {
                 "}";
         String packageStr = null;
         if(rootPackageStr!=null){
-            packageStr = "package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            packageStr = "package" + " " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+";\n";
             result = packageStr + result;
         }
 
@@ -247,8 +255,15 @@ public class UtilStaticV5 {
 
 
     public String makeApiDto() {
+        String importForeignStr = "";
+        if(foreignCols!=null) {
+            for (int i = 0; i < foreignCols.length; i++) {
+                importForeignStr += "import "+rootPackageStr+".domain." + toAllLowerCase(foreignCols[i])+"."+toUpperFirst(foreignCols[i]) + ";\n";
+            }
+        }
         String result ="";
         result =
+                importForeignStr +
                 "import com.querydsl.core.annotations.QueryProjection;\n" +
                 "import lombok.Data;\n" +
 
@@ -269,7 +284,7 @@ public class UtilStaticV5 {
 
         String packageStr = null;
         if(rootPackageStr!=null){
-            packageStr = "package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            packageStr = "package" + " " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+";\n";
             result = packageStr + result;
         }
 
@@ -358,7 +373,9 @@ public class UtilStaticV5 {
     }
 
     public String makeRepository() {
+        String importStr = "import " +rootPackageStr+".domain."+toAllLowerCase(domainStr)+"."+toUpperFirst(domainStr)+";\n";
         String result =
+                importStr +
                 "import org.springframework.data.jpa.repository.JpaRepository;\n" +
                 "import org.springframework.data.querydsl.QuerydslPredicateExecutor;\n" +
                 "import org.springframework.stereotype.Repository;\n" +
@@ -374,7 +391,7 @@ public class UtilStaticV5 {
         String packageStr = null;
 
         if(rootPackageStr!=null){
-            packageStr = "package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            packageStr = "package" + " " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+";\n";
             result = packageStr + result;
         }
 
@@ -400,7 +417,7 @@ public class UtilStaticV5 {
 
         String packageStr = null;
         if(rootPackageStr!=null ){
-            packageStr = "package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            packageStr = "package" + " " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+";\n";
             result = packageStr + result;
         }
 
@@ -409,6 +426,12 @@ public class UtilStaticV5 {
 
     public String makeRepositoryImpl() {
         String result = "";
+        String importStaticQStr = "";
+        if(rootPackageStr!=null){
+            importStaticQStr = "import static " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+".Q"+toUpperFirst(domainStr)+"."+toLowerFirst(domainStr)+";\n";
+        }else{
+
+        }
         result =
                 "\n" +
                 "import com.querydsl.core.BooleanBuilder;\n" +
@@ -424,7 +447,7 @@ public class UtilStaticV5 {
                 "import java.time.format.DateTimeParseException;\n" +
                 "import java.util.List;\n" +
                 "\n" +
-                "import static org.example.domain.....Q"+toUpperFirst(domainStr)+"."+toLowerFirst(domainStr)+";\n" +
+                        importStaticQStr +
                 implImportStatic()+
 
                 "import static org.springframework.util.StringUtils.hasText;\n" +
@@ -538,7 +561,7 @@ public class UtilStaticV5 {
 
         String packageStr = null;
         if(rootPackageStr!=null ){
-            packageStr =  "" +"package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            packageStr =  "" +"package" + " " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+";\n";
             result = packageStr + result;
         }
         return result;
@@ -549,7 +572,8 @@ public class UtilStaticV5 {
         String result = "";
         if(foreignCols!=null){
             for(int i=0;i<foreignCols.length;i++){
-                result += "import static org.example.domain.....Q"+toUpperFirst(foreignCols[i])+"."+toLowerFirst(foreignCols[i])+";\n";
+                result += "import static "+rootPackageStr+".domain."+toAllLowerCase(foreignCols[i])+".Q"+toUpperFirst(foreignCols[i])+"."+toAllLowerCase(foreignCols[i])+";\n";
+                // import static org.example.domain.user.QUser.user;
             }
 
         }
@@ -628,7 +652,7 @@ public class UtilStaticV5 {
                 "}";
         String packageStr = null;
         if(rootPackageStr!=null ){
-            packageStr =  "" +"package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            packageStr =  "" +"package" + " " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+";\n";
             result = packageStr + result;
         }
         return result;
@@ -978,7 +1002,7 @@ public class UtilStaticV5 {
                 "}\n";
         String packageStr = null;
         if(rootPackageStr!=null ) {
-            packageStr = "" +"package" + " " + rootPackageStr + ".domain."+toLowerFirst(domainStr)+";\n";
+            packageStr = "" +"package" + " " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+";\n";
             result = packageStr + result;
         }
 
@@ -1615,8 +1639,17 @@ public class UtilStaticV5 {
     public String makeIndexController() {
         String result = "";
 
+        String importForeignStr = "";
+        if(foreignCols!=null){
+            for (int i = 0; i < foreignCols.length; i++) {
+                importForeignStr += "import "+rootPackageStr+".domain."+toAllLowerCase(foreignCols[i])+"."+toUpperFirst(foreignCols[i])+";\n";
+                importForeignStr += "import "+rootPackageStr+".domain."+toAllLowerCase(foreignCols[i])+"."+toUpperFirst(foreignCols[i])+"Service;\n";
+            }
+        }
+
         result ="" +
                 "import lombok.RequiredArgsConstructor;\n" +
+                importForeignStr +
                 "// import Service, Entity, ApiDtoForm.\n"+
                 "import "+rootPackageStr+".domain."+toAllLowerCase(domainStr)+"."+domainStr+";\n" +
                 "import "+rootPackageStr+".domain."+toAllLowerCase(domainStr)+"."+domainStr+"ApiDto;\n" +
