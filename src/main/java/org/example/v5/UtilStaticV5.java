@@ -16,6 +16,7 @@ public class UtilStaticV5 {
 
     public static String rootPackageStr;
 
+    public static String projectPath;
 
     public UtilStaticV5(String domainStr, String[] colStrs, String[] colLongs, String[] colDates, String[] colNames, String thymleafInitUrl) {
         this.domainStr = domainStr;
@@ -56,6 +57,18 @@ public class UtilStaticV5 {
         this.foreignCols = foreignColStrs;
         this.thymleafInitUrl = thymleafInitUrl;
         this.rootPackageStr = rootPackageStr;
+    }
+
+    public UtilStaticV5(String domainStr, String[] colStrs, String[] colLongs, String[] colDates, String[] colNames, String[] foreignColStrs, String thymleafInitUrl, String rootPackageStr, String projectPath) {
+        this.domainStr = domainStr;
+        this.colStrs = colStrs;
+        this.colLongs = colLongs;
+        this.colDates = colDates;
+        this.colNames = colNames;
+        this.foreignCols = foreignColStrs;
+        this.thymleafInitUrl = thymleafInitUrl;
+        this.rootPackageStr = rootPackageStr;
+        this.projectPath = projectPath;
     }
 
     public static String upperCaseFirstLetter(String str){

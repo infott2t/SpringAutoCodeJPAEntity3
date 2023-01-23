@@ -52,6 +52,8 @@ public class Sys05 extends JFrame{
     String thymleafInitUrl;
     String rootPackageStr;
 
+    String projectPath;
+
     Sys05()throws Exception{
         jp= new JPanel();
         jl = new JLabel("Entity name(CamelCase):");
@@ -72,6 +74,8 @@ public class Sys05 extends JFrame{
         jtf4 = new JTextField();
         jl6 = new JLabel("Root package (Option) ex) com.example.projectname");
         jtf5 = new JTextField(40);
+        jl7 = new JLabel("Project directory(Option): ex) C:\\...SpringAutoCodeJPAEntity3");
+        jtf6 = new JTextField(40);
         btn2 = new JButton("ReadMe");
         btn = new JButton("Extract Redundant logic...");
 
@@ -86,6 +90,8 @@ public class Sys05 extends JFrame{
         jp.add(jtf2);
         jp.add(jl6);
         jp.add(jtf5);
+        jp.add(jl7);
+        jp.add(jtf6);
 
         jp.add(btn2);
         jp.add(btn);
@@ -93,7 +99,7 @@ public class Sys05 extends JFrame{
         setVisible(true);
         setResizable(true);
         add(jp);
-        setBounds(300,300,500,500);
+        setBounds(300,300,500,520);
         setTitle("v5 SpringBoot JPA + QueryDSL. support many redundant files.");
         jtf2.setText("/administer/instanceurl");
         //jtf5.setText("com.example.projectname");
@@ -112,11 +118,16 @@ public class Sys05 extends JFrame{
 
                 domainStr = jtf.getText();
                 rootPackageStr = jtf5.getText();
+                projectPath = jtf6.getText();
 
                 System.out.println("rootPackageStr = " + rootPackageStr);
                 if(rootPackageStr.equals("")){
                     rootPackageStr = null;
                     System.out.println("rootPackageStr = " + rootPackageStr);
+                }
+                if(projectPath.equals("")){
+                    projectPath = null;
+                    System.out.println("projectPath = " + projectPath);
                 }
 
                 String line;
@@ -202,7 +213,7 @@ public class Sys05 extends JFrame{
                     }
 
                 thymleafInitUrl = jtf2.getText();
-                usv = new UtilStaticV5(domainStr, colStrs, colLongs, colDates,colNames, foreignColStrs, thymleafInitUrl, rootPackageStr);
+                usv = new UtilStaticV5(domainStr, colStrs, colLongs, colDates,colNames, foreignColStrs, thymleafInitUrl, rootPackageStr, projectPath);
 
 
                 /**
@@ -214,32 +225,46 @@ public class Sys05 extends JFrame{
                 //folder make. c:/category/[domainStr]-[MMdd-HHmmss]/
                 LocalDateTime now = LocalDateTime.now();
                 String dateStr = now.format(DateTimeFormatter.ofPattern("MMdd-HHmmss"));
-                String folderStr = "c:\\category\\"+usv.toLowerFirst(domainStr)+"-"+dateStr;
+
 
                 //Make folder Back-end. c:/category/print-[MMdd-HHmmss]/[domainStr]/
-                String folderStrBackend = folderStr +"\\"+usv.toAllLowerCase(domainStr)+"\\";
+                String folderStr;
+                String folderStrBackend;
+                if(projectPath!=null){
+                    folderStr = "c:\\category\\"+usv.toLowerFirst(domainStr)+"-"+dateStr;
+                    folderStrBackend = projectPath + "/src/main/java/" + rootPackageStr.replace(".", "/") + "/domain/" + usv.toAllLowerCase(domainStr)+"/";
 
-                String entityStr = usv.makeEntity();
-                new ResultScreen("Entity", entityStr, folderStrBackend, domainStr, usv);
 
-                String apiDtoStr = usv.makeApiDto();
-                new ResultScreen("ApiDto", apiDtoStr, folderStrBackend, domainStr, usv);
+                }else {
+                    folderStr = "c:\\category\\" + usv.toLowerFirst(domainStr) + "-" + dateStr;
+                    folderStrBackend = folderStr + "\\" + usv.toAllLowerCase(domainStr) + "\\";
+                }
+                    String entityStr = usv.makeEntity();
+                    new ResultScreen("Entity", entityStr, folderStrBackend, domainStr, usv);
 
-                String repositoryStr = usv.makeRepository();
-                new ResultScreen("Repository", repositoryStr, folderStrBackend, domainStr, usv);
+                    String apiDtoStr = usv.makeApiDto();
+                    new ResultScreen("ApiDto", apiDtoStr, folderStrBackend, domainStr, usv);
 
-                String repositoryCustomStr = usv.makeRepositoryCustom();
-                new ResultScreen("RepositoryCustom", repositoryCustomStr, folderStrBackend, domainStr, usv);
+                    String repositoryStr = usv.makeRepository();
+                    new ResultScreen("Repository", repositoryStr, folderStrBackend, domainStr, usv);
 
-                String repositoryImplStr = usv.makeRepositoryImpl();
-                new ResultScreen("RepositoryImpl", repositoryImplStr, folderStrBackend, domainStr, usv);
+                    String repositoryCustomStr = usv.makeRepositoryCustom();
+                    new ResultScreen("RepositoryCustom", repositoryCustomStr, folderStrBackend, domainStr, usv);
 
-                String serviceStr = usv.makeService();
-                new ResultScreen("Service", serviceStr, folderStrBackend, domainStr, usv);
+                    String repositoryImplStr = usv.makeRepositoryImpl();
+                    new ResultScreen("RepositoryImpl", repositoryImplStr, folderStrBackend, domainStr, usv);
 
-                //SearchCondition
-                String searchConditionStr = usv.makeSearchCondition();
-                new ResultScreen("SearchCondition", searchConditionStr, folderStrBackend, domainStr, usv);
+                    String serviceStr = usv.makeService();
+                    new ResultScreen("Service", serviceStr, folderStrBackend, domainStr, usv);
+
+                    //SearchCondition
+                    String searchConditionStr = usv.makeSearchCondition();
+                    new ResultScreen("SearchCondition", searchConditionStr, folderStrBackend, domainStr, usv);
+
+
+
+
+
                 //Make page,
                 /**
                  * Front-end, Thyemleaf Files.   4 Files.
@@ -255,9 +280,16 @@ public class Sys05 extends JFrame{
                  * */
 
                 //Make folder Front-end. c:/category/[domainStr]-[MMdd-HHmmss]/firstInstance/[domainStr]/
+                String folderStrFrontend;
+                if(projectPath!=null) {
+                    folderStrFrontend = projectPath + "/src/main/resources/templates/firstinstance/";
+                }else{
+                    folderStrFrontend = folderStr +"\\templates\\firstinstance\\";
+                }
 
-                 String folderStrFrontend = folderStr +"\\templates\\firstinstance\\";
+
                  //String folderStrFrontend = folderStr +"\\templates\\firstinstance\\"+usv.toAllLowerCase(domainStr)+"\\";
+
 
                  String rootIndexStr = usv.makeRootIndex();
                  new ResultScreen("RootIndex", rootIndexStr, folderStrFrontend, domainStr, usv);
@@ -292,10 +324,18 @@ public class Sys05 extends JFrame{
                   * **/
                 //Make folder Front-end-controller. c:/category/[domainStr]-[MMdd-HHmmss]/firstInstance/[domainStr]/
 
-                String folderStrFrontendCont = folderStr +"\\firstinstance\\controller\\firstinstanceurl\\";
-                String folderStrFrontendContDomain = folderStrFrontendCont +"domain\\"+ usv.toAllLowerCase(domainStr)+"\\";
-                String folderStrFrontendContForm = folderStrFrontendCont +"form\\";
-
+                String folderStrFrontendCont;
+                String folderStrFrontendContDomain;
+                String folderStrFrontendContForm;
+                if(projectPath!=null){
+                    folderStrFrontendCont = projectPath +"\\src\\main\\java\\"+rootPackageStr.replace(".", "\\")+"\\firstinstance\\controller\\firstinstanceurl\\";
+                    folderStrFrontendContDomain = folderStrFrontendCont +"domain\\"+ usv.toAllLowerCase(domainStr)+"\\";
+                    folderStrFrontendContForm = folderStrFrontendCont +"form\\";
+                }else{
+                    folderStrFrontendCont = folderStr +"\\firstinstance\\controller\\firstinstanceurl\\";
+                    folderStrFrontendContDomain = folderStrFrontendCont +"domain\\"+ usv.toAllLowerCase(domainStr)+"\\";
+                    folderStrFrontendContForm = folderStrFrontendCont +"form\\";
+                }
 
                 String rootIndexControllerStr = usv.makeRootIndexController();
                 new ResultScreen("RootIndexController", rootIndexControllerStr, folderStrFrontendCont, domainStr, usv);
