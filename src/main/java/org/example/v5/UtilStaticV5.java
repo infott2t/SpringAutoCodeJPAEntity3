@@ -1618,6 +1618,11 @@ public class UtilStaticV5 {
         result ="" +
                 "import lombok.RequiredArgsConstructor;\n" +
                 "// import Service, Entity, ApiDtoForm.\n"+
+                "import "+rootPackageStr+".domain."+toAllLowerCase(domainStr)+"."+domainStr+";\n" +
+                "import "+rootPackageStr+".domain."+toAllLowerCase(domainStr)+"."+domainStr+"ApiDto;\n" +
+                "import "+rootPackageStr+".domain."+toAllLowerCase(domainStr)+"."+domainStr+"SearchCondition;\n" +
+                "import "+rootPackageStr+".domain."+toAllLowerCase(domainStr)+"."+domainStr+"Service;\n" +
+                "import "+rootPackageStr+".firstinstance.controller.firstinstanceurl.form."+domainStr+"ApiDtoForm;\n" +
                 "\n" +
                 "import org.springframework.data.domain.Page;\n" +
                 "import org.springframework.data.domain.Pageable;\n" +
