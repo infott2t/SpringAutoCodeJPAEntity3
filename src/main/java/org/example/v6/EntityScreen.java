@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Sys06 extends JFrame {
+public class EntityScreen extends JFrame {
 
     private JPanel jp,jpWest, jpEast, jpSouth, jpNorth, jpCenter;
     private JLabel jl,jl2,jl3,jl4,jl5,jl6,jl7,jl8,jl9,
@@ -46,7 +46,7 @@ public class Sys06 extends JFrame {
 
     static UtilStaticV5 usv; // Save input values
 
-    Sys06() {
+    EntityScreen() {
         jp = new JPanel();
         jpEast = new JPanel();
         jpWest = new JPanel();
@@ -56,25 +56,27 @@ public class Sys06 extends JFrame {
 
         btn = new JButton("Entity");
         jtf = new JTextField(28);
-        jtf.setText("https://github.com/infott2t/SpringAutoCodeJPAEntity3");
+        //jtf.setText("https://github.com/infott2t/SpringAutoCodeJPAEntity3");
+
+        jta = new JTextArea(5,5);
+        jsp = new JScrollPane(jta);
+        jsp.setPreferredSize(new Dimension(250,300));
+        jta.setText("");
+
+        //jp.setLayout(new BorderLayout()); // BorderLayout. add East, West, North, South, Center ex )add([comp],BorderLayout.EAST)
 
 
-        jp.setLayout(new BorderLayout()); // BorderLayout. add East, West, North, South, Center ex )add([comp],BorderLayout.EAST)
 
-        jpNorth.setLayout(new FlowLayout(FlowLayout.CENTER));
-        jpNorth.add(btn);
 
-        jpSouth.setLayout(new FlowLayout(FlowLayout.RIGHT));
-        jpSouth.add(jtf);
-
-        jp.add(jpNorth,BorderLayout.NORTH);
-        jp.add(jpSouth,BorderLayout.SOUTH);
+        jp.add(jsp);
+        //jp.add(jpNorth,BorderLayout.NORTH);
+        //jp.add(jpSouth,BorderLayout.SOUTH);
 
         setVisible(true);
         setResizable(true);
-        add(jp);
-        setBounds(200,200,500,500);
-        setTitle("v6 ERD to SpringBoot");
+        add(jsp);
+        setBounds(150,400,250,300);
+        setTitle("[Entity]");
 
         btn.addActionListener(new ActionListener(){
 
@@ -87,6 +89,6 @@ public class Sys06 extends JFrame {
 
     public static void main(String[] args) {
         MyFlatLaf.setup();
-        new Sys06();
+        new EntityScreen();
     }
 }

@@ -48,6 +48,7 @@ public class ReadMeScreen2 extends JFrame {
                 "* Root index.html file, need after editing. Entitys table links for CRUD. ex) <p><a th:href=@{[url]}>Table [domain name] move.</a></p>\n"+
                 "* 맨처음, index.html파일은 편집이 필요합니다. 엔티티들의 이동 링크를 적어주세요. 예) <p><a th:href=@{[url]}>테이블 [domain name] 로 이동.</a></p>\n"+
                 "\n"+
+
                 "* package org.example.v5.Sys05.java file, there I writing generating files, and use way.\n"+
                 "* org.example.v5.Sys05.java 파일에, 주석으로 생성된 파일들을 사용하는 방법을 적어놨습니다.\n"+
                 "\n"+

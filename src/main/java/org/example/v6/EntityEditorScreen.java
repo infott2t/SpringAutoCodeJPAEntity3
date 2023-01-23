@@ -9,7 +9,8 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
-public class Entity06 extends JFrame {
+public class EntityEditorScreen extends JFrame {
+
     private JPanel jp,jpWest, jpEast, jpSouth, jpNorth, jpCenter;
     private JLabel jl,jl2,jl3,jl4,jl5,jl6,jl7,jl8,jl9,
             jl10,jl11,jl12,jl13,jl14;
@@ -17,11 +18,12 @@ public class Entity06 extends JFrame {
     //jpEast -> jpGridLayout(rows * cols): 1 x entityColumnCount
     private JPanel jpGridLayoutEntity;
 
+    private final JPanel jpFlowLayoutBtnCenter;
 
     private JTextField jtf, jtf2,jtf3,jtf4,jtf5,jtf6,jtf7,jtf8,jtf9;
     private JTextArea jta,jta2,jta3,jta4;
     private JScrollPane jsp,jsp2,jsp3,jsp4;
-    private JButton btn,btn2,btn3;
+    private JButton btn,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12,btn13,btn14;
     private JPanel jpFlowLayoutBtns;
     //Entity Fields
     int entityColumnsCount;
@@ -46,7 +48,7 @@ public class Entity06 extends JFrame {
 
     static UtilStaticV5 usv; // Save input values
 
-    public Entity06() {
+    public EntityEditorScreen() {
 
         jp = new JPanel();
         jpEast = new JPanel();
@@ -57,20 +59,57 @@ public class Entity06 extends JFrame {
 
         jp.setLayout(new BorderLayout()); // BorderLayout. add East, West, North, South, Center ex )add([comp],BorderLayout.EAST)
 
-        jpWest.setLayout(new GridLayout(2,1)); // GridLayout. add rows, cols ex )add([comp],row,col)
+        jpWest.setLayout(new GridLayout(1,1)); // GridLayout. add rows, cols ex )add([comp],row,col)
 
 
         //jpGridLayoutEntity.setLayout(new GridLayout(entityColumnsCount,1,0,0));
 
         jta = new JTextArea(5,5);
         jsp = new JScrollPane(jta);
-        jsp.setPreferredSize(new Dimension(200,200));
+        jsp.setPreferredSize(new Dimension(400,400));
         jta.setText("");
         jpWest.add(jsp);
+
+        jta2 = new JTextArea();
+        jsp2 = new JScrollPane(jta2);
+        jsp2.setPreferredSize(new Dimension(200,400));
+        jta2.setText("");
+        jpEast.add(jsp2);
+
 
         btn = new JButton("Long");
         btn2 = new JButton("String");
         btn3 = new JButton("LocalDateTime");
+
+        btn4 = new JButton("Simple View");
+        jl = new JLabel("Now Entity:");
+        jtf = new JTextField(10);
+
+        btn5 = new JButton("Save");
+        btn6 = new JButton("Save Flat");
+        btn7 = new JButton("Load");
+
+        jpFlowLayoutBtnCenter = new JPanel();
+        jpFlowLayoutBtnCenter.setLayout(new FlowLayout(FlowLayout.CENTER));
+        //jpGridLayoutBtnCenter.add(Box.createHorizontalGlue());
+        jpFlowLayoutBtnCenter.setSize(50,300);
+        jpFlowLayoutBtnCenter.add(btn4);
+        jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,20))); // add space  ref, https://docs.oracle.com/javase/tutorial/uiswing/layout/box.html
+
+        jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        jpFlowLayoutBtnCenter.add(btn5);
+        jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        jpFlowLayoutBtnCenter.add(btn6);
+        jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        jpFlowLayoutBtnCenter.add(btn7);
+        jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,10)));
+        jpFlowLayoutBtnCenter.add(jl);
+        jpFlowLayoutBtnCenter.add(jtf);
+
+        jpCenter.setLayout(new BoxLayout(jpCenter, BoxLayout.Y_AXIS));
+
+        jpCenter.add(jpFlowLayoutBtnCenter);
+
         jpFlowLayoutBtns = new JPanel();
         jpFlowLayoutBtns.setLayout(new FlowLayout(FlowLayout.LEFT));
         jpFlowLayoutBtns.add(btn);
@@ -82,16 +121,17 @@ public class Entity06 extends JFrame {
 
         setVisible(true);
         setResizable(true);
-
+    jpCenter.setSize(50,300);
         jp.add(jpEast,BorderLayout.EAST);
         jp.add(jpWest,BorderLayout.WEST);
+        jp.add(jpCenter,BorderLayout.CENTER);
         jp.add(jpSouth,BorderLayout.SOUTH);
         jp.add(jpNorth,BorderLayout.NORTH);
 
         add(jp);
 
-        setBounds(300, 270, 500, 500);
-        setTitle("Entity");
+        setBounds(500, 270, 765, 500);
+        setTitle("Entity Editor");
 
         btn.addActionListener(new ActionListener(){
             @Override
@@ -113,6 +153,13 @@ public class Entity06 extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 jta.append("LocalDateTime date\n");
                 saveColumns();
+
+            }});
+
+        btn4.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new EntityScreen();
 
             }});
     }
