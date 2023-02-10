@@ -20,10 +20,10 @@ public class EntityEditorScreen extends JFrame {
 
     private final JPanel jpFlowLayoutBtnCenter;
 
-    private JTextField jtf, jtf2,jtf3,jtf4,jtf5,jtf6,jtf7,jtf8,jtf9;
+    private JTextField nowEntityTextField, jtf2,jtf3,jtf4,jtf5,jtf6,jtf7,jtf8,jtf9;
     private JTextArea jta,jta2,jta3,jta4;
     private JScrollPane jsp,jsp2,jsp3,jsp4;
-    private JButton btn,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12,btn13,btn14;
+    private JButton longBtn, stringBtn, dateBtn, simpleViewBtn, saveBtn, saveFlatBtn, loadBtn,btn8,btn9,btn10,btn11,btn12,btn13,btn14;
     private JPanel jpFlowLayoutBtns;
     //Entity Fields
     int entityColumnsCount;
@@ -46,7 +46,9 @@ public class EntityEditorScreen extends JFrame {
     String thymleafInitUrl;
     String rootPackageStr;
 
-    static UtilStaticV5 usv; // Save input values
+    String nowEntityTextFieldStr;
+
+    static UtilStaticV6 usv; // Save input values
 
     public EntityEditorScreen() {
 
@@ -77,34 +79,34 @@ public class EntityEditorScreen extends JFrame {
         jpEast.add(jsp2);
 
 
-        btn = new JButton("Long");
-        btn2 = new JButton("String");
-        btn3 = new JButton("LocalDateTime");
+        longBtn = new JButton("Long");
+        stringBtn = new JButton("String");
+        dateBtn = new JButton("LocalDateTime");
 
-        btn4 = new JButton("Simple View");
+        simpleViewBtn = new JButton("Simple View");
         jl = new JLabel("Now Entity:");
-        jtf = new JTextField(10);
+        nowEntityTextField = new JTextField(10);
 
-        btn5 = new JButton("Save");
-        btn6 = new JButton("Save Flat");
-        btn7 = new JButton("Load");
+        saveBtn = new JButton("Save");
+        saveFlatBtn = new JButton("Save Flat");
+        loadBtn = new JButton("Load");
 
         jpFlowLayoutBtnCenter = new JPanel();
         jpFlowLayoutBtnCenter.setLayout(new FlowLayout(FlowLayout.CENTER));
         //jpGridLayoutBtnCenter.add(Box.createHorizontalGlue());
         jpFlowLayoutBtnCenter.setSize(50,300);
-        jpFlowLayoutBtnCenter.add(btn4);
+        jpFlowLayoutBtnCenter.add(simpleViewBtn);
         jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,20))); // add space  ref, https://docs.oracle.com/javase/tutorial/uiswing/layout/box.html
 
         jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,10)));
-        jpFlowLayoutBtnCenter.add(btn5);
+        jpFlowLayoutBtnCenter.add(saveBtn);
         jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,10)));
-        jpFlowLayoutBtnCenter.add(btn6);
+        jpFlowLayoutBtnCenter.add(saveFlatBtn);
         jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,10)));
-        jpFlowLayoutBtnCenter.add(btn7);
+        jpFlowLayoutBtnCenter.add(loadBtn);
         jpFlowLayoutBtnCenter.add(Box.createRigidArea(new Dimension(0,10)));
         jpFlowLayoutBtnCenter.add(jl);
-        jpFlowLayoutBtnCenter.add(jtf);
+        jpFlowLayoutBtnCenter.add(nowEntityTextField);
 
         jpCenter.setLayout(new BoxLayout(jpCenter, BoxLayout.Y_AXIS));
 
@@ -112,9 +114,9 @@ public class EntityEditorScreen extends JFrame {
 
         jpFlowLayoutBtns = new JPanel();
         jpFlowLayoutBtns.setLayout(new FlowLayout(FlowLayout.LEFT));
-        jpFlowLayoutBtns.add(btn);
-        jpFlowLayoutBtns.add(btn2);
-        jpFlowLayoutBtns.add(btn3);
+        jpFlowLayoutBtns.add(longBtn);
+        jpFlowLayoutBtns.add(stringBtn);
+        jpFlowLayoutBtns.add(dateBtn);
         jpSouth.setLayout(new GridLayout(1,2));
         jpSouth.add(jpFlowLayoutBtns);
 
@@ -133,14 +135,14 @@ public class EntityEditorScreen extends JFrame {
         setBounds(500, 270, 765, 500);
         setTitle("Entity Editor");
 
-        btn.addActionListener(new ActionListener(){
+        longBtn.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 jta.append("Long long\n");
                 saveColumns();
             }});
 
-        btn2.addActionListener(new ActionListener(){
+        stringBtn.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 jta.append("String string\n");
@@ -148,7 +150,7 @@ public class EntityEditorScreen extends JFrame {
 
             }});
 
-        btn3.addActionListener(new ActionListener(){
+        dateBtn.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
                 jta.append("LocalDateTime date\n");
@@ -156,12 +158,104 @@ public class EntityEditorScreen extends JFrame {
 
             }});
 
-        btn4.addActionListener(new ActionListener(){
+        simpleViewBtn.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-                new EntityScreen();
+                String[] foreignColStrs = null;
+                String projectPath = "";
+                nowEntityTextFieldStr = nowEntityTextField.getText();
+                usv = new UtilStaticV6(domainStr, colStrs, colLongs, colDates,colNames, foreignColStrs, thymleafInitUrl, rootPackageStr, projectPath, nowEntityTextFieldStr);
+
+
+                new EntityScreen(usv);
 
             }});
+    }
+
+    private void entityTextCalc(){
+        String line;
+        BufferedReader reader = new BufferedReader(new StringReader(jta.getText()));
+        columnStrings="";
+        columnLongs="";
+        columnDates="";
+        columnNames="";
+        try{
+            while((line = reader.readLine())!=null){
+                System.out.println(line);
+                if(line.indexOf("Long")>=0) {
+                    // System.out.println(line.indexOf("Long") );
+                    String longStr = line.substring(line.indexOf("Long") + 5);
+                    longStr = longStr.replace(";", "");
+                    columnLongs = columnLongs + longStr + ",";
+                    columnNames = columnNames + longStr + ",";
+                }
+                if(line.indexOf("String")>=0) {
+                    // System.out.println(line.indexOf("Long") );
+                    String strings = line.substring(line.indexOf("String") + 7);
+                    strings = strings.replace(";", "");
+                    columnStrings = columnStrings + strings + ",";
+                    columnNames = columnNames + strings + ",";
+                }
+
+                if(line.indexOf("LocalDateTime")>=0){
+                    String dates = line.substring(line.indexOf("LocalDateTime") + 14);
+                    dates = dates.replace(";", "");
+                    columnDates = columnDates + dates + ",";
+                    columnNames = columnNames + dates + ",";
+                }
+
+            }
+        }catch(Exception ex){
+            ex.printStackTrace();
+        }
+
+        if(columnLongs!=null && columnLongs.length()>0) {
+            columnLongs = columnLongs.substring(0, columnLongs.length() - 1);
+        }
+
+        if(columnStrings!=null && columnStrings.length()>0) {
+            columnStrings = columnStrings.substring(0, columnStrings.length() - 1);
+        }
+
+        if(columnDates!=null && columnDates.length()>0) {
+            columnDates = columnDates.substring(0, columnDates.length() - 1);
+        }
+        //columnDates = columnDates.substring(0,columnDates.length()-1);
+
+        columnNames = columnNames.substring(0,columnNames.length()-1);
+
+        colStrs = columnStrings.split(",");
+        colLongs = columnLongs.split(",");
+        colDates = columnDates.split(",");
+        colNames = columnNames.split(",");
+
+        System.out.println(colStrs.toString());
+        System.out.println(colLongs.toString());
+        System.out.println(colNames.toString());
+
+        for(int i=0; i< colStrs.length ;i++ ){
+            System.out.println(colStrs[i]);
+        }
+        for (int i = 0; i < colNames.length; i++) {
+            System.out.println(colNames[i]);
+        }
+        //thymleafInitUrl = jtf2.getText();
+        String foreignColStrs[] = null;
+
+        try{
+            if(jta2.getText()!=null && jta2.getText().length()>0) {
+                foreignColStr = jta2.getText();
+                foreignColStrs = foreignColStr.split(",");
+
+                for(int i=0; i< foreignColStrs.length ;i++ ){
+                    foreignColStrs[i] = foreignColStrs[i].trim();
+                }
+            }
+        }catch(Exception e1){
+            e1.printStackTrace();
+        }
+
+        thymleafInitUrl = jtf2.getText();
     }
 
     private void saveColumns() {
