@@ -6,8 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.StringReader;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class EntityEditorScreen extends JFrame {
 
@@ -163,6 +166,7 @@ public class EntityEditorScreen extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String[] foreignColStrs = null;
                 String projectPath = "";
+                saveColumns();
                 nowEntityTextFieldStr = nowEntityTextField.getText();
                 usv = new UtilStaticV6(domainStr, colStrs, colLongs, colDates,colNames, foreignColStrs, thymleafInitUrl, rootPackageStr, projectPath, nowEntityTextFieldStr);
 
@@ -170,7 +174,121 @@ public class EntityEditorScreen extends JFrame {
                 new EntityScreen(usv);
 
             }});
+
+        saveBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(jta.getText());
+                String folderStr = "C:\\category\\entity";
+                System.out.println(nowEntityTextField.getText());
+                String textStr = jta.getText();
+                textStr = "Long id;\n"+textStr+"String isDel;\nLocalDateTime modifiedDate;\nLocalDateTime createdDate;\n";
+
+                if(nowEntityTextField.getText().equals("") || nowEntityTextField.getText().equals(null)){
+                    JOptionPane.showMessageDialog(null, "Entity Name을 입력해주세요. Now Entity:");
+                    LocalDateTime now = LocalDateTime.now();
+                    nowEntityTextField.setText("entity " +now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss") ));
+                    return;
+                }
+                File folder = new File(folderStr);
+
+                if(!folder.exists()) {
+                    try {
+                        Files.createDirectories(Paths.get(folderStr));
+                        System.out.println("폴더가 생성되었습니다.");
+                    } catch (Exception e2) {
+                        e2.getStackTrace();
+                    }
+                } else {
+                    System.out.println("이미 폴더가 생성되어 있습니다.");
+                }
+                File file = new File("C:\\category\\entity\\"+nowEntityTextField.getText()+".txt");
+                if(file!=null){
+                    try {
+                        file.createNewFile();
+                        FileWriter fw = new FileWriter(file);
+                        BufferedWriter writer = new BufferedWriter(fw);
+                        writer.write(textStr);
+                        writer.close();
+                        System.out.println("파일이 생성되었습니다.");
+                    }catch(Exception e2){
+                        e2.getStackTrace();
+                    }
+                }
+            }
+        });
+
+        saveFlatBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println(jta.getText());
+                String folderStr = "C:\\category\\entity";
+                System.out.println(nowEntityTextField.getText());
+                if(nowEntityTextField.getText().equals("") || nowEntityTextField.getText().equals(null)){
+                    JOptionPane.showMessageDialog(null, "Entity Name을 입력해주세요. Now Entity:");
+                    LocalDateTime now = LocalDateTime.now();
+                    nowEntityTextField.setText("entity " +now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss") ));
+                    return;
+                }
+                File folder = new File(folderStr);
+
+                if(!folder.exists()) {
+                    try {
+                        Files.createDirectories(Paths.get(folderStr));
+                        System.out.println("폴더가 생성되었습니다.");
+                    } catch (Exception e2) {
+                        e2.getStackTrace();
+                    }
+                } else {
+                    System.out.println("이미 폴더가 생성되어 있습니다.");
+                }
+                File file = new File("C:\\category\\entity\\"+nowEntityTextField.getText()+".txt");
+                if(file!=null){
+                    try {
+                        file.createNewFile();
+                        FileWriter fw = new FileWriter(file);
+                        BufferedWriter writer = new BufferedWriter(fw);
+                        writer.write(jta.getText());
+                        writer.close();
+                        System.out.println("파일이 생성되었습니다.");
+                    }catch(Exception e2){
+                        e2.getStackTrace();
+                    }
+                }
+            }
+        });
+
+        loadBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (nowEntityTextField.getText().equals("") || nowEntityTextField.getText().equals(null)) {
+                    JOptionPane.showMessageDialog(null, "Entity Name을 입력해주세요. Now Entity:");
+                    LocalDateTime now = LocalDateTime.now();
+
+                    return;
+                } else {
+                    File file = new File("C:\\category\\entity\\" + nowEntityTextField.getText() + ".txt");
+                    if (file != null) {
+                        try {
+                            FileReader fr = new FileReader(file);
+                            BufferedReader reader = new BufferedReader(fr);
+                            String line;
+                            String textStr = "";
+                            while ((line = reader.readLine()) != null) {
+                                textStr = textStr + line + "\n";
+                            }
+                            jta.setText(textStr);
+                            reader.close();
+                            System.out.println("파일이 로드되었습니다.");
+                        } catch (Exception e2) {
+                            e2.getStackTrace();
+                        }
+                    }
+                }
+            }
+        });
     }
+
 
     private void entityTextCalc(){
         String line;

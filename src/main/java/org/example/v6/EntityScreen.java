@@ -130,19 +130,25 @@ public class EntityScreen extends JFrame {
             result = "No Entity";
         }else{
             for (int i = 0; i < colNames.length; i++) {
-                for(int j=0; j< colLongs.length; j++){
-                    if(colNames[i].equals(colLongs[j])){
-                        result += "Long "+colNames[i]+"\n";
+                if(colLongs!=null) {
+                    for (int j = 0; j < colLongs.length; j++) {
+                        if (colNames[i].equals(colLongs[j])) {
+                            result += "Long " + colNames[i] + "\n";
+                        }
                     }
                 }
-                for(int j=0; j< colStrs.length; j++){
-                    if(colNames[i].equals(colStrs[j])){
-                        result += "String "+colNames[i]+"\n";
+                if(colStrs!=null) {
+                    for (int j = 0; j < colStrs.length; j++) {
+                        if (colNames[i].equals(colStrs[j])) {
+                            result += "String " + colNames[i] + "\n";
+                        }
                     }
                 }
-                for(int j=0; j< colDates.length; j++){
-                    if(colNames[i].equals(colDates[j])){
-                        result += "LocalDateTime "+colNames[i]+"\n";
+                if(colDates!=null) {
+                    for (int j = 0; j < colDates.length; j++) {
+                        if (colNames[i].equals(colDates[j])) {
+                            result += "LocalDateTime " + colNames[i] + "\n";
+                        }
                     }
                 }
             }

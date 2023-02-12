@@ -21,7 +21,7 @@ public class Sys06 extends JFrame {
     private JTextField jtf, jtf2,jtf3,jtf4,jtf5,jtf6,jtf7,jtf8,jtf9;
     private JTextArea jta,jta2,jta3,jta4;
     private JScrollPane jsp,jsp2,jsp3,jsp4;
-    private JButton btn,btn2,btn3;
+    private JButton entityBtn, readMeBtn,btn3;
     private JPanel jpFlowLayoutBtns;
     //Entity Fields
     int entityColumnsCount;
@@ -54,7 +54,8 @@ public class Sys06 extends JFrame {
         jpNorth = new JPanel();
         jpCenter = new JPanel();
 
-        btn = new JButton("Entity");
+        entityBtn = new JButton("Entity");
+        readMeBtn = new JButton("ReadMe");
         jtf = new JTextField(28);
         jtf.setText("https://github.com/infott2t/SpringAutoCodeJPAEntity3");
 
@@ -62,10 +63,13 @@ public class Sys06 extends JFrame {
         jp.setLayout(new BorderLayout()); // BorderLayout. add East, West, North, South, Center ex )add([comp],BorderLayout.EAST)
 
         jpNorth.setLayout(new FlowLayout(FlowLayout.CENTER));
-        jpNorth.add(btn);
+        jpNorth.add(entityBtn);
+
 
         jpSouth.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        jpSouth.add(readMeBtn);
         jpSouth.add(jtf);
+
 
         jp.add(jpNorth,BorderLayout.NORTH);
         jp.add(jpSouth,BorderLayout.SOUTH);
@@ -76,11 +80,18 @@ public class Sys06 extends JFrame {
         setBounds(200,200,500,500);
         setTitle("v6 ERD to SpringBoot");
 
-        btn.addActionListener(new ActionListener(){
+        entityBtn.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 new EntityEditorScreen();
+            }
+        });
+
+        readMeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ReadMeScreen();
             }
         });
     }
