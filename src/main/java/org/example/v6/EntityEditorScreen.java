@@ -412,24 +412,30 @@ public class EntityEditorScreen extends JFrame {
         }catch(Exception e1){
             e1.printStackTrace();
         }
-        if(columnLongs!=null && columnLongs.length()>0) {
-            columnLongs = columnLongs.substring(0, columnLongs.length() - 1);
-            colLongs = columnLongs.split(",");
-        }
+        try {
+            if (columnLongs != null || columnLongs != "" || !(columnLongs.equals(""))) {
+                System.out.println(columnLongs + "  columnLongs");
+                colLongs = columnLongs.split(",");
+            }
 
-        if(columnStrings!=null && columnStrings.length()>0) {
-            columnStrings = columnStrings.substring(0, columnStrings.length() - 1);
-            colStrs = columnStrings.split(",");
-        }
+            if (columnStrings != null || !columnStrings.equals("")) {
+                columnStrings = columnStrings.substring(0, columnStrings.length() - 1);
+                colStrs = columnStrings.split(",");
+            }
 
-        if(columnDates!=null && columnDates.length()>0) {
-            columnDates = columnDates.substring(0, columnDates.length() - 1);
-            colDates = columnDates.split(",");
-        }
-        //columnDates = columnDates.substring(0,columnDates.length()-1);
+            if (columnDates != null || !columnDates.equals("")) {
+                columnDates = columnDates.substring(0, columnDates.length() - 1);
+                colDates = columnDates.split(",");
+            }
+            //columnDates = columnDates.substring(0,columnDates.length()-1);
 
-        columnNames = columnNames.substring(0,columnNames.length()-1);
-        colNames = columnNames.split(",");
+            if (columnNames != null || !columnNames.equals("")) {
+                columnNames = columnNames.substring(0, columnNames.length() - 1);
+                colNames = columnNames.split(",");
+            }
+        }catch(Exception e){
+            //e.printStackTrace();
+        }
 
         //System.out.println(colStrs.toString());
         //System.out.println(colLongs.toString());
@@ -438,8 +444,12 @@ public class EntityEditorScreen extends JFrame {
         //for(int i=0; i< colStrs.length ;i++ ){
         //    System.out.println(colStrs[i]);
         //}
-        for (int i = 0; i < colNames.length; i++) {
-            System.out.print(colNames[i] + ",");
+        try {
+            for (int i = 0; i < colNames.length; i++) {
+                System.out.print(colNames[i] + ",");
+            }
+        }catch(Exception e){
+            //e.printStackTrace();
         }
         System.out.println();
         // usv = new UtilStaticV5(domainStr, colStrs, colLongs, colDates,colNames, foreignColStrs, thymleafInitUrl, rootPackageStr);

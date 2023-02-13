@@ -847,7 +847,7 @@ public class UtilStaticV5 {
                 "                pageNumber = ${boards.pageable.pageNumber},\n" +
                 "                pageSize = ${boards.pageable.pageSize},\n" +
                 "                totalPages = ${boards.totalPages},\n" +
-                "                startPage = ${T(Math).floor(pageNumber / pageSize) * pageSize + 1},\n" +
+                "                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},\n" +
                 "                tempEndPage = ${startPage + pageSize - 1},\n" +
                 "                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})\"\n" +
                 "                aria-label=\"Page navigation\"\n" +
@@ -883,7 +883,7 @@ public class UtilStaticV5 {
                 "                </li>\n" +
                 "\n" +
                 "                <!-- 마지막으로 이동 -->\n" +
-                "                <li th:classappend=\" ${T(Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
+                "                <li th:classappend=\" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
                 "                    <a class=\"page-link\" th:href=\"@{"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"(page=${totalPages - 1})}\">\n" +
                 "                        <span>&raquo;</span>\n" +
                 "                        <span class=\"sr-only\">Last</span>\n" +
@@ -1139,7 +1139,7 @@ public class UtilStaticV5 {
                 "                pageNumber = ${boards.pageable.pageNumber},\n" +
                 "                pageSize = ${boards.pageable.pageSize},\n" +
                 "                totalPages = ${boards.totalPages},\n" +
-                "                startPage = ${T(Math).floor(pageNumber / pageSize) * pageSize + 1},\n" +
+                "                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},\n" +
                 "                tempEndPage = ${startPage + pageSize - 1},\n" +
                 "                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})\"\n" +
                 "                aria-label=\"Page navigation\"\n" +
@@ -1175,7 +1175,7 @@ public class UtilStaticV5 {
                 "                </li>\n" +
                 "\n" +
                 "                <!-- 마지막으로 이동 -->\n" +
-                "                <li th:classappend=\" ${T(Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
+                "                <li th:classappend=\" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
                 "                    <a class=\"page-link\" th:href=\"@{"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"(page=${totalPages - 1})}\">\n" +
                 "                        <span>&raquo;</span>\n" +
                 "                        <span class=\"sr-only\">Last</span>\n" +
@@ -1441,7 +1441,7 @@ public class UtilStaticV5 {
                 "                pageNumber = ${boards.pageable.pageNumber},\n" +
                 "                pageSize = ${boards.pageable.pageSize},\n" +
                 "                totalPages = ${boards.totalPages},\n" +
-                "                startPage = ${T(Math).floor(pageNumber / pageSize) * pageSize + 1},\n" +
+                "                startPage = ${T(java.lang.Math).floor(pageNumber / pageSize) * pageSize + 1},\n" +
                 "                tempEndPage = ${startPage + pageSize - 1},\n" +
                 "                endPage = (${tempEndPage < totalPages ? tempEndPage : totalPages})\"\n" +
                 "                aria-label=\"Page navigation\"\n" +
@@ -1477,7 +1477,7 @@ public class UtilStaticV5 {
                 "                </li>\n" +
                 "\n" +
                 "                <!-- 마지막으로 이동 -->\n" +
-                "                <li th:classappend=\" ${T(Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
+                "                <li th:classappend=\" ${T(java.lang.Math).floor(totalPages / pageSize) * pageSize - 1 <= startPage} ? 'disabled'\" class=\"page-item\">\n" +
                 "                    <a class=\"page-link\" th:href=\"@{"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"(page=${totalPages - 1})}\">\n" +
                 "                        <span>&raquo;</span>\n" +
                 "                        <span class=\"sr-only\">Last</span>\n" +
