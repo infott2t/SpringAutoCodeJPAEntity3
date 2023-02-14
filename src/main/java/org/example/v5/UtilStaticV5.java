@@ -1767,6 +1767,7 @@ public class UtilStaticV5 {
                 "        }\n" +
                 "\n" +
                 "        userForm.setId("+toLowerFirst(domainStr)+".getId());\n" +
+                updateSetColumn()+
                 updateForeginColumn()+
                 "        userForm.setCreatedDate("+toLowerFirst(domainStr)+".getCreatedDate());\n" +
                 "        userForm.setModifiedDate("+toLowerFirst(domainStr)+".getModifiedDate());\n" +
@@ -1790,6 +1791,7 @@ public class UtilStaticV5 {
                 "        }\n" +
                 "\n" +
                 update2ForeginColumn2()+
+                update2Column2()+
                 "\n" +
                 "        "+toLowerFirst(domainStr)+".setModifiedDate(LocalDateTime.now());\n" +
                 "\n" +
@@ -1808,6 +1810,33 @@ public class UtilStaticV5 {
         if(rootPackageStr!=null ){
             packageStr = rootPackageStr+".firstinstance.controller.firstinstanceurl.domain."+toAllLowerCase(domainStr);
             result = "package "+packageStr+";\n"+result;
+        }
+
+        return result;
+    }
+
+    private String update2Column2() {
+        //addressStr.setZipCode(userForm.getZipCode());
+        //addressStr.setAddr1(userForm.getAddr1());
+        //addressStr.setAddr2(userForm.getAddr2());
+        //addressStr.setAddrFull(addressStr.getZipCode() + " " + addressStr.getAddr1() + " " + addressStr.getAddr2());
+        //addressStr.setIsDel(userForm.getIsDel());
+        String result = "";
+        for(int i=1; i<colNames.length; i++){
+            result += "        "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+        }
+        return result;
+    }
+
+    private String updateSetColumn() {
+        //"userForm.setId("+toLowerFirst(domainStr)+".getId());\n" +
+        //userForm.setZipCode(addressStr.getZipCode());
+        //userForm.setAddr1(addressStr.getAddr1());
+        //userForm.setAddr2(addressStr.getAddr2());
+        //userForm.setAddrFull(addressStr.getAddrFull());
+        String result = "";
+        for (int i = 0; i < colNames.length; i++) {
+            result += "        userForm.set"+toUpperFirst(colNames[i])+"("+toLowerFirst(domainStr)+".get"+toUpperFirst(colNames[i])+"());\n";
         }
 
         return result;
