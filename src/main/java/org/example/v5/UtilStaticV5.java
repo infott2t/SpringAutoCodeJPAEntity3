@@ -700,7 +700,8 @@ public class UtilStaticV5 {
                 "    <p>Move table, <a th:href=\"@{"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"}\">"+domainStr+"</a></p>\n" +
                 "<!-- Add, link...-->\n" +
                 "    <!-- <p>Move talbe, <a th:href=\"@{/administer/instanceurl/[domain]}\">[domain]</a></p> -->\n" +
-                "\n" +
+                "<br/>\n" +
+                "<br/>\n" +
                 "\n" +
                 "</div>\n" +
                 "<br />\n" +
