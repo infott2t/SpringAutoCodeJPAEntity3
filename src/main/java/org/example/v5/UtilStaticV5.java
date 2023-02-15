@@ -1,5 +1,8 @@
 package org.example.v5;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class UtilStaticV5 {
 
     public static String domainStr; // entity name, small letter.
@@ -1665,6 +1668,7 @@ public class UtilStaticV5 {
                 "import org.springframework.web.bind.annotation.GetMapping;\n" +
                 "import org.springframework.web.bind.annotation.PostMapping;\n" +
                 "import org.springframework.web.bind.annotation.RequestParam;\n" +
+                "import java.time.format.DateTimeFormatter;\n" +
                 "\n" +
                 "import java.time.LocalDateTime;\n" +
                 "\n" +
@@ -1716,7 +1720,8 @@ public class UtilStaticV5 {
                 "\n" +
                 "        try {\n" +
                 "            "+toLowerFirst(domainStr)+" = new "+toUpperFirst(domainStr)+"();\n" +
-                insert2ColumnCols()+
+                //insert2ColumnCols()+
+                insert2ColumnCols2()+
                 insert2ForeginCols2()+
                 "            "+toLowerFirst(domainStr)+".setModifiedDate(LocalDateTime.now());\n" +
                 "            "+toLowerFirst(domainStr)+".setCreatedDate(LocalDateTime.now());\n" +
@@ -1725,7 +1730,7 @@ public class UtilStaticV5 {
                 "            "+toLowerFirst(domainStr)+"Service.save("+toLowerFirst(domainStr)+");\n" +
                 "\n" +
                 "        } catch (Exception e) {\n" +
-                "            throw new RuntimeException(e);\n" +
+                "        return \"redirect:"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"/insert\";\n" +
                 "        }\n" +
                 "        return \"redirect:"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"/insert\";}\n" +
                 "\n" +
@@ -1790,8 +1795,13 @@ public class UtilStaticV5 {
                 "            return \"redirect:"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"/insert\";\n" +
                 "        }\n" +
                 "\n" +
+
                 update2ForeginColumn2()+
+                "        try{\n"+
                 update2Column2()+
+                "        }catch(Exception e){\n" +
+                "            return \"redirect:"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"/insert\";\n" +
+                "        }\n" +
                 "\n" +
                 "        "+toLowerFirst(domainStr)+".setModifiedDate(LocalDateTime.now());\n" +
                 "\n" +
@@ -1815,6 +1825,54 @@ public class UtilStaticV5 {
         return result;
     }
 
+    private String insert2ColumnCols2() {
+        //DateTimeFormatter stdFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //board2228.setTitle(userForm.getTitle());
+        //if(userForm.getAdate() != null && !userForm.getAdate().equals("")){
+        //    board2228.setAdate(LocalDateTime.parse(userForm.getAdate(),stdFormat));
+        //}
+
+        String result = "";
+        result += "        DateTimeFormatter stdFormat = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\");\n";
+        System.out.println("colNames.length : " + colNames.length);
+        System.out.println("colDates.length : " + colDates.length);
+        for(int i=1; i<colNames.length;i++){
+            if(colLongs!=null) {
+                for(int j=0; j<colLongs.length;j++){
+                    if(colNames[i].equals(colLongs[j])){
+                        result += "        "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                    }
+                }
+            }
+            if(colStrs!=null) {
+                if(!colNames.equals("isDel")){
+                    for(int j=0; j<colStrs.length;j++){
+                        if(colNames[i].equals(colStrs[j])){
+                            result += "        "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                        }
+                    }
+                }
+
+            }
+            if(colDates!=null) {
+                    for(int j=0; j<colDates.length;j++){
+                        if(colDates[j].equals("createdDate") || colDates[j].equals("modifiedDate")){
+                            continue;
+                        }else{
+                            if(colNames[i].equals(colDates[j])){
+                                result += "        if(userForm.get"+toUpperFirst(colNames[i])+"()!=null && !userForm.get"+toUpperFirst(colNames[i])+"().equals(\"\")){\n";
+                                result += "            "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(LocalDateTime.parse(userForm.get"+toUpperFirst(colNames[i])+"(),stdFormat));\n";
+                                result += "        }\n";
+                            }
+                        }
+
+                    }
+            }
+
+        }
+        return result;
+    }
+
     private String update2Column2() {
         //addressStr.setZipCode(userForm.getZipCode());
         //addressStr.setAddr1(userForm.getAddr1());
@@ -1822,10 +1880,45 @@ public class UtilStaticV5 {
         //addressStr.setAddrFull(addressStr.getZipCode() + " " + addressStr.getAddr1() + " " + addressStr.getAddr2());
         //addressStr.setIsDel(userForm.getIsDel());
         String result = "";
-        for(int i=1; i<colNames.length; i++){
-            result += "        "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+        result += "        DateTimeFormatter stdFormat = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\");\n";
+        System.out.println("colNames.length : " + colNames.length);
+        System.out.println("colDates.length : " + colDates.length);
+        for(int i=1; i<colNames.length;i++){
+            if(colLongs!=null) {
+                for(int j=0; j<colLongs.length;j++){
+                    if(colNames[i].equals(colLongs[j])){
+                        result += "        "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                    }
+                }
+            }
+            if(colStrs!=null) {
+                if(!colNames.equals("isDel")){
+                    for(int j=0; j<colStrs.length;j++){
+                        if(colNames[i].equals(colStrs[j])){
+                            result += "        "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                        }
+                    }
+                }
+
+            }
+            if(colDates!=null) {
+                for(int j=0; j<colDates.length;j++){
+                    if(colDates[j].equals("createdDate") || colDates[j].equals("modifiedDate")){
+                        continue;
+                    }else{
+                        if(colNames[i].equals(colDates[j])){
+                            result += "        if(userForm.get"+toUpperFirst(colNames[i])+"()!=null && !userForm.get"+toUpperFirst(colNames[i])+"().equals(\"\")){\n";
+                            result += "            "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(LocalDateTime.parse(userForm.get"+toUpperFirst(colNames[i])+"(),stdFormat));\n";
+                            result += "        }\n";
+                        }
+                    }
+
+                }
+            }
+
         }
         return result;
+
     }
 
     private String updateSetColumn() {
@@ -1834,9 +1927,40 @@ public class UtilStaticV5 {
         //userForm.setAddr1(addressStr.getAddr1());
         //userForm.setAddr2(addressStr.getAddr2());
         //userForm.setAddrFull(addressStr.getAddrFull());
-        String result = "";
-        for (int i = 0; i < colNames.length; i++) {
-            result += "        userForm.set"+toUpperFirst(colNames[i])+"("+toLowerFirst(domainStr)+".get"+toUpperFirst(colNames[i])+"());\n";
+        String result = "              DateTimeFormatter stdFormat = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\");\n";
+        for(int i=0; i<colNames.length;i++){
+            if(colLongs!=null) {
+                for(int j=0; j<colLongs.length;j++){
+                    if(colNames[i].equals(colLongs[j])){
+                        result += "        userForm.set"+toUpperFirst(colNames[i])+"("+toLowerFirst(domainStr)+".get"+toUpperFirst(colNames[i])+"());\n";
+                    }
+                }
+            }
+            if(colStrs!=null) {
+                if(!colNames.equals("isDel")){
+                    for(int j=0; j<colStrs.length;j++){
+                        if(colNames[i].equals(colStrs[j])){
+                            result += "        userForm.set"+toUpperFirst(colNames[i])+"("+toLowerFirst(domainStr)+".get"+toUpperFirst(colNames[i])+"());\n";
+                        }
+                    }
+                }
+
+            }
+            if(colDates!=null) {
+                for(int j=0; j<colDates.length;j++){
+                    if(colDates[j].equals("createdDate") || colDates[j].equals("modifiedDate")){
+                        continue;
+                    }else{
+                        if(colNames[i].equals(colDates[j])){
+                            result += "        if("+toLowerFirst(domainStr)+".get"+toUpperFirst(colNames[i])+"()!=null){\n";
+                            result += "        userForm.set"+toUpperFirst(colNames[i])+"("+toLowerFirst(domainStr)+".get"+toUpperFirst(colNames[i])+"().format(stdFormat));\n";
+                            result += "        }\n";
+                        }
+                    }
+
+                }
+            }
+
         }
 
         return result;
@@ -1908,12 +2032,30 @@ public class UtilStaticV5 {
 
     private String insert2ColumnCols() {
         // "             User.setColumn1(userForm.getColumn1());\n"
-        String result = "";
+        String result = "              DateTimeFormatter stdFormat = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm:ss\");\n";
         for (int i = 0; i < colNames.length; i++) {
             if(colNames[i].equals("id") || colNames[i].equals("createdDate") || colNames[i].equals("modifiedDate")){
 
             }else{
-                result += "             "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                if(colDates!=null){
+                    for (int j = 0; j < colDates.length; j++) {
+                        if(colNames[i].equals(colDates[j])){
+                            //if(userForm.getAdate() != null && !userForm.getAdate().equals("")){
+                            //board03.setADate(LocalDateTime.parse(userForm.getADate(),stdFormat));
+                            result += "             " +
+                                    "               if(userForm.get"+toUpperFirst(colNames[i])+"() != null && !userForm.get"+toUpperFirst(colNames[i])+"().equals(\"\")){\n" +
+                                    "               "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(LocalDateTime.parse(userForm.get"+toUpperFirst(colNames[i])+"(),stdFormat));\n" +
+                                    "               }";
+                            continue;
+                        }else{
+                           // result += "             "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                        }
+                    }
+                    result += "             "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                }else{
+                    result += "             "+toLowerFirst(domainStr)+".set"+toUpperFirst(colNames[i])+"(userForm.get"+toUpperFirst(colNames[i])+"());\n";
+                }
+
             }
         }
         return result;
@@ -2029,7 +2171,8 @@ public class UtilStaticV5 {
                 }
                 for(int j=0; j< colDates.length; j++){
                     if(colNames[i].equals(colDates[j])){
-                        result += "    private LocalDateTime "+colNames[i]+";\n";
+                        //result += "    private LocalDateTime "+colNames[i]+";\n";
+                        result += "    private String "+colNames[i]+";\n";
                     }
                 }
             }
