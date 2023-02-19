@@ -699,7 +699,7 @@ public class UtilStaticV5 {
                 for(int j=0; j<colStrs.length; j++){
                     if(colNames[i].equals(colStrs[j])){
                         result += "            if(field.equals(\""+colNames[i]+"\")){\n" +
-                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".eq(s));\n" +
+                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".like(\"%\"+s+\"%\"));\n" +
                                 "            }\n";
                     }
                 }
@@ -803,7 +803,7 @@ public class UtilStaticV5 {
                 for(int j=0; j<colStrs.length; j++){
                     if(colNames[i].equals(colStrs[j])){
                         result += "            if(field.equals(\""+colNames[i]+"\")){\n" +
-                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".eq(s));\n" +
+                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".like(\"%\"+s+\"%\"));\n" +
                                 "            }\n";
                     }
                 }
@@ -1565,7 +1565,8 @@ public class UtilStaticV5 {
                 "                <td class=\"font-12\" style=\"width:40px;\">키워드</td>\n" +
                 "                <td class=\"font-12 d-flex align-items-center\" style=\"width:190px;\">\n" +
                 "                    <select id=\"field\" name=\"field\" style=\"width:80px;\" title=\"키워드 선택\" autocomplete=\"on\" >\n" +
-                "                        <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n" +
+                //"                        <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n" +
+                optionStr()+
                // "                        <option th:value=\"all\" th:selected=\"${#strings.trim(param.field) eq 'addrFull'}\">주소검색</option>\n" +
                // "                        <option th:value=\"zipcode\" th:selected=\"${#strings.trim(param.field) eq 'zipCode'}\">우편번호</option>\n" +
                // "                        <option th:value=\"addr1\" th:selected=\"${#strings.trim(param.field) eq 'addr1'}\">도로명주소</option>\n" +
@@ -1706,6 +1707,43 @@ public class UtilStaticV5 {
                 "</body>\n" +
                 "\n" +
                 "</html>";
+        return result;
+    }
+
+    private String optionStr() {
+        String result ="";
+        //"                        <option th:value=\"id\" th:selected=\"${#strings.trim(param.field) eq 'id'}\">id</option>\n"
+        for(int i=0; i<colNames.length;i++){
+            if(colLongs!=null){
+                for(int j=0; j<colLongs.length;j++){
+                    if(colLongs[j].equals(colNames[i])){
+                        result += "                        <option th:value=\""+colNames[i]+"\" th:selected=\"${#strings.trim(param.field) eq '"+colNames[i]+"'}\">"+colNames[i]+"</option>\n";
+                    }
+                }
+
+            }
+            if(colStrs!=null){
+                for(int j=0; j<colStrs.length; j++){
+                    if(colStrs[j].equals(colNames[i])){
+                        result += "                        <option th:value=\""+colNames[i]+"\" th:selected=\"${#strings.trim(param.field) eq '"+colNames[i]+"'}\">"+colNames[i]+"</option>\n";
+                    }
+                }
+
+            }
+            if(colDates!=null){
+                for(int j=0; j<colDates.length; j++){
+                    if(colDates[j].equals(colNames[i])){
+                        result += "                        <option th:value=\""+colNames[i]+"\" th:selected=\"${#strings.trim(param.field) eq '"+colNames[i]+"'}\">"+colNames[i]+"</option>\n";
+                    }
+                }
+
+            }
+        }
+        if(foreignCols!=null){
+            for(int i=0; i<foreignCols.length; i++){
+                result += "                        <option th:value=\""+toLowerFirst(foreignCols[i])+"Id\" th:selected=\"${#strings.trim(param.field) eq '"+toLowerFirst(foreignCols[i])+"Id'}\">"+toLowerFirst(foreignCols[i])+"Id</option>\n";
+            }
+        }
         return result;
     }
 
