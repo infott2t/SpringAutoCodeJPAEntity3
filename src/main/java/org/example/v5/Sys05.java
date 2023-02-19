@@ -251,8 +251,11 @@ public class Sys05 extends JFrame{
                     String repositoryCustomStr = usv.makeRepositoryCustom();
                     new ResultScreen("RepositoryCustom", repositoryCustomStr, folderStrBackend, domainStr, usv);
 
-                    String repositoryImplStr = usv.makeRepositoryImpl();
-                    new ResultScreen("RepositoryImpl", repositoryImplStr, folderStrBackend, domainStr, usv);
+                    //String repositoryImplStr = usv.makeRepositoryImpl();
+                    //new ResultScreen("RepositoryImpl", repositoryImplStr, folderStrBackend, domainStr, usv);
+
+                    String repositoryImplStr2 = usv.makeRepositoryImpl2();
+                    new ResultScreen("RepositoryImpl", repositoryImplStr2, folderStrBackend, domainStr, usv);
 
                     String serviceStr = usv.makeService();
                     new ResultScreen("Service", serviceStr, folderStrBackend, domainStr, usv);
@@ -261,7 +264,9 @@ public class Sys05 extends JFrame{
                     String searchConditionStr = usv.makeSearchCondition();
                     new ResultScreen("SearchCondition", searchConditionStr, folderStrBackend, domainStr, usv);
 
-
+                    //SearchCondition2
+                    String searchCondition2Str = usv.makeSearchCondition2();
+                    new ResultScreen("SearchCondition2", searchCondition2Str, folderStrBackend, domainStr, usv);
 
 
 

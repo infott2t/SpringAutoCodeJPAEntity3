@@ -65,10 +65,16 @@ public class ResultScreen extends JFrame {
             }else if(title.equals("RepositoryImpl")) {
                 file = new File(folderStr + usv.toUpperFirst(domainStr) + "RepositoryImpl.java");
                 setTitle("@"+ title + " :" + usv.toUpperFirst(domainStr) + "RepositoryImpl.java");
+            }else if(title.equals("RepositoryImpl2")) {
+                file = new File(folderStr + usv.toUpperFirst(domainStr) + "RepositoryImpl2.java");
+                setTitle("@"+ title + " :" + usv.toUpperFirst(domainStr) + "RepositoryImpl2.java");
             }else if(title.equals("SearchCondition")){
                 file = new File(folderStr + usv.toUpperFirst(domainStr) + "SearchCondition.java");
                 setTitle("@"+ title + " :" + usv.toUpperFirst(domainStr) + "SearchCondition.java");
-            }else if(title.equals("Service")) {
+            }else if(title.equals("SearchCondition2")){
+                file = new File(folderStr + usv.toUpperFirst(domainStr) + "SearchCondition2.java");
+                setTitle("@"+ title + " :" + usv.toUpperFirst(domainStr) + "SearchCondition2.java");
+            } else if(title.equals("Service")) {
                 file = new File(folderStr + usv.toUpperFirst(domainStr) + "Service.java");
                 setTitle("@"+ title + " :" + usv.toUpperFirst(domainStr) + "Service.java");
             }else if(title.equals("SearchCondition")){

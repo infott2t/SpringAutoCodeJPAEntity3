@@ -413,6 +413,8 @@ public class UtilStaticV5 {
                 "\n" +
                 "    Page<"+toUpperFirst(domainStr)+"ApiDto> searchAllV2("+toUpperFirst(domainStr)+"SearchCondition condition, Pageable pageable);\n" +
                 "\n" +
+                "    Page<"+toUpperFirst(domainStr)+"ApiDto> searchAllV3("+toUpperFirst(domainStr)+"SearchCondition2 condition, Pageable pageable);\n" +
+                "\n" +
                 "  List<"+toUpperFirst(domainStr)+"ApiDto> searchFindAllDesc();\n" +
                 "\n" +
                 "\n" +
@@ -424,6 +426,773 @@ public class UtilStaticV5 {
             result = packageStr + result;
         }
 
+        return result;
+    }
+    public String makeRepositoryImpl2(){
+        String result = "";
+        String importStaticQStr = "";
+        if(rootPackageStr!=null) {
+            importStaticQStr = "import static " + rootPackageStr + ".domain." + toAllLowerCase(domainStr) + ".Q" + toUpperFirst(domainStr) + "." + toLowerFirst(domainStr) + ";\n";
+        }else{
+
+        }
+        result +="" +
+                "import com.querydsl.core.BooleanBuilder;\n" +
+                "import com.querydsl.core.types.Predicate;\n" +
+                "import com.querydsl.core.types.Projections;\n" +
+                "import com.querydsl.jpa.impl.JPAQueryFactory;\n" +
+                "import org.springframework.data.domain.Page;\n" +
+                "import org.springframework.data.domain.PageImpl;\n" +
+                "import org.springframework.data.domain.Pageable;\n" +
+                "\n" +
+                "import javax.persistence.EntityManager;\n" +
+                "import java.time.LocalDateTime;\n" +
+                "import java.time.format.DateTimeParseException;\n" +
+                "import java.util.List;\n" +
+                "\n" +
+                importStaticQStr +
+                implImportStatic()+
+                "import static org.springframework.util.StringUtils.hasText;\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "public class "+toUpperFirst(domainStr)+"RepositoryImpl implements "+toUpperFirst(domainStr)+"RepositoryCustom {\n" +
+                "\n" +
+                "    private final JPAQueryFactory queryFactory;\n" +
+                "\n" +
+                "    public "+toUpperFirst(domainStr)+"RepositoryImpl(EntityManager em) {\n" +
+                "        this.queryFactory = new JPAQueryFactory(em);\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "   @Override\n" +
+                "    public Page<"+toUpperFirst(domainStr)+"ApiDto> searchAllV3("+toUpperFirst(domainStr)+"SearchCondition2 condition2, Pageable pageable) {\n" +
+                "\n" +
+                "        List<"+toUpperFirst(domainStr)+"ApiDto> content = queryFactory.\n" +
+                "                select(Projections.constructor("+toUpperFirst(domainStr)+"ApiDto.class,\n" +
+                impl2Columns()+
+                "              )).from("+toLowerFirst(domainStr)+")\n" +
+                impl2Columns2Foreign()+
+                "                .where(\n" +
+                "                        searchAllV3Predicate(condition2)\n" +
+                "                ).where("+toLowerFirst(domainStr)+".isDel.eq(\"N\"))\n" +
+                "                .orderBy("+toLowerFirst(domainStr)+".id.desc())\n" +
+                "                .offset(pageable.getOffset())\n" +
+                "                .limit(pageable.getPageSize())\n" +
+                "                .fetch();\n" +
+                "\n" +
+                "        long total = queryFactory\n" +
+                "                .select("+toLowerFirst(domainStr)+".count())\n" +
+                "                .from("+toLowerFirst(domainStr)+")\n" +
+                "                .where(\n" +
+                "                        searchAllV3Predicate(condition2)\n" +
+                "                ).where("+toLowerFirst(domainStr)+".isDel.eq(\"N\"))\n" +
+                "                .fetch().get(0);\n" +
+                "\n" +
+                "        return new PageImpl<>(content, pageable, total);\n" +
+                "    }\n" +
+                "\n" +
+                "    private Predicate searchAllV3Predicate("+toUpperFirst(domainStr)+"SearchCondition2 condition2) {\n" +
+                "        return new BooleanBuilder()\n" +
+                impl2Columns3()+
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                impl2Methods()+
+
+                "\n" +
+                impl2ConS2Mehtod()+
+                "\n" +
+                "    private Predicate condSdate2(String sdate) {\n" +
+                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                "\n" +
+                "        if(hasText(sdate)){\n" +
+                "            try {\n" +
+                "                LocalDateTime localDateTime = LocalDateTime.parse(sdate + \"T00:00:00\");\n" +
+                "                builder.or("+toLowerFirst(domainStr)+".modifiedDate.goe(localDateTime)); // isrtDate >= sdate\n" +
+                "\n" +
+                "            } catch (DateTimeParseException e) {\n" +
+                "            }\n" +
+                "        }\n" +
+                "        return builder;\n" +
+                "    }\n" +
+                "    private Predicate condEdate2(String edate) {\n" +
+                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                "        if(hasText(edate)) {\n" +
+                "            try {\n" +
+                "                LocalDateTime localDateTime = LocalDateTime.parse(edate + \"T00:00:00\");\n" +
+                "                builder.or("+toLowerFirst(domainStr)+".modifiedDate.loe(localDateTime)); // isrtDate <= edate\n" +
+                "\n" +
+                "            } catch (DateTimeParseException e) {\n" +
+                "            }\n" +
+                "        }\n" +
+                "        return builder;\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "    @Override\n" +
+                "    public Page<"+toUpperFirst(domainStr)+"ApiDto> searchAllV2("+toUpperFirst(domainStr)+"SearchCondition condition, Pageable pageable) {\n" +
+                "\n" +
+                "        List<"+toUpperFirst(domainStr)+"ApiDto> content = queryFactory.\n" +
+                "                select(Projections.constructor("+toUpperFirst(domainStr)+"ApiDto.class,\n" +
+                impl2Columns()+
+                "              )).from("+toLowerFirst(domainStr)+")\n" +
+                impl2Columns2Foreign()+
+                "                .where(\n" +
+                "                        searchAllV2Predicate(condition)\n" +
+                "                ).where("+toLowerFirst(domainStr)+".isDel.eq(\"N\"))\n" +
+                "                .orderBy("+toLowerFirst(domainStr)+".id.desc())\n" +
+                "                .offset(pageable.getOffset())\n" +
+                "                .limit(pageable.getPageSize())\n" +
+                "                .fetch();\n" +
+                "\n" +
+                "        long total = queryFactory\n" +
+                "                .select("+toLowerFirst(domainStr)+".count())\n" +
+                "                .from("+toLowerFirst(domainStr)+")\n" +
+                "                .where(\n" +
+                "                        searchAllV2Predicate(condition)\n" +
+                "                ).where("+toLowerFirst(domainStr)+".isDel.eq(\"N\"))\n" +
+                "                .fetch().get(0);\n" +
+                "\n" +
+                "        return new PageImpl<>(content, pageable, total);\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "    private BooleanBuilder searchAllV2Predicate("+toUpperFirst(domainStr)+"SearchCondition condition){\n" +
+                "        return new BooleanBuilder()\n" +
+                "                .and(condS(condition.getField(), condition.getS()))\n" +
+                "                .and(condSdate(condition.getSdate()))\n" +
+                "                .and(condEdate(condition.getEdate()));\n" +
+                "\n" +
+                "    }\n" +
+                "\n" +
+                impl2ConSMehtod()+
+                "\n" +
+                "    private Predicate condSdate( String sdate){\n" +
+                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                "\n" +
+                "        if(hasText(sdate)){\n" +
+                "            try {\n" +
+                "                LocalDateTime localDateTime = LocalDateTime.parse(sdate + \"T00:00:00\");\n" +
+                "                builder.or("+toLowerFirst(domainStr)+".modifiedDate.goe(localDateTime)); // isrtDate >= sdate\n" +
+                "\n" +
+                "            } catch (DateTimeParseException e) {\n" +
+                "            }\n" +
+                "        }\n" +
+                "        return builder;\n" +
+                "    }\n" +
+                "\n" +
+                "    private Predicate condEdate( String edate){\n" +
+                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                "        if(hasText(edate)) {\n" +
+                "            try {\n" +
+                "                LocalDateTime localDateTime = LocalDateTime.parse(edate + \"T00:00:00\");\n" +
+                "                builder.or("+toLowerFirst(domainStr)+".modifiedDate.loe(localDateTime)); // isrtDate <= edate\n" +
+                "\n" +
+                "            } catch (DateTimeParseException e) {\n" +
+                "            }\n" +
+                "        }\n" +
+                "        return builder;\n" +
+                "    }\n" +
+                "\n" +
+                "\n" +
+                "\n" +
+                "    @Override\n" +
+                "    public List<"+toUpperFirst(domainStr)+"ApiDto> searchFindAllDesc() {\n" +
+                "        List<"+toUpperFirst(domainStr)+"ApiDto> content = queryFactory.\n" +
+                "                select(Projections.constructor("+toUpperFirst(domainStr)+"ApiDto.class,\n" +
+                impl2Columns()+
+                "              )).from("+toLowerFirst(domainStr)+").where("+toLowerFirst(domainStr)+".isDel.eq(\"N\"))\n" +
+                impl2Columns2Foreign()+
+                "                .orderBy("+toLowerFirst(domainStr)+".id.asc())\n" +
+                "                .fetch();\n" +
+                "\n" +
+                "\n" +
+                "        return content;\n" +
+                "    }\n" +
+                "}";
+
+        String packageStr = null;
+        if(rootPackageStr!=null ){
+            packageStr =  "" +"package" + " " + rootPackageStr + ".domain."+toAllLowerCase(domainStr)+";\n";
+            result = packageStr + result;
+        }
+
+        return result;
+    }
+
+    private String impl2ConS2Mehtod() {
+        String result = "";
+
+        //"    private Predicate condS2(String field, String s) {\n" +
+        //        "        BooleanBuilder builder = new BooleanBuilder();\n" +
+        //        "\n" +
+        //        "        if(hasText(field) && hasText(s)){\n" +
+        //        "            if(field.equals(\"id\")){\n" +
+        //        "                builder.or(serviceWork.id.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"coopName\")) {\n" +
+        //        "                builder.or(serviceWork.coopName.eq(s));\n" +
+        //        "            }else if(field.equals(\"coopComment\")) {\n" +
+        //        "                builder.or(serviceWork.coopComment.eq(s));\n" +
+        //        "            }else if(field.equals(\"coopWorkName\")) {\n" +
+        //        "                builder.or(serviceWork.coopWorkName.eq(s));\n" +
+        //        "            }else if(field.equals(\"wtag1\")) {\n" +
+        //        "                builder.or(serviceWork.wtag1.eq(s));\n" +
+        //        "            }else if(field.equals(\"wtag2\")) {\n" +
+        //        "                builder.or(serviceWork.wtag2.eq(s));\n" +
+        //        "            }else if(field.equals(\"startWorkDate\")) {\n" +
+        //        "                builder.or(serviceWork.startWorkDate.eq(LocalDateTime.parse(s)));\n" +
+        //        "            }else if(field.equals(\"endWorkDate\")) {\n" +
+        //        "                builder.or(serviceWork.endWorkDate.eq(LocalDateTime.parse(s)));\n" +
+        //        "            }else if(field.equals(\"searchTag1\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag1.eq(s));\n" +
+        //        "            }else if(field.equals(\"searchTag2\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag2.eq(s));\n" +
+        //        "            }else if(field.equals(\"searchTag3\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag3.eq(s));\n" +
+        //        "            }else if(field.equals(\"searchTag4\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag4.eq(s));\n" +
+        //        "            }else if(field.equals(\"searchTag5\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag5.eq(s));\n" +
+        //        "            }else if(field.equals(\"viewCount\")) {\n" +
+        //        "                builder.or(serviceWork.viewCount.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"likeCount\")) {\n" +
+        //        "                builder.or(serviceWork.likeCount.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"starCount\")) {\n" +
+        //        "                builder.or(serviceWork.starCount.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"starAll\")) {\n" +
+        //        "                builder.or(serviceWork.starAll.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"starPairMan\")) {\n" +
+        //        "                builder.or(serviceWork.starPairMan.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"isDel\")) {\n" +
+        //        "                builder.or(serviceWork.isDel.eq(s));\n" +
+        //        "            }else if(field.equals(\"modifiedDate\")) {\n" +
+        //        "                builder.or(serviceWork.modifiedDate.eq(LocalDateTime.parse(s)));\n" +
+        //        "            }else if(field.equals(\"createdDate\")) {\n" +
+        //        "                builder.or(serviceWork.createdDate.eq(LocalDateTime.parse(s)));\n" +
+        //        "            }else if(field.equals(\"serviceWorkStrId\")) {\n" +
+        //        "                builder.or(serviceWork.serviceWorkStr.id.eq(Long.valueOf(s)));\n" +
+        //        "            }\n" +
+        //        "        }\n" +
+        //        "        return builder;\n" +
+        //        "    }\n" +
+        result +="    private Predicate condS2(String field, String s) {\n" +
+                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                "\n"+
+                "        if(hasText(field) && hasText(s)){\n";
+        for (int i = 0; i < colNames.length; i++) {
+            if(colLongs!=null){
+                for(int j=0; j<colLongs.length; j++){
+                    if(colNames[i].equals(colLongs[j])){
+                        result += "            if(field.equals(\""+colNames[i]+"\")){\n" +
+                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".eq(Long.valueOf(s)));\n" +
+                                "            }\n";
+                    }
+                }
+            }
+            if(colStrs!=null){
+                for(int j=0; j<colStrs.length; j++){
+                    if(colNames[i].equals(colStrs[j])){
+                        result += "            if(field.equals(\""+colNames[i]+"\")){\n" +
+                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".eq(s));\n" +
+                                "            }\n";
+                    }
+                }
+            }
+            if(colDates!=null){
+                for(int j=0; j<colDates.length; j++){
+                    if(colNames[i].equals(colDates[j])){
+                        result += "            if(field.equals(\""+colNames[i]+"\")){\n" +
+                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".eq(LocalDateTime.parse(s)));\n" +
+                                "            }\n";
+                    }
+                }
+            }
+
+        }
+        if(foreignCols!=null){
+            for(int j=0; j<foreignCols.length; j++){
+
+                    result += "            if(field.equals(\""+toLowerFirst(foreignCols[j])+"Id\")){\n" +
+                            "                builder.or("+toLowerFirst(domainStr)+"."+toLowerFirst(foreignCols[j])+".id.eq(Long.valueOf(s)));\n" +
+                            "            }\n";
+                }
+
+        }
+        result += "        }\n" +
+                "        return builder;\n" +
+                "    }\n";
+
+        return result;
+    }
+    private String impl2ConSMehtod() {
+        String result = "";
+
+        //"    private Predicate condS(String field, String s) {\n" +
+        //        "        BooleanBuilder builder = new BooleanBuilder();\n" +
+        //        "\n" +
+        //        "        if(hasText(field) && hasText(s)){\n" +
+        //        "            if(field.equals(\"id\")){\n" +
+        //        "                builder.or(serviceWork.id.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"coopName\")) {\n" +
+        //        "                builder.or(serviceWork.coopName.eq(s));\n" +
+        //        "            }else if(field.equals(\"coopComment\")) {\n" +
+        //        "                builder.or(serviceWork.coopComment.eq(s));\n" +
+        //        "            }else if(field.equals(\"coopWorkName\")) {\n" +
+        //        "                builder.or(serviceWork.coopWorkName.eq(s));\n" +
+        //        "            }else if(field.equals(\"wtag1\")) {\n" +
+        //        "                builder.or(serviceWork.wtag1.eq(s));\n" +
+        //        "            }else if(field.equals(\"wtag2\")) {\n" +
+        //        "                builder.or(serviceWork.wtag2.eq(s));\n" +
+        //        "            }else if(field.equals(\"startWorkDate\")) {\n" +
+        //        "                builder.or(serviceWork.startWorkDate.eq(LocalDateTime.parse(s)));\n" +
+        //        "            }else if(field.equals(\"endWorkDate\")) {\n" +
+        //        "                builder.or(serviceWork.endWorkDate.eq(LocalDateTime.parse(s)));\n" +
+        //        "            }else if(field.equals(\"searchTag1\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag1.eq(s));\n" +
+        //        "            }else if(field.equals(\"searchTag2\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag2.eq(s));\n" +
+        //        "            }else if(field.equals(\"searchTag3\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag3.eq(s));\n" +
+        //        "            }else if(field.equals(\"searchTag4\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag4.eq(s));\n" +
+        //        "            }else if(field.equals(\"searchTag5\")) {\n" +
+        //        "                builder.or(serviceWork.searchTag5.eq(s));\n" +
+        //        "            }else if(field.equals(\"viewCount\")) {\n" +
+        //        "                builder.or(serviceWork.viewCount.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"likeCount\")) {\n" +
+        //        "                builder.or(serviceWork.likeCount.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"starCount\")) {\n" +
+        //        "                builder.or(serviceWork.starCount.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"starAll\")) {\n" +
+        //        "                builder.or(serviceWork.starAll.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"starPairMan\")) {\n" +
+        //        "                builder.or(serviceWork.starPairMan.eq(Long.valueOf(s)));\n" +
+        //        "            }else if(field.equals(\"isDel\")) {\n" +
+        //        "                builder.or(serviceWork.isDel.eq(s));\n" +
+        //        "            }else if(field.equals(\"modifiedDate\")) {\n" +
+        //        "                builder.or(serviceWork.modifiedDate.eq(LocalDateTime.parse(s)));\n" +
+        //        "            }else if(field.equals(\"createdDate\")) {\n" +
+        //        "                builder.or(serviceWork.createdDate.eq(LocalDateTime.parse(s)));\n" +
+        //        "            }else if(field.equals(\"serviceWorkStrId\")) {\n" +
+        //        "                builder.or(serviceWork.serviceWorkStr.id.eq(Long.valueOf(s)));\n" +
+        //        "            }\n" +
+        //        "        }\n" +
+        //        "        return builder;\n" +
+        //        "    }\n" +
+        result +="    private Predicate condS(String field, String s) {\n" +
+                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                "\n"+
+                "        if(hasText(field) && hasText(s)){\n";
+        for (int i = 0; i < colNames.length; i++) {
+            if(colLongs!=null){
+                for(int j=0; j<colLongs.length; j++){
+                    if(colNames[i].equals(colLongs[j])){
+                        result += "            if(field.equals(\""+colNames[i]+"\")){\n" +
+                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".eq(Long.valueOf(s)));\n" +
+                                "            }\n";
+                    }
+                }
+            }
+            if(colStrs!=null){
+                for(int j=0; j<colStrs.length; j++){
+                    if(colNames[i].equals(colStrs[j])){
+                        result += "            if(field.equals(\""+colNames[i]+"\")){\n" +
+                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".eq(s));\n" +
+                                "            }\n";
+                    }
+                }
+            }
+            if(colDates!=null){
+                for(int j=0; j<colDates.length; j++){
+                    if(colNames[i].equals(colDates[j])){
+                        result += "            if(field.equals(\""+colNames[i]+"\")){\n" +
+                                "                builder.or("+toLowerFirst(domainStr)+"."+colNames[i]+".eq(LocalDateTime.parse(s)));\n" +
+                                "            }\n";
+                    }
+                }
+            }
+
+        }
+        if(foreignCols!=null){
+            for(int j=0; j<foreignCols.length; j++){
+
+                    result += "            if(field.equals(\""+toLowerFirst(foreignCols[j])+"Id\")){\n" +
+                            "                builder.or("+toLowerFirst(domainStr)+"."+toLowerFirst(foreignCols[j])+".id.eq(Long.valueOf(s)));\n" +
+                            "            }\n";
+
+            }
+        }
+        result += "        }\n" +
+                "        return builder;\n" +
+                "    }\n";
+
+        return result;
+    }
+
+    private String impl2Methods() {
+        String result= "";
+                //"    private Predicate condId(String id) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"\n" +
+                //"        if(hasText(id)) {\n" +
+                //"                builder.or(serviceWork.id.eq(Long.valueOf(id)));\n" +
+                //"        }\n" +
+                //"\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condCoopName(String coopName) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"\n" +
+                //"        if(hasText(coopName)) {\n" +
+                //"                builder.or(serviceWork.coopName.eq(coopName));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condCoopComment(String coopComment) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"\n" +
+                //"        if(hasText(coopComment)) {\n" +
+                //"                builder.or(serviceWork.coopComment.eq(coopComment));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condCoopWorkName(String coopWorkName) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"\n" +
+                //"        if(hasText(coopWorkName)) {\n" +
+                //"                builder.or(serviceWork.coopWorkName.eq(coopWorkName));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condWtag1(String wtag1) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"\n" +
+                //"        if(hasText(wtag1)) {\n" +
+                //"                builder.or(serviceWork.wtag1.eq(wtag1));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condWtag2(String wtag2) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"\n" +
+                //"        if(hasText(wtag2)) {\n" +
+                //"                builder.or(serviceWork.wtag2.eq(wtag2));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condStartWorkDate(String startWorkDate) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"\n" +
+                //"        if(hasText(startWorkDate)) {\n" +
+                //"                builder.or(serviceWork.startWorkDate.eq(LocalDateTime.parse(startWorkDate)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condEndWorkDate(String endWorkDate) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"\n" +
+                //"        if(hasText(endWorkDate)) {\n" +
+                //"                builder.or(serviceWork.endWorkDate.eq(LocalDateTime.parse(endWorkDate)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condSearchTag1(String searchTag1) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(searchTag1)){\n" +
+                //"            builder.or(serviceWork.searchTag1.eq(searchTag1));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condSearchTag2(String searchTag2) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(searchTag2)){\n" +
+                //"            builder.or(serviceWork.searchTag2.eq(searchTag2));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condSearchTag3(String searchTag3) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(searchTag3)){\n" +
+                //"            builder.or(serviceWork.searchTag2.eq(searchTag3));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condSearchTag4(String searchTag4) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(searchTag4)){\n" +
+                //"            builder.or(serviceWork.searchTag2.eq(searchTag4));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"\n" +
+                //"    private Predicate condSearchTag5(String searchTag5) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(searchTag5)){\n" +
+                //"            builder.or(serviceWork.searchTag2.eq(searchTag5));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condViewCount(String viewCount) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(viewCount)){\n" +
+                //"            builder.or(serviceWork.viewCount.eq(Long.valueOf(viewCount)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condLikeCount(String likeCount) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(likeCount)){\n" +
+                //"            builder.or(serviceWork.likeCount.eq(Long.valueOf(likeCount)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condStarCount(String starCount) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(starCount)){\n" +
+                //"            builder.or(serviceWork.starCount.eq(Long.valueOf(starCount)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condStarAll(String starAll) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(starAll)){\n" +
+                //"            builder.or(serviceWork.starAll.eq(Long.valueOf(starAll)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condStarPairMan(String starPairMan) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(starPairMan)){\n" +
+                //"            builder.or(serviceWork.starPairMan.eq(Long.valueOf(starPairMan)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condIsDel(String isDel) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(isDel)){\n" +
+                //"            builder.or(serviceWork.isDel.eq(isDel));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condModifiedDate(String modifiedDate) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(modifiedDate)){\n" +
+                //"            builder.or(serviceWork.modifiedDate.eq(LocalDateTime.parse(modifiedDate)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condCreatedDate(String createdDate) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(createdDate)){\n" +
+                //"            builder.or(serviceWork.createdDate.eq(LocalDateTime.parse(createdDate)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"    private Predicate condServiceWorkStrId(String serviceWorkStrId) {\n" +
+                //"        BooleanBuilder builder = new BooleanBuilder();\n" +
+                //"        if(hasText(serviceWorkStrId)){\n" +
+                //"            builder.or(serviceWork.serviceWorkStr.id.eq(Long.valueOf(serviceWorkStrId)));\n" +
+                //"        }\n" +
+                //"        return builder;\n" +
+                //"    }\n" +
+                //"\n"
+        for (int i = 0; i < colNames.length ; i++) {
+            if(colLongs!=null){
+                for(int j=0; j < colLongs.length; j++){
+                    if(colNames[i].equals(colLongs[j])) {
+                        result += "    private Predicate cond" + toUpperFirst(colNames[i]) + "(String " + colNames[i] + ") {\n" +
+                                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                                "        if(hasText(" + colNames[i] + ")){\n" +
+                                "            builder.or("+toLowerFirst(domainStr)+"." + colNames[i] + ".eq(Long.valueOf(" + colNames[i] + ")));\n" +
+                                "        }\n" +
+                                "        return builder;\n" +
+                                "    }\n" +
+                                "\n";
+                    }
+                }
+            }
+            if(colStrs!=null){
+                for(int j=0; j < colStrs.length; j++){
+                    if(colNames[i].equals(colStrs[j])) {
+                        result += "    private Predicate cond" + toUpperFirst(colNames[i]) + "(String " + colNames[i] + ") {\n" +
+                                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                                "        if(hasText(" + colNames[i] + ")){\n" +
+                                "            builder.or("+toLowerFirst(domainStr)+"." + colNames[i] + ".eq(" + colNames[i] + "));\n" +
+                                "        }\n" +
+                                "        return builder;\n" +
+                                "    }\n" +
+                                "\n";
+                    }
+                }
+            }
+            if(colDates!=null){
+                for(int j=0; j < colDates.length; j++){
+                    if(colNames[i].equals(colDates[j])) {
+                        result += "    private Predicate cond" + toUpperFirst(colNames[i]) + "(String " + colNames[i] + ") {\n" +
+                                "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                                "        if(hasText(" + colNames[i] + ")){\n" +
+                                "            builder.or("+toLowerFirst(domainStr)+"." + colNames[i] + ".eq(LocalDateTime.parse(" + colNames[i] + ")));\n" +
+                                "        }\n" +
+                                "        return builder;\n" +
+                                "    }\n" +
+                                "\n";
+                    }
+                }
+            }
+
+        }
+        if(foreignCols!=null){
+            for(int j=0; j< foreignCols.length; j++){
+                    result += "    private Predicate cond" + toUpperFirst(foreignCols[j]) +"Id (String " + toLowerFirst(foreignCols[j]) + "Id) {\n" +
+                            "        BooleanBuilder builder = new BooleanBuilder();\n" +
+                            "        if(hasText(" + toLowerFirst(foreignCols[j]) + "Id)){\n" +
+                            "            builder.or("+toLowerFirst(domainStr)+"." + toLowerFirst(foreignCols[j]) + ".id.eq(Long.valueOf(" + toLowerFirst(foreignCols[j]) + "Id)));\n" +
+                            "        }\n" +
+                            "        return builder;\n" +
+                            "    }\n" +
+                            "\n";
+            }
+        }
+        return result;
+    }
+
+    private String impl2Columns3() {
+        String result ="";
+                //"                .and(condId(condition2.getId()))\n" +
+                //"                .and(condCoopName(condition2.getCoopName()))\n" +
+                //"                .and(condCoopComment(condition2.getCoopComment()))\n" +
+                //"                .and(condCoopWorkName(condition2.getCoopWorkName()))\n" +
+                //"                .and(condWtag1(condition2.getWtag1()))\n" +
+                //"                .and(condWtag2(condition2.getWtag2()))\n" +
+                //"                .and(condStartWorkDate(condition2.getStartWorkDate()))\n" +
+                //"                .and(condEndWorkDate(condition2.getEndWorkDate()))\n" +
+                //"                .and(condSearchTag1(condition2.getSearchTag1()))\n" +
+                //"                .and(condSearchTag2(condition2.getSearchTag2()))\n" +
+                //"                .and(condSearchTag3(condition2.getSearchTag3()))\n" +
+                //"                .and(condSearchTag4(condition2.getSearchTag4()))\n" +
+                //"                .and(condSearchTag5(condition2.getSearchTag5()))\n" +
+                //"                .and(condViewCount(condition2.getViewCount()))\n" +
+                //"                .and(condLikeCount(condition2.getLikeCount()))\n" +
+                //"                .and(condStarCount(condition2.getStarCount()))\n" +
+                //"                .and(condStarAll(condition2.getStarAll()))\n" +
+                //"                .and(condStarPairMan(condition2.getStarPairMan()))\n" +
+                //"                .and(condIsDel(condition2.getIsDel()))\n" +
+                //"                .and(condModifiedDate(condition2.getModifiedDate()))\n" +
+                //"                .and(condCreatedDate(condition2.getCreatedDate()))\n" +
+                //"                .and(condServiceWorkStrId(condition2.getServiceWorkStrId()))\n" +
+                //"                .and(condS2(condition2.getField(), condition2.getS()))\n" +
+                //"                .and(condSdate2(condition2.getSdate()))\n" +
+                //"                .and(condEdate2(condition2.getEdate()));\n" +
+        for (int i = 0; i < colNames.length; i++) {
+            if(colLongs!=null){
+                for(int j=0; j<colLongs.length; j++){
+                    if(colNames[i].equals(colLongs[j])){
+                        result += "                        .and(cond"+toUpperFirst(colNames[i])+"(condition2.get"+toUpperFirst(colNames[i])+"()))\n";
+                    }
+                }
+            }
+            if(colStrs!=null){
+                for(int j=0; j<colStrs.length;j++){
+                    if(colNames[i].equals(colStrs[j])){
+                        result += "                        .and(cond"+toUpperFirst(colNames[i])+"(condition2.get"+toUpperFirst(colNames[i])+"()))\n";
+                    }
+                }
+            }
+            if(colDates!=null){
+                for(int j=0; j<colDates.length;j++){
+                    if(colNames[i].equals(colDates[j])){
+                        result += "                        .and(cond"+toUpperFirst(colNames[i])+"(condition2.get"+toUpperFirst(colNames[i])+"()))\n";
+                    }
+                }
+            }
+
+        }
+
+        if(foreignCols!=null){
+            for(int j=0; j<foreignCols.length;j++){
+                    result += "                        .and(cond"+toUpperFirst(foreignCols[j])+"Id(condition2.get"+toUpperFirst(foreignCols[j])+"Id()))\n";
+            }
+        }
+        result +=   "                .and(condS2(condition2.getField(), condition2.getS()))\n" +
+                    "                .and(condSdate2(condition2.getSdate()))\n" +
+                    "                .and(condEdate2(condition2.getEdate()));\n";
+        return result;
+    }
+
+    private String impl2Columns2Foreign() {
+        String result = "";
+        // "                .leftJoin(serviceWork.serviceWorkStr, "+toLowerFirst(domainStr)+"Str)\n" +
+        if(foreignCols!=null){
+                if(foreignCols!=null){
+                    for (int j = 0; j < foreignCols.length; j++) {
+
+                            result += "                        .leftJoin("+toLowerFirst(domainStr)+"."+toLowerFirst(foreignCols[j])+", "+toLowerFirst(foreignCols[j])+")\n";
+
+                    }
+                }
+        }
+        return result;
+    }
+
+    private String impl2Columns() {
+                //"                        serviceWork.id,\n" +
+                //"                        serviceWork.coopName,\n" +
+                //"                        serviceWork.coopComment,\n" +
+                //"                        serviceWork.coopWorkName,\n" +
+                //"                        serviceWork.wtag1,\n" +
+                //"                        serviceWork.wtag2,\n" +
+                //"                        serviceWork.startWorkDate,\n" +
+                //"                        serviceWork.endWorkDate,\n" +
+                //"                        serviceWork.searchTag1,\n" +
+                //"                        serviceWork.searchTag2,\n" +
+                //"                        serviceWork.searchTag3,\n" +
+                //"                        serviceWork.searchTag4,\n" +
+                //"                        serviceWork.searchTag5,\n" +
+                //"                        serviceWork.viewCount   ,\n" +
+                //"                        serviceWork.likeCount   ,\n" +
+                //"                        serviceWork.starCount  ,\n" +
+                //"                        serviceWork.starAll   ,\n" +
+                //"                        serviceWork.starPairMan  ,\n" +
+                //"                        serviceWork.isDel,\n" +
+                //"                        serviceWork.modifiedDate,\n" +
+                //"                        serviceWork.createdDate,\n" +
+                //"                        serviceWork.serviceWorkStr\n" +
+        String result ="";
+        for(int i=0; i< colNames.length; i++){
+            if(colLongs!=null){
+                for(int j=0; j<colLongs.length; j++){
+                    if(colNames[i].equals(colLongs[j])){
+                        result += "                        "+toLowerFirst(domainStr)+"."+colNames[i]+",\n";
+                    }
+                }
+            }
+            if(colStrs!=null){
+                for(int j=0; j<colStrs.length; j++){
+                    if(colNames[i].equals(colStrs[j])){
+                        result += "                        "+toLowerFirst(domainStr)+"."+colNames[i]+",\n";
+                    }
+                }
+            }
+            if(colDates!=null){
+                for(int j=0; j<colDates.length; j++){
+                    if(colNames[i].equals(colDates[j])){
+                        result += "                        "+toLowerFirst(domainStr)+"."+colNames[i]+",\n";
+                    }
+                }
+            }
+        }
+        if(foreignCols!=null){
+            for(int j=0; j<foreignCols.length; j++){
+                    result += "                        "+toLowerFirst(domainStr)+"."+toLowerFirst(foreignCols[j])+",\n";
+            }
+        }
+        result = result.substring(0, result.length()-2);
         return result;
     }
 
@@ -575,7 +1344,7 @@ public class UtilStaticV5 {
         String result = "";
         if(foreignCols!=null){
             for(int i=0;i<foreignCols.length;i++){
-                result += "import static "+rootPackageStr+".domain."+toAllLowerCase(foreignCols[i])+".Q"+toUpperFirst(foreignCols[i])+"."+toAllLowerCase(foreignCols[i])+";\n";
+                result += "import static "+rootPackageStr+".domain."+toAllLowerCase(foreignCols[i])+".Q"+toUpperFirst(foreignCols[i])+"."+toLowerFirst(foreignCols[i])+";\n";
                 // import static org.example.domain.user.QUser.user;
             }
 
@@ -2188,6 +2957,87 @@ public class UtilStaticV5 {
                 result += "    private Long "+toLowerFirst(foreignCols[i])+"Id;\n";
             }
         }
+        return result;
+    }
+
+    public String makeSearchCondition2() {
+        /*
+        package com.example.domain.servicework;
+        import lombok.Data;
+
+        import java.time.LocalDateTime;
+
+        @Data
+        public class ServiceWorkSearchCondition2 {
+
+            private String id;
+            private String coopName;
+            private String coopComment;
+            private String coopWorkName;
+            private String wtag1;
+            private String wtag2;
+            private String startWorkDate;
+            private String endWorkDate;
+            private String searchTag1;
+            private String searchTag2;
+            private String searchTag3;
+            private String searchTag4;
+            private String searchTag5;
+            private String viewCount;
+            private String likeCount;
+            private String starCount;
+            private String starAll;
+            private String starPairMan;
+            private String isDel;
+            private String modifiedDate;
+            private String createdDate;
+        }
+        */
+
+        String result="";
+        result += "package "+rootPackageStr+".domain."+toAllLowerCase(domainStr)+";\n";
+        result += "import lombok.Data;\n";
+        result += "\n";
+        result += "import java.time.LocalDateTime;\n";
+        result += "\n";
+        result += "@Data\n";
+        result += "public class "+toUpperFirst(domainStr)+"SearchCondition2 {\n";
+        result += "\n";
+        for(int i=0; i<colNames.length;i++){
+            if(colLongs!=null){
+                for(int j=0; j<colLongs.length; j++){
+                    if(colNames[i].equals(colLongs[j])){
+                        result += "    private String "+colNames[i]+";\n";
+                    }
+                }
+            }
+            if(colStrs!=null){
+                for(int j=0; j<colStrs.length; j++){
+                    if(colNames[i].equals(colStrs[j])){
+                        result += "    private String "+colNames[i]+";\n";
+                    }
+                }
+            }
+            if(colDates!=null){
+                for(int j=0; j<colDates.length; j++){
+                    if(colNames[i].equals(colDates[j])){
+                        result += "    private String "+colNames[i]+";\n";
+                    }
+                }
+            }
+
+        }
+        if(foreignCols!=null){
+            for(int j=0; j<foreignCols.length; j++){
+                    result += "    private String "+toLowerFirst(foreignCols[j])+"Id;\n";
+            }
+        }
+        result += "   private String field;\n";
+        result += "   private String s;\n";
+        result += "   private String sdate;\n";
+        result += "   private String edate;\n";
+        result += "}";
+
         return result;
     }
 }
