@@ -2607,13 +2607,14 @@ public class UtilStaticV5 {
                 update2ForeginColumn2()+
                 "        try{\n"+
                 update2Column2()+
+                "        "+toLowerFirst(domainStr)+".setModifiedDate(LocalDateTime.now());\n" +
+                "\n" +
+                "        "+toLowerFirst(domainStr)+"Service.save("+toLowerFirst(domainStr)+");\n" +
                 "        }catch(Exception e){\n" +
                 "            return \"redirect:"+thymleafInitUrl+"/"+toLowerFirst(domainStr)+"/insert\";\n" +
                 "        }\n" +
                 "\n" +
-                "        "+toLowerFirst(domainStr)+".setModifiedDate(LocalDateTime.now());\n" +
-                "\n" +
-                "        "+toLowerFirst(domainStr)+"Service.save("+toLowerFirst(domainStr)+");\n" +
+
                 "\n" +
                 "\n" +
                 "\n" +
