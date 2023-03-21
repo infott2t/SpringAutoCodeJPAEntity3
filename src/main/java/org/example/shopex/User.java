@@ -10,8 +10,10 @@ public class User {
 
     public String inputUserRolePRN(String userRole){
 
-        this.userRole = userRole;
+
         if(("admin".equals(userRole)) || ("seller".equals(userRole)) || ("guest".equals(userRole)) || ("advance".equals(userRole))){
+
+            this.userRole = userRole;
 
         }else{
             System.out.println("Task, 유저권한 입력오류. \n 입력방법. userRole, 'admin', 'seller', 'guest', 'advance' 중 하나를 입력하세요.");
