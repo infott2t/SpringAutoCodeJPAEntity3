@@ -217,7 +217,7 @@ public class Sys04 extends JFrame{
 
 
     public static void main(String[] args){
-        MyFlatLaf.setup();
+        //MyFlatLaf.setup();
         new Sys04();
     }
 }

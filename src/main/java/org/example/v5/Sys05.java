@@ -272,7 +272,7 @@ public class Sys05 extends JFrame{
 
                 //Make page,
                 /**
-                 * Front-end, Thyemleaf Files.   4 Files.
+                 * Front-end, Thyemleaf Files.   8 Files.
                  *
                  *  Folder
                  *  templates/firstInstance/
@@ -282,6 +282,10 @@ public class Sys05 extends JFrame{
                  *                                      index.html,   IndexHTMLResultScreen(usv)
                  *                                      insert.html,  InsertHTMLResultScreen(usv)
                  *                                      update.html.  UpdateHTMLResultScreen(usv)
+                 *
+                 *  templates/firstInstance[domainStr]/ver2/index.html,  IndexHTMLVer2ResultScreen(usv)
+                 *                                          insert.html, InsertHTMLVer2ResultScreen(usv)
+                 *                                          update.html, UpdateHTMLVer2ResultScreen(usv)
                  * */
 
                 //Make folder Front-end. c:/category/[domainStr]-[MMdd-HHmmss]/firstInstance/[domainStr]/
@@ -364,7 +368,7 @@ public class Sys05 extends JFrame{
 
 
     public static void main(String[] args) throws Exception {
-        MyFlatLaf.setup();
+        //MyFlatLaf.setup();
         new Sys05();
     }
 }
