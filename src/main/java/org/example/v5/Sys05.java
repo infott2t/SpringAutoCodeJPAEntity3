@@ -368,7 +368,7 @@ public class Sys05 extends JFrame{
 
 
     public static void main(String[] args) throws Exception {
-        //MyFlatLaf.setup();
+        MyFlatLaf.setup();
         new Sys05();
     }
 }

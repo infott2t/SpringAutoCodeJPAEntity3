@@ -97,7 +97,7 @@ public class Sys06 extends JFrame {
     }
 
     public static void main(String[] args) {
-        //MyFlatLaf.setup();
+        MyFlatLaf.setup();
         new Sys06();
     }
 }
