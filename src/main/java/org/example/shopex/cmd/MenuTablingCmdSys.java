@@ -60,7 +60,7 @@ public class MenuTablingCmdSys {
         }
 
         if(menuInt==3){
-            // findAll을 사용해서, 관리자 아이디들을 불러온다음, adminId의 값과 맞는지를 비교가 필요.
+            // findAll을 사용해서, 관리자 아이디들을 불러온다음, adminId의 값과 맞는지 비교해야됨.
             if("admin".equals(str)){
                
                 return 4;
@@ -82,6 +82,21 @@ public class MenuTablingCmdSys {
         }
         if(menuInt==5){
             return 5;
+            //if문을 사용해서, 메뉴  menuStrsArr[5] = "1.회원가입\n2.로그인\n3.로그아웃\n4.회원정보수정\n"; 를 처리해주면 됨. 1일때, 2일때... str과 값이 같은지 비교.
+            /*
+            if("1".equals(str)){
+
+            }else if("2".equals(str)){
+
+            }else if("3".equals(str)){
+
+            }else if("4".equals(str)){
+
+            }else{
+                return 5; // 값 입력이 1~4가 아닌 경우, 자기자신. menuStrsArr[5]값으로 다시 menuInt 5값을 불러온다. menuStrsArr[menuInt]로 되어있음.
+            }
+            */
+
         }
         return -1;
     }
