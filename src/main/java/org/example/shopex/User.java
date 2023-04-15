@@ -1,11 +1,24 @@
 package org.example.shopex;
 
+import java.util.ArrayList;
+
 public class User {
 
     public String userRole; // advance, guest, seller, admin
     public String userName;
+    public String userId;
+
+    public ArrayList<Cart> cart;
 
     public User(){
+        this.cart = new ArrayList<Cart>();
+    }
+
+    public void buy(Product clothes02Opt, boolean b, long l) {
+    }
+
+    public void buy(Product clothes02Opt, boolean b, String 일반옵션, String 흰색, String l, long l1, String 진행_중) {
+
     }
 
     public String inputUserRolePRN(String userRole){
